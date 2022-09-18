@@ -42,20 +42,23 @@ void MenuSetup_StaticUpdate(void)
 
         String tag;
         INIT_STRING(tag);
+        RSDK.SetString(&tag, "Main Menu");
 
+        EntityUIControl *mainMenu = NULL; // this will crash if no entities have "Main Menu" as the tag, make sure one does!!!
         foreach_all(UIControl, control)
         {
-            if (!RSDK.CompareStrings(&tag, &control->tag, false)) {
-                RSDK.SetString(&tag, "Main Menu");
+            if (RSDK.CompareStrings(&tag, &control->tag, false)) {
+                mainMenu = control;
+                foreach_break;
             }
         }
 
         if (!ManiaModeMenu_InitAPI()) {
-            control->selectionDisabled = true;
+            mainMenu->selectionDisabled = true;
             return;
         }
         else {
-            control->selectionDisabled = false;
+            mainMenu->selectionDisabled = false;
             MenuSetup->initializedAPI  = true;
 
             String message;
@@ -86,20 +89,23 @@ void MenuSetup_StaticUpdate(void)
     if (!MenuSetup->initializedAPI) {
         String tag;
         INIT_STRING(tag);
+        RSDK.SetString(&tag, "Main Menu");
 
+        EntityUIControl *mainMenu = NULL; // this will crash if no entities have "Main Menu" as the tag, make sure one does!!!
         foreach_all(UIControl, control)
         {
-            if (!RSDK.CompareStrings(&tag, &control->tag, false)) {
-                RSDK.SetString(&tag, "Main Menu");
+            if (RSDK.CompareStrings(&tag, &control->tag, false)) {
+                mainMenu = control;
+                foreach_break;
             }
         }
 
         if (!MenuSetup_InitAPI()) {
-            control->selectionDisabled = true;
+            mainMenu->selectionDisabled = true;
             return;
         }
         else {
-            control->selectionDisabled = false;
+            mainMenu->selectionDisabled = false;
             MenuSetup->initializedAPI  = true;
 
             String message;
@@ -147,7 +153,7 @@ void MenuSetup_Create(void *data)
 void MenuSetup_StageLoad(void)
 {
 #if MANIA_USE_PLUS
-    EntityMenuParam *param = (EntityMenuParam *)globals->menuParam;
+    EntityMenuParam *param = MenuParam_GetParam();
     LogHelpers_Print("Menu recall ctrl: %s", param->menuTag);
 
     MenuSetup->initializedMenuReturn = false;
@@ -235,121 +241,121 @@ void MenuSetup_StartTransitionLB(void (*callback)(void), int32 delay)
 #if !MANIA_USE_PLUS
 void MenuSetup_Initialize(void)
 {
-    String string;
-    INIT_STRING(string);
+    String tag;
+    INIT_STRING(tag);
 
     foreach_all(UIControl, control)
     {
-        RSDK.SetString(&string, "Main Menu");
-        if (RSDK.CompareStrings(&string, &control->tag, false)) {
+        RSDK.SetString(&tag, "Main Menu");
+        if (RSDK.CompareStrings(&tag, &control->tag, false)) {
             MenuSetup->mainMenu  = control;
             control->backPressCB = MenuSetup_BackPressCB_ReturnToTitle;
         }
 
-        RSDK.SetString(&string, "Time Attack");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Time Attack");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             MenuSetup->timeAttack = control;
 
-        RSDK.SetString(&string, "Time Attack Zones");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Time Attack Zones");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             MenuSetup->timeAttackZones = control;
 
-        RSDK.SetString(&string, "Leaderboards");
-        if (RSDK.CompareStrings(&string, &control->tag, false)) {
+        RSDK.SetString(&tag, "Leaderboards");
+        if (RSDK.CompareStrings(&tag, &control->tag, false)) {
             MenuSetup->leaderboards = control;
             control->backPressCB    = MenuSetup_TA_Leaderboards_BackPressCB;
         }
 
-        RSDK.SetString(&string, "Competition");
-        if (RSDK.CompareStrings(&string, &control->tag, false)) {
+        RSDK.SetString(&tag, "Competition");
+        if (RSDK.CompareStrings(&tag, &control->tag, false)) {
             MenuSetup->competition = control;
             control->backPressCB   = MenuSetup_VS_BackoutFromVsCharSelect;
         }
 
-        RSDK.SetString(&string, "Competition Rules");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Competition Rules");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             MenuSetup->competitionRules = control;
 
-        RSDK.SetString(&string, "Competition Zones");
-        if (RSDK.CompareStrings(&string, &control->tag, false)) {
+        RSDK.SetString(&tag, "Competition Zones");
+        if (RSDK.CompareStrings(&tag, &control->tag, false)) {
             MenuSetup->competitionZones = control;
             control->backPressCB        = MenuSetup_VS_CompZones_BackPressCB;
         }
 
-        RSDK.SetString(&string, "Competition Round");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Competition Round");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             MenuSetup->competitionRound = control;
 
-        RSDK.SetString(&string, "Competition Total");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Competition Total");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             MenuSetup->competitionTotal = control;
 
-        RSDK.SetString(&string, "Save Select");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Save Select");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             MenuSetup->saveSelect = control;
 
-        RSDK.SetString(&string, "No Save Mode");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "No Save Mode");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             MenuSetup->noSaveMode = control;
 
-        RSDK.SetString(&string, "Secrets");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Secrets");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             MenuSetup->secrets = control;
 
-        RSDK.SetString(&string, "Extras");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Extras");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             MenuSetup->extras = control;
 
-        RSDK.SetString(&string, "Options");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Options");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             MenuSetup->options = control;
 
-        RSDK.SetString(&string, "Language");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Language");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             MenuSetup->language = control;
 
-        RSDK.SetString(&string, "Video");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Video");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             MenuSetup->video = control;
 
-        RSDK.SetString(&string, "Video WIN");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Video WIN");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             MenuSetup->video_win = control;
 
-        RSDK.SetString(&string, "Sound");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Sound");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             MenuSetup->sound = control;
 
-        RSDK.SetString(&string, "Controls WIN");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Controls WIN");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             MenuSetup->controls_win = control;
 
-        RSDK.SetString(&string, "Controls KB");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Controls KB");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             MenuSetup->controls_KB = control;
 
-        RSDK.SetString(&string, "Controls PS4");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Controls PS4");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             MenuSetup->controls_PS4 = control;
 
-        RSDK.SetString(&string, "Controls XB1");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Controls XB1");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             MenuSetup->controls_XB1 = control;
 
-        RSDK.SetString(&string, "Controls NX");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Controls NX");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             MenuSetup->controls_NX = control;
 
-        RSDK.SetString(&string, "Controls NX Grip");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Controls NX Grip");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             MenuSetup->controls_NX_Grip = control;
 
-        RSDK.SetString(&string, "Controls NX Joycon");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Controls NX Joycon");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             MenuSetup->controls_NX_JoyCon = control;
 
-        RSDK.SetString(&string, "Controls NX Pro");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Controls NX Pro");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             MenuSetup->controls_NX_Pro = control;
     }
 
@@ -490,8 +496,8 @@ bool32 MenuSetup_InitAPI(void)
 
             if (!MenuSetup->initializedSaves) {
                 UIWaitSpinner_StartWait();
-                Options_LoadOptionsBin();
-                SaveGame_LoadFile();
+                Options_LoadFile(Options_LoadCallback);
+                SaveGame_LoadFile(SaveGame_SaveLoadedCB);
 
                 MenuSetup->initializedSaves = true;
             }
@@ -843,7 +849,7 @@ void MenuSetup_HandleUnlocks(void)
 
 void MenuSetup_HandleMenuReturn(void)
 {
-    EntityMenuParam *param = (EntityMenuParam *)globals->menuParam;
+    EntityMenuParam *param = MenuParam_GetParam();
 
     char buffer[0x100];
     memset(buffer, 0, 0x100);
@@ -921,7 +927,7 @@ void MenuSetup_HandleMenuReturn(void)
             control->buttonID   = Localization->language;
         }
 
-        EntityCompetitionSession *session = (EntityCompetitionSession *)globals->competitionSession;
+        EntityCompetitionSession *session = CompetitionSession_GetSession();
         if (session->inMatch) {
             if (control == MenuSetup->competition) {
                 foreach_all(UIVsCharSelector, selector)
@@ -1187,7 +1193,7 @@ void MenuSetup_SaveSlot_ActionCB(void)
             saveRAM->characterID   = self->frameID;
             saveRAM->zoneID        = 0;
             saveRAM->lives         = 3;
-            saveRAM->chaosEmeralds = self->saveEmeralds;
+            saveRAM->collectedEmeralds = self->saveEmeralds;
             saveRAM->continues     = 0;
 
             UIWaitSpinner_StartWait();
@@ -1195,8 +1201,8 @@ void MenuSetup_SaveSlot_ActionCB(void)
             SaveGame_SaveFile(MenuSetup_SaveFileCB);
         }
         else {
-            if (saveRAM->saveState == 2) {
-                saveRAM->collectedSpecialRings = 0;
+            if (saveRAM->saveState == SAVEGAME_COMPLETE) {
+                SaveGame_ClearCollectedSpecialRings();
                 saveRAM->score                 = 0;
                 saveRAM->score1UP              = 500000;
             }
@@ -1249,12 +1255,12 @@ void MenuSetup_SaveSel_MenuUpdateCB(void)
 
         // buttonID == 8: No Save Slot Button
         if (control->lastButtonID == 8) {
-            prompt->promptID      = 6;
-            prompt->headingAnchor = 3;
+            prompt->promptID = 6;
+            prompt->buttonID = 3;
         }
         else {
-            prompt->promptID      = 3;
-            prompt->headingAnchor = 2;
+            prompt->promptID = 3;
+            prompt->buttonID = 2;
         }
     }
 }
@@ -1282,7 +1288,7 @@ void MenuSetup_SaveSel_YPressCB(void)
 
 void MenuSetup_TA_OpenZoneList_Sonic(void)
 {
-    EntityMenuParam *param = (EntityMenuParam *)globals->menuParam;
+    EntityMenuParam *param = MenuParam_GetParam();
     TimeAttackData_Clear();
 
     param->characterID = 1;
@@ -1298,7 +1304,7 @@ void MenuSetup_TA_OpenZoneList_Sonic(void)
 
 void MenuSetup_TA_OpenZoneList_Tails(void)
 {
-    EntityMenuParam *param = (EntityMenuParam *)globals->menuParam;
+    EntityMenuParam *param = MenuParam_GetParam();
     TimeAttackData_Clear();
 
     param->characterID = 2;
@@ -1314,7 +1320,7 @@ void MenuSetup_TA_OpenZoneList_Tails(void)
 
 void MenuSetup_TA_OpenZoneList_Knux(void)
 {
-    EntityMenuParam *param = (EntityMenuParam *)globals->menuParam;
+    EntityMenuParam *param = MenuParam_GetParam();
     TimeAttackData_Clear();
 
     param->characterID = 3;
@@ -1332,7 +1338,7 @@ void MenuSetup_TA_TAZoneModule_ActionCB(void) { MenuSetup_StartTransition(MenuSe
 
 void MenuSetup_TA_StartAttempt(void)
 {
-    EntityMenuParam *param = (EntityMenuParam *)globals->menuParam;
+    EntityMenuParam *param = MenuParam_GetParam();
 
     sprintf(param->menuTag, "Time Attack Zones");
     param->menuSelection    = param->zoneID;
@@ -1498,8 +1504,8 @@ void MenuSetup_VS_MenuSetupCB(void)
 
 void MenuSetup_VS_StartMatch(void)
 {
-    EntityCompetitionSession *session = (EntityCompetitionSession *)globals->competitionSession;
-    EntityMenuParam *param            = (EntityMenuParam *)globals->menuParam;
+    EntityCompetitionSession *session = CompetitionSession_GetSession();
+    EntityMenuParam *param            = MenuParam_GetParam();
 
     sprintf(param->menuTag, "Competition Round");
     session->stageIndex = MenuSetup->competitionZones->buttonID;
@@ -1536,7 +1542,7 @@ void MenuSetup_VS_RulesButton_ActionCB(void)
 {
     EntityUIControl *compControl      = MenuSetup->competition;
     EntityUIControl *rulesControl     = MenuSetup->competitionRules;
-    EntityCompetitionSession *session = (EntityCompetitionSession *)globals->competitionSession;
+    EntityCompetitionSession *session = CompetitionSession_GetSession();
 
     int32 matchCount = 0;
     foreach_all(UIVsRoundPicker, vsRoundPicker)
@@ -1596,7 +1602,7 @@ void MenuSetup_VS_OpenCompTotal(void) { UIControl_MatchMenuTag("Competition Tota
 
 void MenuSetup_VS_Round_ProcessButtonCB(void)
 {
-    EntityCompetitionSession *session = (EntityCompetitionSession *)globals->competitionSession;
+    EntityCompetitionSession *session = CompetitionSession_GetSession();
 
     if (UIControl->confirmPress[0] || UIControl->confirmPress[1] || UIControl->confirmPress[2] || UIControl->confirmPress[3]) {
         bool32 toCompTotal = false;
@@ -1622,7 +1628,7 @@ void MenuSetup_VS_Round_ProcessButtonCB(void)
 
 void MenuSetup_VS_Round_MenuSetupCB(void)
 {
-    EntityCompetitionSession *session = (EntityCompetitionSession *)globals->competitionSession;
+    EntityCompetitionSession *session = CompetitionSession_GetSession();
     EntityUIControl *roundControl     = MenuSetup->competitionRound;
 
     int32 matchWinner = session->matchWinner[session->matchID - 1];
@@ -1739,7 +1745,7 @@ void MenuSetup_VS_GotoCompetition(void) { UIControl_MatchMenuTag("Competition");
 
 void MenuSetup_VS_Total_ProcessButtonCB(void)
 {
-    EntityCompetitionSession *session = (EntityCompetitionSession *)globals->competitionSession;
+    EntityCompetitionSession *session = CompetitionSession_GetSession();
 
     if (UIControl->anyConfirmPress) {
         int32 mostWins = 0;
@@ -1770,7 +1776,7 @@ void MenuSetup_VS_Total_ProcessButtonCB(void)
 void MenuSetup_VS_Total_MenuSetupCB(void)
 {
     EntityUIControl *totalControl     = MenuSetup->competitionTotal;
-    EntityCompetitionSession *session = (EntityCompetitionSession *)globals->competitionSession;
+    EntityCompetitionSession *session = CompetitionSession_GetSession();
 
     MenuSetup->vsTotalTimer = 120;
 
@@ -1928,7 +1934,7 @@ bool32 MenuSetup_VS_CompZones_BackPressCB(void)
 
 void MenuSetup_VS_StartPuyoMatch(void)
 {
-    EntityMenuParam *param = (EntityMenuParam *)globals->menuParam;
+    EntityMenuParam *param = MenuParam_GetParam();
 
     TimeAttackData_Clear();
 
@@ -2002,6 +2008,7 @@ void MenuSetup_Options_SetDefaultMappings_P1(void)
 
 void MenuSetup_Options_SetDefaultMappings_P2(void)
 {
+#if GAME_VERSION != VER_100
     ControllerInfo[CONT_P2].keyUp.keyMap     = KEYMAP_NUMPAD8;
     ControllerInfo[CONT_P2].keyDown.keyMap   = KEYMAP_NUMPAD5;
     ControllerInfo[CONT_P2].keyLeft.keyMap   = KEYMAP_NUMPAD4;
@@ -2014,6 +2021,20 @@ void MenuSetup_Options_SetDefaultMappings_P2(void)
     ControllerInfo[CONT_P2].keyZ.keyMap      = KEYMAP_NO_MAPPING;
     ControllerInfo[CONT_P2].keyStart.keyMap  = KEYMAP_OEM_4;
     ControllerInfo[CONT_P2].keySelect.keyMap = KEYMAP_OEM_6;
+#else
+    ControllerInfo[CONT_P2].keyUp.keyMap     = KEYMAP_I;
+    ControllerInfo[CONT_P2].keyDown.keyMap   = KEYMAP_K;
+    ControllerInfo[CONT_P2].keyLeft.keyMap   = KEYMAP_J;
+    ControllerInfo[CONT_P2].keyRight.keyMap  = KEYMAP_L;
+    ControllerInfo[CONT_P2].keyA.keyMap      = KEYMAP_V;
+    ControllerInfo[CONT_P2].keyB.keyMap      = KEYMAP_B;
+    ControllerInfo[CONT_P2].keyC.keyMap      = KEYMAP_NO_MAPPING;
+    ControllerInfo[CONT_P2].keyX.keyMap      = KEYMAP_F;
+    ControllerInfo[CONT_P2].keyY.keyMap      = KEYMAP_G;
+    ControllerInfo[CONT_P2].keyZ.keyMap      = KEYMAP_NO_MAPPING;
+    ControllerInfo[CONT_P2].keyStart.keyMap  = KEYMAP_O;
+    ControllerInfo[CONT_P2].keySelect.keyMap = KEYMAP_NO_MAPPING;
+#endif
 }
 
 void MenuSetup_Options_SetupKBControlsMenu(int32 playerID)
@@ -2038,15 +2059,17 @@ void MenuSetup_Options_SetupKBControlsMenu(int32 playerID)
     }
 
     for (int32 b = 0; b < control->buttonCount; ++b) {
-        EntityUIKeyBinder *binder = (EntityUIKeyBinder *)control->buttons[b];
-
-        if (binder->classID == UIKeyBinder->classID) {
+        if (control->buttons[b]->classID == UIKeyBinder->classID) {
+            EntityUIKeyBinder *binder = (EntityUIKeyBinder *)control->buttons[b];
             binder->inputID = playerID;
+        }
+        else if (control->buttons[b]->classID == UIButton->classID) {
+            EntityUIButton *button = control->buttons[b];
 
             if (playerID == 1)
-                binder->actionCB = MenuSetup_Options_SetDefaultMappings_P2;
-            else if (!playerID)
-                binder->actionCB = MenuSetup_Options_SetDefaultMappings_P1;
+                button->actionCB = MenuSetup_Options_SetDefaultMappings_P2;
+            else if (playerID == 0)
+                button->actionCB = MenuSetup_Options_SetDefaultMappings_P1;
         }
     }
 }
@@ -2057,11 +2080,12 @@ void MenuSetup_OptionsVideo_Win_InitVideoOptionsMenu(void)
 {
     if (sku_platform == PLATFORM_PC || sku_platform == PLATFORM_DEV) {
         EntityUIControl *videoControl_Win = MenuSetup->video_win;
-        OptionsRAM *optionsRAM            = (OptionsRAM *)globals->optionsRAM;
+        OptionsRAM *optionsRAM            = Options_GetOptionsRAM();
         Options_GetWinSize();
 
         int32 options[7];
 
+#if GAME_VERSION != VER_100
         options[0] = RSDK.GetVideoSetting(VIDEOSETTING_SHADERID); // filter
         options[1] = optionsRAM->windowSize;                      // window size
         options[2] = RSDK.GetVideoSetting(VIDEOSETTING_BORDERED); // bordered
@@ -2073,10 +2097,23 @@ void MenuSetup_OptionsVideo_Win_InitVideoOptionsMenu(void)
         options[4] = 0;                                                 // fullscreen res
         options[5] = RSDK.GetVideoSetting(VIDEOSETTING_VSYNC);          // vsync
         options[6] = RSDK.GetVideoSetting(VIDEOSETTING_TRIPLEBUFFERED); // triple buffered
+#else
+        options[0] = RSDK.GetVideoSetting(VIDEOSETTING_SHADERID); // filter
+        options[1] = optionsRAM->windowSize;                      // window size
+        options[2] = RSDK.GetVideoSetting(VIDEOSETTING_BORDERED); // bordered
+
+        options[3] = 0;
+        if (!RSDK.GetVideoSetting(VIDEOSETTING_WINDOWED) || optionsRAM->windowSize == 4)
+            options[3] = 1;
+
+        options[4] = RSDK.GetVideoSetting(VIDEOSETTING_VSYNC);          // vsync
+        options[5] = RSDK.GetVideoSetting(VIDEOSETTING_TRIPLEBUFFERED); // triple buffered
+#endif
 
         for (int32 i = 0; i < videoControl_Win->buttonCount; ++i) {
             EntityUIButton *button = videoControl_Win->buttons[i];
 
+#if GAME_VERSION != VER_100
             if (i == 4) {
                 EntityUIResPicker *resPicker = (EntityUIResPicker *)UIButton_GetChoicePtr(button, button->selection);
                 UIResPicker_GetDisplayInfo(resPicker);
@@ -2088,6 +2125,11 @@ void MenuSetup_OptionsVideo_Win_InitVideoOptionsMenu(void)
             else if (button->selection != options[i]) {
                 UIButton_SetChoiceSelection(button, options[i]);
             }
+#else
+            if (button->selection != options[i]) {
+                UIButton_SetChoiceSelection(button, options[i]);
+            }
+#endif
         }
     }
 }
@@ -2112,7 +2154,7 @@ void MenuSetup_Options_MenuSetupCB(void)
     if (Options->changed) {
         UIWaitSpinner_StartWait();
 
-        Options_SaveOptionsBin(MenuSetup_Options_SaveOptionsCB_Load);
+        Options_SaveFile(MenuSetup_Options_SaveOptionsCB_Load);
     }
 }
 
@@ -2126,7 +2168,7 @@ void MenuSetup_Options_LaunchManual(void)
 
 void MenuSetup_OptionsLanguage_LanguageButton_ActionCB(void)
 {
-    OptionsRAM *options      = (OptionsRAM *)globals->optionsRAM;
+    OptionsRAM *options      = Options_GetOptionsRAM();
     EntityUIControl *control = MenuSetup->language;
 
     if (control->buttonID < 0)
@@ -2156,7 +2198,7 @@ void MenuSetup_OptionsVideo_ShaderButton_ActionCB(void)
 {
     RSDK_THIS(UIButton);
 
-    OptionsRAM *options = (OptionsRAM *)globals->optionsRAM;
+    OptionsRAM *options = Options_GetOptionsRAM();
 
     options->screenShader   = self->selection;
     options->overrideShader = true;
@@ -2169,7 +2211,7 @@ void MenuSetup_OptionsVideo_WindowScaleButton_ActionCB(void)
 {
     RSDK_THIS(UIButton);
 
-    OptionsRAM *options = (OptionsRAM *)globals->optionsRAM;
+    OptionsRAM *options = Options_GetOptionsRAM();
 
     if (self->selection != 4) {
         RSDK.SetVideoSetting(VIDEOSETTING_WINDOW_WIDTH, WIDE_SCR_XSIZE * (self->selection + 1));
@@ -2184,7 +2226,7 @@ void MenuSetup_OptionsVideo_BorderlessButton_ActionCB(void)
 {
     RSDK_THIS(UIButton);
 
-    OptionsRAM *options = (OptionsRAM *)globals->optionsRAM;
+    OptionsRAM *options = Options_GetOptionsRAM();
 
     options->windowBorder = self->selection;
     RSDK.SetVideoSetting(VIDEOSETTING_BORDERED, self->selection);
@@ -2197,7 +2239,7 @@ void MenuSetup_OptionsVideo_FullscreenButton_ActionCB(void)
 {
     RSDK_THIS(UIButton);
 
-    OptionsRAM *options = (OptionsRAM *)globals->optionsRAM;
+    OptionsRAM *options = Options_GetOptionsRAM();
 
     options->windowed = self->selection ^ 1;
     RSDK.SetVideoSetting(VIDEOSETTING_WINDOWED, options->windowed);
@@ -2210,7 +2252,7 @@ void MenuSetup_OptionsVideo_VSyncButton_ActionCB(void)
 {
     RSDK_THIS(UIButton);
 
-    OptionsRAM *options = (OptionsRAM *)globals->optionsRAM;
+    OptionsRAM *options = Options_GetOptionsRAM();
 
     options->vSync = self->selection;
     RSDK.SetVideoSetting(VIDEOSETTING_VSYNC, self->selection);
@@ -2222,7 +2264,7 @@ void MenuSetup_OptionsVideo_TripleBufferButton_ActionCB(void)
 {
     RSDK_THIS(UIButton);
 
-    OptionsRAM *options = (OptionsRAM *)globals->optionsRAM;
+    OptionsRAM *options = Options_GetOptionsRAM();
 
     options->tripleBuffering = self->selection;
     RSDK.SetVideoSetting(VIDEOSETTING_TRIPLEBUFFERED, self->selection);
@@ -2234,7 +2276,7 @@ void MenuSetup_OptionsVideo_UISlider_ChangedCB(void)
 {
     RSDK_THIS(UISlider);
 
-    OptionsRAM *options = (OptionsRAM *)globals->optionsRAM;
+    OptionsRAM *options = Options_GetOptionsRAM();
 
     // Bug Details (?):
     // what the hell is up with this???????
@@ -2295,7 +2337,7 @@ void MenuSetup_Extras_ProcessButtonCB(void) { UIControl_ProcessButtonInput(); }
 
 void MenuSetup_Extras_Start_Puyo_vsAI(void)
 {
-    EntityMenuParam *param = (EntityMenuParam *)globals->menuParam;
+    EntityMenuParam *param = MenuParam_GetParam();
 
     TimeAttackData_Clear();
 
@@ -2311,7 +2353,7 @@ void MenuSetup_Extras_Puyo_vsAI_ActionCB(void) { MenuSetup_StartTransition(MenuS
 
 void MenuSetup_Extras_Start_Puyo_vs2P(void)
 {
-    EntityMenuParam *param = (EntityMenuParam *)globals->menuParam;
+    EntityMenuParam *param = MenuParam_GetParam();
 
     TimeAttackData_Clear();
 
@@ -2327,7 +2369,7 @@ void MenuSetup_Extras_Puyo_vs2P_ActionCB(void) { MenuSetup_StartTransition(MenuS
 
 void MenuSetup_Extras_Start_Credits(void)
 {
-    EntityMenuParam *param = (EntityMenuParam *)globals->menuParam;
+    EntityMenuParam *param = MenuParam_GetParam();
 
     TimeAttackData_Clear();
 
@@ -2344,7 +2386,7 @@ void MenuSetup_Extras_Credits_ActionCB(void) { MenuSetup_StartTransition(MenuSet
 
 void MenuSetup_Extras_StartDAGarden(void)
 {
-    EntityMenuParam *param = (EntityMenuParam *)globals->menuParam;
+    EntityMenuParam *param = MenuParam_GetParam();
 
     TimeAttackData_Clear();
 
@@ -2359,7 +2401,7 @@ void MenuSetup_Extras_DAGarden_ActionCB(void) { MenuSetup_StartTransition(MenuSe
 
 void MenuSetup_Extras_Start_BSS_3K(void)
 {
-    EntityMenuParam *param = (EntityMenuParam *)globals->menuParam;
+    EntityMenuParam *param = MenuParam_GetParam();
 
     TimeAttackData_Clear();
 
@@ -2375,7 +2417,7 @@ void MenuSetup_Extras_BSS_3K_ActionCB(void) { MenuSetup_StartTransition(MenuSetu
 
 void MenuSetup_Extras_Start_BSS_Mania(void)
 {
-    EntityMenuParam *param = (EntityMenuParam *)globals->menuParam;
+    EntityMenuParam *param = MenuParam_GetParam();
 
     TimeAttackData_Clear();
 

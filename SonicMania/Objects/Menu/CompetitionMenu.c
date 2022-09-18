@@ -24,37 +24,37 @@ void CompetitionMenu_StageLoad(void) { CompetitionMenu->timer = 120; }
 
 void CompetitionMenu_Initialize(void)
 {
-    String string;
-    INIT_STRING(string);
+    String tag;
+    INIT_STRING(tag);
 
     foreach_all(UIControl, control)
     {
-        RSDK.SetString(&string, "Competition");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Competition");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             CompetitionMenu->competitionControl = control;
 
-        RSDK.SetString(&string, "Competition Legacy");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Competition Legacy");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             CompetitionMenu->competitionControl_Legacy = control;
 
-        RSDK.SetString(&string, "Competition Rules");
-        if (RSDK.CompareStrings(&string, &control->tag, false)) {
+        RSDK.SetString(&tag, "Competition Rules");
+        if (RSDK.CompareStrings(&tag, &control->tag, false)) {
             CompetitionMenu->compRulesControl = control;
             control->backPressCB              = CompetitionMenu_CompRules_BackPressCB;
         }
 
-        RSDK.SetString(&string, "Competition Zones");
-        if (RSDK.CompareStrings(&string, &control->tag, false)) {
+        RSDK.SetString(&tag, "Competition Zones");
+        if (RSDK.CompareStrings(&tag, &control->tag, false)) {
             CompetitionMenu->compZoneControl = control;
             control->backPressCB             = CompetitionMenu_CompZones_BackPressCB;
         }
 
-        RSDK.SetString(&string, "Competition Round");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Competition Round");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             CompetitionMenu->compRoundControl = control;
 
-        RSDK.SetString(&string, "Competition Total");
-        if (RSDK.CompareStrings(&string, &control->tag, false))
+        RSDK.SetString(&tag, "Competition Total");
+        if (RSDK.CompareStrings(&tag, &control->tag, false))
             CompetitionMenu->compTotalControl = control;
     }
 
@@ -165,7 +165,7 @@ void CompetitionMenu_SetupActions(void)
 
 void CompetitionMenu_HandleMenuReturn(void)
 {
-    EntityCompetitionSession *session = (EntityCompetitionSession *)globals->competitionSession;
+    EntityCompetitionSession *session = CompetitionSession_GetSession();
 
     if (session->inMatch) {
         foreach_all(UIControl, control)
@@ -347,7 +347,7 @@ void CompetitionMenu_SetupSplitScreenChoices(int32 playerCount)
 }
 void CompetitionMenu_SetupSplitScreen(int32 mode)
 {
-    EntityCompetitionSession *session = (EntityCompetitionSession *)globals->competitionSession;
+    EntityCompetitionSession *session = CompetitionSession_GetSession();
     int32 startVert_3P[15];
     uint8 startVert_2P[10];
 
@@ -418,7 +418,7 @@ void CompetitionMenu_SetupSplitScreen(int32 mode)
 
 void CompetitionMenu_SetupResultsUI(EntityUIControl *roundControl)
 {
-    EntityCompetitionSession *session = (EntityCompetitionSession *)globals->competitionSession;
+    EntityCompetitionSession *session = CompetitionSession_GetSession();
 
     int32 offsets[] = { -580000, 0x580000, 0x0, 0x0, -0x7A0000, 0x000000, 0x7A0000, 0x000000, -0x9C0000, -0x340000, 0x340000, 0x9C0000 };
 
@@ -516,8 +516,8 @@ void CompetitionMenu_Rules_MenuSetupCB(void)
 
 void CompetitionMenu_StartMatch(void)
 {
-    EntityCompetitionSession *session = (EntityCompetitionSession *)globals->competitionSession;
-    EntityMenuParam *param            = (EntityMenuParam *)globals->menuParam;
+    EntityCompetitionSession *session = CompetitionSession_GetSession();
+    EntityMenuParam *param            = MenuParam_GetParam();
 
     sprintf_s(param->menuTag, (int32)sizeof(param->menuTag), "Competition Round");
     session->stageIndex  = CompetitionMenu->compZoneControl->buttonID;
@@ -566,7 +566,7 @@ void CompetitionMenu_RulesButton_ActionCB(void)
         control = CompetitionMenu->competitionControl_Legacy;
 
     EntityUIControl *rulesControl     = CompetitionMenu->compRulesControl;
-    EntityCompetitionSession *session = (EntityCompetitionSession *)globals->competitionSession;
+    EntityCompetitionSession *session = CompetitionSession_GetSession();
 
     int32 matchCount = 0;
     foreach_all(UIVsRoundPicker, picker)
@@ -629,7 +629,7 @@ void CompetitionMenu_GotoCompTotal(void) { UIControl_MatchMenuTag("Competition T
 
 void CompetitionMenu_Round_ProcessInputCB(void)
 {
-    EntityCompetitionSession *session = (EntityCompetitionSession *)globals->competitionSession;
+    EntityCompetitionSession *session = CompetitionSession_GetSession();
     if (UIControl->anyConfirmPress) {
         bool32 toCompTotal = false;
 
@@ -664,7 +664,7 @@ void CompetitionMenu_Round_ProcessInputCB(void)
 
 void CompetitionMenu_Round_MenuSetupCB(void)
 {
-    EntityCompetitionSession *session = (EntityCompetitionSession *)globals->competitionSession;
+    EntityCompetitionSession *session = CompetitionSession_GetSession();
     EntityUIControl *roundControl     = CompetitionMenu->compRoundControl;
     CompetitionMenu_SetupResultsUI(roundControl);
 
@@ -793,7 +793,7 @@ void CompetitionMenu_GotoCompetition(void) { UIControl_MatchMenuTag(API.CheckDLC
 
 void CompetitionMenu_Results_ProcessInputCB(void)
 {
-    EntityCompetitionSession *session = (EntityCompetitionSession *)globals->competitionSession;
+    EntityCompetitionSession *session = CompetitionSession_GetSession();
     if (UIControl->anyConfirmPress) {
         int32 mostWins = 0;
         for (int32 p = 0; p < session->playerCount; ++p) {
@@ -823,7 +823,7 @@ void CompetitionMenu_Results_ProcessInputCB(void)
 void CompetitionMenu_Results_MenuSetupCB(void)
 {
     EntityUIControl *totalControl     = CompetitionMenu->compTotalControl;
-    EntityCompetitionSession *session = (EntityCompetitionSession *)globals->competitionSession;
+    EntityCompetitionSession *session = CompetitionSession_GetSession();
 
     CompetitionMenu_SetupResultsUI(totalControl);
     CompetitionMenu->timer = 120;
@@ -957,7 +957,7 @@ bool32 CompetitionMenu_CompZones_BackPressCB(void)
 
 void CompetitionMenu_GotoPuyoVS(void)
 {
-    EntityMenuParam *param = (EntityMenuParam *)globals->menuParam;
+    EntityMenuParam *param = MenuParam_GetParam();
 
     TimeAttackData_Clear();
 

@@ -794,7 +794,7 @@ void UISaveSlot_LoadSaveInfo(void)
 
         case SAVEGAME_INPROGRESS:
             self->saveZoneID   = saveRAM->zoneID;
-            self->saveEmeralds = saveRAM->chaosEmeralds;
+            self->saveEmeralds = saveRAM->collectedEmeralds;
             self->saveLives    = saveRAM->lives;
 #if MANIA_USE_PLUS
             self->saveContinues = saveRAM->continues;
@@ -805,7 +805,7 @@ void UISaveSlot_LoadSaveInfo(void)
 
         case SAVEGAME_COMPLETE:
             self->saveZoneID   = NO_SAVE_SLOT;
-            self->saveEmeralds = saveRAM->chaosEmeralds;
+            self->saveEmeralds = saveRAM->collectedEmeralds;
             self->saveLives    = saveRAM->lives;
 #if MANIA_USE_PLUS
             self->saveContinues = saveRAM->continues;

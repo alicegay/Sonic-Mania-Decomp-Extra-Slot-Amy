@@ -13,6 +13,7 @@ ObjectEncoreIntro *EncoreIntro;
 void EncoreIntro_Update(void)
 {
     RSDK_THIS(EncoreIntro);
+
     if (!self->activated) {
         foreach_active(Player, player)
         {
@@ -52,10 +53,12 @@ void EncoreIntro_Draw(void) {}
 void EncoreIntro_Create(void *data)
 {
     RSDK_THIS(EncoreIntro);
+
     if (!SceneInfo->inEditor) {
         INIT_ENTITY(self);
         CutsceneRules_SetupEntity(self, &self->size, &self->hitbox);
         EncoreIntro_SetupEntities();
+        self->active = ACTIVE_NORMAL;
 
         if (globals->enableIntro) {
             foreach_all(HUD, hud)
@@ -382,7 +385,7 @@ bool32 EncoreIntro_Cutscene_CapsuleFound(EntityCutsceneSeq *host)
             StarPost->playerPositions[0] = player->position;
             StarPost->playerPositions[1] = player->position;
             player->state                = EncoreIntro_PlayerState_BuddySel;
-            player->stateInput           = EncoreIntro_PlayerInput_None;
+            player->stateInput           = EncoreIntro_PlayerInput_BuddySel;
             RSDK.SetSpriteAnimation(player->aniFrames, ANI_IDLE, &player->animator, true, 0);
 
             EntityPlayer *buddy1 = RSDK_GET_ENTITY(SLOT_PLAYER3, Player);
@@ -982,7 +985,7 @@ bool32 EncoreIntro_Cutscene_LoadGHZ(EntityCutsceneSeq *host)
     RSDK_THIS(EncoreIntro);
     Player->playerCount = 2;
     SaveGame_SavePlayerState();
-    SaveGame->saveRAM->saveState = SAVEGAME_INPROGRESS; // save file is active
+    SaveGame_GetSaveRAM()->saveState = SAVEGAME_INPROGRESS; // save file is active
     RSDK.SetScene("Cutscenes", "Green Hill Zone");
     EncoreIntro->awaitingSaveFinish = true;
     SaveGame_SaveFile(EncoreIntro_SaveGameCB);
@@ -1195,7 +1198,7 @@ void EncoreIntro_PlayerState_HandleAir(void)
     Player_HandleAirMovement();
 }
 
-void EncoreIntro_PlayerInput_None(void)
+void EncoreIntro_PlayerInput_BuddySel(void)
 {
     RSDK_THIS(Player);
 
