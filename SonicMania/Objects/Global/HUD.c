@@ -475,26 +475,7 @@ void HUD_Create(void *data)
         RSDK.SetSpriteAnimation(HUD->aniFrames, 0, &self->hudElementsAnimator, true, 0);
         RSDK.SetSpriteAnimation(HUD->aniFrames, 1, &self->numbersAnimator, true, 0);
         RSDK.SetSpriteAnimation(HUD->aniFrames, 2, &self->lifeIconAnimator, true, 0);
-
-        if (player->characterID == ID_SONIC) {
-            RSDK.SetSpriteAnimation(HUD->aniFrames, 9, &self->hyperNumbersAnimator, true, 0);
-        }
-        if (player->characterID == ID_TAILS) {
-            RSDK.SetSpriteAnimation(HUD->aniFrames, 14, &self->hyperNumbersAnimator, true, 0);
-        }
-        if (player->characterID == ID_KNUCKLES) {
-            RSDK.SetSpriteAnimation(HUD->aniFrames, 15, &self->hyperNumbersAnimator, true, 0);
-        }
-        if (player->characterID == ID_MIGHTY) {
-            RSDK.SetSpriteAnimation(HUD->aniFrames, 16, &self->hyperNumbersAnimator, true, 0);
-        }
-        if (player->characterID == ID_RAY) {
-            RSDK.SetSpriteAnimation(HUD->aniFrames, 17, &self->hyperNumbersAnimator, true, 0);
-        }
-        if (player->characterID == ID_AMY) {
-            RSDK.SetSpriteAnimation(HUD->aniFrames, 18, &self->hyperNumbersAnimator, true, 0);
-        }
-
+        RSDK.SetSpriteAnimation(HUD->aniFrames, 9, &self->hyperNumbersAnimator, true, 0);
 #if MANIA_USE_PLUS
         RSDK.SetSpriteAnimation(HUD->aniFrames, globals->gameMode == MODE_ENCORE ? 13 : 8, &self->playerIDAnimator, true, 0);
         RSDK.SetSpriteAnimation(HUD->aniFrames, 10, &self->thumbsUpIconAnimator, true, 2);

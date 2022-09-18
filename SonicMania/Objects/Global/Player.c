@@ -1413,33 +1413,23 @@ void Player_BlendSuperTailsColors(int32 bankID)
 {
     RSDK_THIS(Player);
 
-    if (self->superState == SUPERSTATE_SUPER) {
-        if (self->superBlendState & 1) {
-            if (self->superBlendAmount <= 0)
-                self->superBlendState &= 2;
-            else
-                self->superBlendAmount -= 4;
-        }
-    else if (self->superBlendAmount >= 256) {
-        self->superBlendState |= 1;
-        if (self->superBlendState == 1) {
-            for (int32 i = 0; i < 6; ++i) {
-                RSDK.SetPaletteEntry(6, i + 0x46, Player->superPalette_Tails[i + 6]);
-                RSDK.SetPaletteEntry(7, i + 0x46, Player->superPalette_Tails[i + 12]);
-            }
-            self->superBlendState  = 2;
-            self->superBlendAmount = 0;
-        }
-    }
-    else {
-        self->superBlendAmount += 4;
-        }
-    }
-    else {
+    if (self->superState != SUPERSTATE_SUPER) {
         if (self->superBlendAmount <= 0)
             self->superState = SUPERSTATE_NONE;
         else
             self->superBlendAmount -= 4;
+    }
+    else if (self->superBlendState) {
+        if (self->superBlendAmount <= 0)
+            self->superBlendState = 0;
+        else
+            self->superBlendAmount -= 4;
+    }
+    else {
+        if (self->superBlendAmount >= 256)
+            self->superBlendState = 1;
+        else
+            self->superBlendAmount += 4;
     }
 
     // Bug Details:
@@ -1450,33 +1440,23 @@ void Player_BlendSuperKnuxColors(int32 bankID)
 {
     RSDK_THIS(Player);
 
-    if (self->superState == SUPERSTATE_SUPER) {
-        if (self->superBlendState & 1) {
-            if (self->superBlendAmount <= 0)
-                self->superBlendState &= 2;
-            else
-                self->superBlendAmount -= 4;
-        }
-        else if (self->superBlendAmount >= 256) {
-            self->superBlendState |= 1;
-            if (self->superBlendState == 1) {
-                for (int32 i = 0; i < 6; ++i) {
-                    RSDK.SetPaletteEntry(6, i + 0x50, Player->superPalette_Knux[i + 6]);
-                    RSDK.SetPaletteEntry(7, i + 0x50, Player->superPalette_Knux[i + 12]);
-                }
-                self->superBlendState  = 2;
-                self->superBlendAmount = 0;
-            }
-        }
-        else {
-            self->superBlendAmount += 4;
-        }
-    }
-    else {
+    if (self->superState != SUPERSTATE_SUPER) {
         if (self->superBlendAmount <= 0)
             self->superState = SUPERSTATE_NONE;
         else
             self->superBlendAmount -= 4;
+    }
+    else if (self->superBlendState) {
+        if (self->superBlendAmount <= 0)
+            self->superBlendState = 0;
+        else
+            self->superBlendAmount -= 4;
+    }
+    else {
+        if (self->superBlendAmount >= 256)
+            self->superBlendState = 1;
+        else
+            self->superBlendAmount += 4;
     }
 
     // Bug Details:
@@ -1488,33 +1468,23 @@ void Player_BlendSuperMightyColors(int32 bankID)
 {
     RSDK_THIS(Player);
 
-    if (self->superState == SUPERSTATE_SUPER) {
-        if (self->superBlendState & 1) {
-            if (self->superBlendAmount <= 0)
-                self->superBlendState &= 2;
-            else
-                self->superBlendAmount -= 4;
-        }
-        else if (self->superBlendAmount >= 256) {
-            self->superBlendState |= 1;
-            if (self->superBlendState == 1) {
-                for (int32 i = 0; i < 6; ++i) {
-                    RSDK.SetPaletteEntry(6, i + 0x60, Player->superPalette_Mighty[i + 6]);
-                    RSDK.SetPaletteEntry(7, i + 0x60, Player->superPalette_Mighty[i + 12]);
-                }
-                self->superBlendState  = 2;
-                self->superBlendAmount = 0;
-            }
-        }
-        else {
-            self->superBlendAmount += 4;
-        }
-    }
-    else {
+    if (self->superState != SUPERSTATE_SUPER) {
         if (self->superBlendAmount <= 0)
             self->superState = SUPERSTATE_NONE;
         else
             self->superBlendAmount -= 4;
+    }
+    else if (self->superBlendState) {
+        if (self->superBlendAmount <= 0)
+            self->superBlendState = 0;
+        else
+            self->superBlendAmount -= 4;
+    }
+    else {
+        if (self->superBlendAmount >= 256)
+            self->superBlendState = 1;
+        else
+            self->superBlendAmount += 4;
     }
 
     // Bug Details:
@@ -1525,36 +1495,26 @@ void Player_BlendSuperRayColors(int32 bankID)
 {
     RSDK_THIS(Player);
 
-    if (self->superState == SUPERSTATE_SUPER) {
-        if (self->superBlendState & 1) {
-            if (self->superBlendAmount <= 0)
-                self->superBlendState &= 2;
-            else
-                self->superBlendAmount -= 4;
-        }
-        else if (self->superBlendAmount >= 256) {
-            self->superBlendState |= 1;
-            if (self->superBlendState == 1) {
-                for (int32 i = 0; i < 6; ++i) {
-                    RSDK.SetPaletteEntry(6, i + 0x71, Player->superPalette_Ray[i + 6]);
-                    RSDK.SetPaletteEntry(7, i + 0x71, Player->superPalette_Ray[i + 12]);
-                }
-                self->superBlendState  = 2;
-                self->superBlendAmount = 0;
-            }
-        }
-        else {
-            self->superBlendAmount += 4;
-        }
-    }
-    else {
+    if (self->superState != SUPERSTATE_SUPER) {
         if (self->superBlendAmount <= 0)
             self->superState = SUPERSTATE_NONE;
         else
             self->superBlendAmount -= 4;
     }
+    else if (self->superBlendState) {
+        if (self->superBlendAmount <= 0)
+            self->superBlendState = 0;
+        else
+            self->superBlendAmount -= 4;
+    }
+    else {
+        if (self->superBlendAmount >= 256)
+            self->superBlendState = 1;
+        else
+            self->superBlendAmount += 4;
+    }
 
-    RSDK.SetLimitedFade(bankID, 6, 7, self->superBlendAmount, 113, 118);
+    RSDK.SetLimitedFade(bankID, 6, 7, self->superBlendAmount, 113, 119);
 }
 
 void Player_BlendSuperAmyColors(int32 bankID)
@@ -1681,62 +1641,29 @@ void Player_HandleSuperForm(void)
                     RSDK.CopyPalette(0, 70, 2, 70, 6);
                 }
                 else if (HCZSetup) {
-                    if (self->superBlendState > 1) {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 70, Player->superPalette_Tails_HCZ[i + 6]);
-                            RSDK.SetPaletteEntry(7, i + 70, Player->superPalette_Tails_HCZ[i + 12]);
-                        }
-                    }
-                    else {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 70, Player->superPalette_Tails_HCZ[i]);
-                            RSDK.SetPaletteEntry(7, i + 70, Player->superPalette_Tails_HCZ[i + 6]);
-                        }
+                    for (int32 i = 0; i < 6; ++i) {
+                        RSDK.SetPaletteEntry(6, i + 70, Player->superPalette_Tails_HCZ[i]);
+                        RSDK.SetPaletteEntry(7, i + 70, Player->superPalette_Tails_HCZ[i + 12]);
                     }
 
                     Player_BlendSuperTailsColors(1);
 
-                    if (self->superBlendState > 1) {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 70, Player->superPalette_Tails[i + 6]);
-                            RSDK.SetPaletteEntry(7, i + 70, Player->superPalette_Tails[i + 12]);
-                        }
-                    }
-                    else {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 70, Player->superPalette_Tails[i]);
-                            RSDK.SetPaletteEntry(7, i + 70, Player->superPalette_Tails[i + 6]);
-                        }
+                    for (int32 i = 0; i < 6; ++i) {
+                        RSDK.SetPaletteEntry(6, i + 70, Player->superPalette_Tails[i]);
+                        RSDK.SetPaletteEntry(7, i + 70, Player->superPalette_Tails[i + 12]);
                     }
                 }
                 else if (CPZSetup) {
-                    if (self->superBlendState > 1) {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 70, Player->superPalette_Tails_CPZ[i + 6]);
-                            RSDK.SetPaletteEntry(7, i + 70, Player->superPalette_Tails_CPZ[i + 12]);
-                        }
-                    }
-                    else {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 70, Player->superPalette_Tails_CPZ[i]);
-                            RSDK.SetPaletteEntry(7, i + 70, Player->superPalette_Tails_CPZ[i + 6]);
-                        }
+                    for (int32 i = 0; i < 6; ++i) {
+                        RSDK.SetPaletteEntry(6, i + 70, Player->superPalette_Tails_CPZ[i]);
+                        RSDK.SetPaletteEntry(7, i + 70, Player->superPalette_Tails_CPZ[i + 12]);
                     }
 
                     Player_BlendSuperTailsColors(2);
 
-                    if (self->superBlendState > 1) {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 70, Player->superPalette_Tails[i + 6]);
-                            RSDK.SetPaletteEntry(7, i + 70, Player->superPalette_Tails[i + 12]);
-                        }
-                    }
-                    else
-                    {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 70, Player->superPalette_Tails[i]);
-                            RSDK.SetPaletteEntry(7, i + 70, Player->superPalette_Tails[i + 6]);
-                        }
+                    for (int32 i = 0; i < 6; ++i) {
+                        RSDK.SetPaletteEntry(6, i + 70, Player->superPalette_Tails[i]);
+                        RSDK.SetPaletteEntry(7, i + 70, Player->superPalette_Tails[i + 12]);
                     }
                 }
                 break;
@@ -1752,61 +1679,29 @@ void Player_HandleSuperForm(void)
                     RSDK.CopyPalette(0, 80, 2, 80, 6);
                 }
                 else if (HCZSetup) {
-                    if (self->superBlendState > 1) {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 80, Player->superPalette_Knux_HCZ[i + 6]);
-                            RSDK.SetPaletteEntry(7, i + 80, Player->superPalette_Knux_HCZ[i + 12]);
-                        }
-                    }
-                    else {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 80, Player->superPalette_Knux_HCZ[i]);
-                            RSDK.SetPaletteEntry(7, i + 80, Player->superPalette_Knux_HCZ[i + 6]);
-                        }
+                    for (int32 i = 0; i < 6; ++i) {
+                        RSDK.SetPaletteEntry(6, i + 80, Player->superPalette_Knux_HCZ[i]);
+                        RSDK.SetPaletteEntry(7, i + 80, Player->superPalette_Knux_HCZ[i + 12]);
                     }
 
                     Player_BlendSuperKnuxColors(1);
 
-                    if (self->superBlendState > 1) {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 80, Player->superPalette_Knux[i + 6]);
-                            RSDK.SetPaletteEntry(7, i + 80, Player->superPalette_Knux[i + 12]);
-                        }
-                    }
-                    else {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 80, Player->superPalette_Knux[i]);
-                            RSDK.SetPaletteEntry(7, i + 80, Player->superPalette_Knux[i + 6]);
-                        }
+                    for (int32 i = 0; i < 6; ++i) {
+                        RSDK.SetPaletteEntry(6, i + 80, Player->superPalette_Knux[i]);
+                        RSDK.SetPaletteEntry(7, i + 80, Player->superPalette_Knux[i + 12]);
                     }
                 }
                 else if (CPZSetup) {
-                    if (self->superBlendState > 1) {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 80, Player->superPalette_Knux_CPZ[i + 6]);
-                            RSDK.SetPaletteEntry(7, i + 80, Player->superPalette_Knux_CPZ[i + 12]);
-                        }
-                    }
-                    else {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 80, Player->superPalette_Knux_CPZ[i]);
-                            RSDK.SetPaletteEntry(7, i + 80, Player->superPalette_Knux_CPZ[i + 6]);
-                        }
+                    for (int32 i = 0; i < 6; ++i) {
+                        RSDK.SetPaletteEntry(6, i + 80, Player->superPalette_Knux_CPZ[i]);
+                        RSDK.SetPaletteEntry(7, i + 80, Player->superPalette_Knux_CPZ[i + 12]);
                     }
 
                     Player_BlendSuperKnuxColors(2);
 
-                    if (self->superBlendState > 1) {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 80, Player->superPalette_Knux[i + 6]);
-                            RSDK.SetPaletteEntry(7, i + 80, Player->superPalette_Knux[i + 12]);
-                        }
-                    }
-                    else {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 80, Player->superPalette_Knux[i]);
-                            RSDK.SetPaletteEntry(7, i + 80, Player->superPalette_Knux[i + 6]);
-                        }
+                    for (int32 i = 0; i < 6; ++i) {
+                        RSDK.SetPaletteEntry(6, i + 80, Player->superPalette_Knux[i]);
+                        RSDK.SetPaletteEntry(7, i + 80, Player->superPalette_Knux[i + 12]);
                     }
                 }
                 break;
@@ -1823,61 +1718,29 @@ void Player_HandleSuperForm(void)
                     RSDK.CopyPalette(0, 96, 2, 96, 6);
                 }
                 else if (HCZSetup) {
-                    if (self->superBlendState > 1) {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 96, Player->superPalette_Mighty_HCZ[i + 6]);
-                            RSDK.SetPaletteEntry(7, i + 96, Player->superPalette_Mighty_HCZ[i + 12]);
-                        }
-                    }
-                    else {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 96, Player->superPalette_Mighty_HCZ[i]);
-                            RSDK.SetPaletteEntry(7, i + 96, Player->superPalette_Mighty_HCZ[i + 6]);
-                        }
+                    for (int32 i = 0; i < 6; ++i) {
+                        RSDK.SetPaletteEntry(6, i + 96, Player->superPalette_Mighty_HCZ[i]);
+                        RSDK.SetPaletteEntry(7, i + 96, Player->superPalette_Mighty_HCZ[i + 12]);
                     }
 
                     Player_BlendSuperMightyColors(1);
 
-                    if (self->superBlendState > 1) {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 96, Player->superPalette_Mighty[i + 6]);
-                            RSDK.SetPaletteEntry(7, i + 96, Player->superPalette_Mighty[i + 12]);
-                        }
-                    }
-                    else {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 96, Player->superPalette_Mighty[i]);
-                            RSDK.SetPaletteEntry(7, i + 96, Player->superPalette_Mighty[i + 6]);
-                        }
+                    for (int32 i = 0; i < 6; ++i) {
+                        RSDK.SetPaletteEntry(6, i + 96, Player->superPalette_Mighty[i]);
+                        RSDK.SetPaletteEntry(7, i + 96, Player->superPalette_Mighty[i + 12]);
                     }
                 }
                 else if (CPZSetup) {
-                    if (self->superBlendState > 1) {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 96, Player->superPalette_Mighty_CPZ[i + 6]);
-                            RSDK.SetPaletteEntry(7, i + 96, Player->superPalette_Mighty_CPZ[i + 12]);
-                        }
-                    }
-                    else {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 96, Player->superPalette_Mighty_CPZ[i]);
-                            RSDK.SetPaletteEntry(7, i + 96, Player->superPalette_Mighty_CPZ[i + 6]);
-                        }
+                    for (int32 i = 0; i < 6; ++i) {
+                        RSDK.SetPaletteEntry(6, i + 96, Player->superPalette_Mighty_CPZ[i]);
+                        RSDK.SetPaletteEntry(7, i + 96, Player->superPalette_Mighty_CPZ[i + 12]);
                     }
 
                     Player_BlendSuperMightyColors(2);
 
-                    if (self->superBlendState > 1) {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 96, Player->superPalette_Mighty[i + 6]);
-                            RSDK.SetPaletteEntry(7, i + 96, Player->superPalette_Mighty[i + 12]);
-                        }
-                    }
-                    else {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 96, Player->superPalette_Mighty[i]);
-                            RSDK.SetPaletteEntry(7, i + 96, Player->superPalette_Mighty[i + 6]);
-                        }
+                    for (int32 i = 0; i < 6; ++i) {
+                        RSDK.SetPaletteEntry(6, i + 96, Player->superPalette_Mighty[i]);
+                        RSDK.SetPaletteEntry(7, i + 96, Player->superPalette_Mighty[i + 12]);
                     }
                 }
                 break;
@@ -1886,68 +1749,36 @@ void Player_HandleSuperForm(void)
                 Player_BlendSuperRayColors(0);
 
                 if (FarPlane) {
-                    RSDK.CopyPalette(0, 114, 3, 114, 6);
+                    RSDK.CopyPalette(0, 113, 3, 113, 6);
                 }
                 else if (OOZSetup) {
-                    RSDK.CopyPalette(0, 114, 1, 114, 6);
-                    RSDK.CopyPalette(0, 114, 2, 114, 6);
+                    RSDK.CopyPalette(0, 113, 1, 113, 6);
+                    RSDK.CopyPalette(0, 113, 2, 113, 6);
                 }
                 else if (HCZSetup) {
-                    if (self->superBlendState > 1) {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 114, Player->superPalette_Ray_HCZ[i + 6]);
-                            RSDK.SetPaletteEntry(7, i + 114, Player->superPalette_Ray_HCZ[i + 12]);
-                        }
-                    }
-                    else {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 114, Player->superPalette_Ray_HCZ[i]);
-                            RSDK.SetPaletteEntry(7, i + 114, Player->superPalette_Ray_HCZ[i + 6]);
-                        }
+                    for (int32 i = 0; i < 6; ++i) {
+                        RSDK.SetPaletteEntry(6, i + 113, Player->superPalette_Ray_HCZ[i]);
+                        RSDK.SetPaletteEntry(7, i + 113, Player->superPalette_Ray_HCZ[i + 12]);
                     }
 
                     Player_BlendSuperRayColors(1);
 
-                    if (self->superBlendState > 1) {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 114, Player->superPalette_Ray[i + 6]);
-                            RSDK.SetPaletteEntry(7, i + 114, Player->superPalette_Ray[i + 12]);
-                        }
-                    }
-                    else {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 114, Player->superPalette_Ray[i]);
-                            RSDK.SetPaletteEntry(7, i + 114, Player->superPalette_Ray[i + 6]);
-                        }
+                    for (int32 i = 0; i < 6; ++i) {
+                        RSDK.SetPaletteEntry(6, i + 113, Player->superPalette_Ray[i]);
+                        RSDK.SetPaletteEntry(7, i + 113, Player->superPalette_Ray[i + 12]);
                     }
                 }
                 else if (CPZSetup) {
-                    if (self->superBlendState > 1) {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 114, Player->superPalette_Ray_CPZ[i + 6]);
-                            RSDK.SetPaletteEntry(7, i + 114, Player->superPalette_Ray_CPZ[i + 12]);
-                        }
-                    }
-                    else {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 114, Player->superPalette_Ray_CPZ[i]);
-                            RSDK.SetPaletteEntry(7, i + 114, Player->superPalette_Ray_CPZ[i + 6]);
-                        }
+                    for (int32 i = 0; i < 6; ++i) {
+                        RSDK.SetPaletteEntry(6, i + 113, Player->superPalette_Ray_CPZ[i]);
+                        RSDK.SetPaletteEntry(7, i + 113, Player->superPalette_Ray_CPZ[i + 12]);
                     }
 
                     Player_BlendSuperRayColors(2);
 
-                    if (self->superBlendState > 1) {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 114, Player->superPalette_Ray[i + 6]);
-                            RSDK.SetPaletteEntry(7, i + 114, Player->superPalette_Ray[i + 12]);
-                        }
-                    }
-                    else {
-                        for (int32 i = 0; i < 6; ++i) {
-                            RSDK.SetPaletteEntry(6, i + 114, Player->superPalette_Ray[i]);
-                            RSDK.SetPaletteEntry(7, i + 114, Player->superPalette_Ray[i + 6]);
-                        }
+                    for (int32 i = 0; i < 6; ++i) {
+                        RSDK.SetPaletteEntry(6, i + 113, Player->superPalette_Ray[i]);
+                        RSDK.SetPaletteEntry(7, i + 113, Player->superPalette_Ray[i + 12]);
                     }
                 }
                 break;

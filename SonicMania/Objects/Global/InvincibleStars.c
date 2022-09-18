@@ -151,19 +151,7 @@ void InvincibleStars_Create(void *data)
     }
 }
 
-void InvincibleStars_StageLoad(void)
-{
-    RSDK_THIS(Player);
-
-    switch (self->playerID) {
-        case ID_SONIC: InvincibleStars->aniFrames = RSDK.LoadSpriteAnimation("Global/Invincible.bin", SCOPE_STAGE); break;
-        case ID_TAILS: InvincibleStars->aniFrames = RSDK.LoadSpriteAnimation("Global/InvincibleTails.bin", SCOPE_STAGE); break;
-        case ID_KNUCKLES: InvincibleStars->aniFrames = RSDK.LoadSpriteAnimation("Global/InvincibleKnux.bin", SCOPE_STAGE); break;
-        case ID_MIGHTY: InvincibleStars->aniFrames = RSDK.LoadSpriteAnimation("Global/InvincibleMighty.bin", SCOPE_STAGE); break;
-        case ID_RAY: InvincibleStars->aniFrames = RSDK.LoadSpriteAnimation("Global/InvincibleRay.bin", SCOPE_STAGE); break;
-        case ID_AMY: InvincibleStars->aniFrames = RSDK.LoadSpriteAnimation("Global/InvincibleAmy.bin", SCOPE_STAGE); break;
-    }
-}
+void InvincibleStars_StageLoad(void) { InvincibleStars->aniFrames = RSDK.LoadSpriteAnimation("Global/Invincible.bin", SCOPE_STAGE); }
 
 #if RETRO_INCLUDE_EDITOR
 void InvincibleStars_EditorDraw(void) {}

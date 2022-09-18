@@ -40,7 +40,7 @@ void SuperSparkle_Update(void)
             self->timer = 0;
         }
 
-        if (player->characterID != ID_NONE && !(Zone->timer & 7)) {
+        if (player->characterID == ID_SONIC && !(Zone->timer & 7)) {
             int32 x = player->position.x + RSDK.Rand(-TO_FIXED(12), TO_FIXED(12));
             int32 y = player->position.y + RSDK.Rand(-TO_FIXED(18), TO_FIXED(18));
 

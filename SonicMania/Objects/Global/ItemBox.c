@@ -141,101 +141,6 @@ void ItemBox_Create(void *data)
                 break;
 
             default: self->contentsAnimator.frameID = self->type; break;
-
-            case ITEMBOX_BLUESHIELD:
-                switch (player->characterID) {
-                    case ID_SONIC: self->type = ITEMBOX_BLUESHIELD; break;
-
-                    case ID_TAILS: self->type = ITEMBOX_ORANGESHIELD; break;
-
-                    case ID_KNUCKLES: self->type = ITEMBOX_REDSHIELD; break;
-#if MANIA_USE_PLUS
-                    case ID_MIGHTY: self->type = ITEMBOX_MAROONSHIELD; break;
-
-                    case ID_RAY: self->type = ITEMBOX_YELLOWSHIELD; break;
-
-                    case ID_AMY: self->type = ITEMBOX_PINKSHIELD; break;
-#endif
-                    default: break;
-                }
-                self->contentsAnimator.frameID = self->type;
-                break;
-
-            case ITEMBOX_INVINCIBLE:
-                switch (player->characterID) {
-                    case ID_SONIC: self->type = ITEMBOX_INVINCIBLE; break;
-
-                    case ID_TAILS: self->type = ITEMBOX_TAILSINVINCIBLE; break;
-
-                    case ID_KNUCKLES: self->type = ITEMBOX_KNUXINVINCIBLE; break;
-#if MANIA_USE_PLUS
-                    case ID_MIGHTY: self->type = ITEMBOX_MIGHTYINVINCIBLE; break;
-
-                    case ID_RAY: self->type = ITEMBOX_RAYINVINCIBLE; break;
-
-                    case ID_AMY: self->type = ITEMBOX_AMYINVINCIBLE; break;
-#endif
-                    default: break;
-                }
-                self->contentsAnimator.frameID = self->type;
-                break;
-
-            case ITEMBOX_SNEAKERS:
-                switch (player->characterID) {
-                    case ID_SONIC: self->type = ITEMBOX_SNEAKERS; break;
-
-                    case ID_TAILS: self->type = ITEMBOX_TAILSSNEAKERS; break;
-
-                    case ID_KNUCKLES: self->type = ITEMBOX_KNUXSNEAKERS; break;
-#if MANIA_USE_PLUS
-                    case ID_MIGHTY: self->type = ITEMBOX_MIGHTYSNEAKERS; break;
-
-                    case ID_RAY: self->type = ITEMBOX_RAYSNEAKERS; break;
-
-                    case ID_AMY: self->type = ITEMBOX_AMYSNEAKERS; break;
-#endif
-                    default: break;
-                }
-                self->contentsAnimator.frameID = self->type;
-                break;
-
-            case ITEMBOX_HYPERRING:
-                switch (player->characterID) {
-                    case ID_SONIC: self->type = ITEMBOX_HYPERRING; break;
-
-                    case ID_TAILS: self->type = ITEMBOX_TAILSHYPERRING; break;
-
-                    case ID_KNUCKLES: self->type = ITEMBOX_KNUXHYPERRING; break;
-#if MANIA_USE_PLUS
-                    case ID_MIGHTY: self->type = ITEMBOX_MIGHTYHYPERRING; break;
-
-                    case ID_RAY: self->type = ITEMBOX_RAYHYPERRING; break;
-
-                    case ID_AMY: self->type = ITEMBOX_AMYHYPERRING; break;
-#endif
-                    default: break;
-                }
-                self->contentsAnimator.frameID = self->type;
-                break;
-
-            case ITEMBOX_SUPER:
-                switch (player->characterID) {
-                    case ID_SONIC: self->type = ITEMBOX_SUPER; break;
-
-                    case ID_TAILS: self->type = ITEMBOX_TAILSSUPER; break;
-
-                    case ID_KNUCKLES: self->type = ITEMBOX_KNUXSUPER; break;
-#if MANIA_USE_PLUS
-                    case ID_MIGHTY: self->type = ITEMBOX_MIGHTYSUPER; break;
-
-                    case ID_RAY: self->type = ITEMBOX_RAYSUPER; break;
-
-                    case ID_AMY: self->type = ITEMBOX_AMYSUPER; break;
-#endif
-                    default: break;
-                }
-                self->contentsAnimator.frameID = self->type;
-                break;
         }
     }
 
@@ -310,7 +215,7 @@ void ItemBox_DebugDraw(void)
 {
     RSDK_THIS(ItemBox);
 
-    DebugMode->itemTypeCount = ITEMBOX_ORANGESHIELD;
+    DebugMode->itemTypeCount = ITEMBOX_COUNT;
 
     RSDK.SetSpriteAnimation(ItemBox->aniFrames, 0, &DebugMode->animator, true, 0);
     RSDK.DrawSprite(&DebugMode->animator, NULL, false);
@@ -584,36 +489,6 @@ void ItemBox_GivePowerup(void)
             RSDK.PlaySfx(Shield->sfxBlueShield, false, 255);
             break;
 
-        case ITEMBOX_ORANGESHIELD:
-            player->shield = SHIELD_ORANGE;
-            Player_ApplyShield(player);
-            RSDK.PlaySfx(Shield->sfxBlueShield, false, 255);
-            break;
-
-        case ITEMBOX_REDSHIELD:
-            player->shield = SHIELD_RED;
-            Player_ApplyShield(player);
-            RSDK.PlaySfx(Shield->sfxBlueShield, false, 255);
-            break;
-
-        case ITEMBOX_MAROONSHIELD:
-            player->shield = SHIELD_MAROON;
-            Player_ApplyShield(player);
-            RSDK.PlaySfx(Shield->sfxBlueShield, false, 255);
-            break;
-
-        case ITEMBOX_YELLOWSHIELD:
-            player->shield = SHIELD_YELLOW;
-            Player_ApplyShield(player);
-            RSDK.PlaySfx(Shield->sfxBlueShield, false, 255);
-            break;
-
-        case ITEMBOX_PINKSHIELD:
-            player->shield = SHIELD_PINK;
-            Player_ApplyShield(player);
-            RSDK.PlaySfx(Shield->sfxBlueShield, false, 255);
-            break;
-
         case ITEMBOX_BUBBLESHIELD:
             player->shield = SHIELD_BUBBLE;
             Player_ApplyShield(player);
@@ -667,11 +542,6 @@ void ItemBox_GivePowerup(void)
         case ITEMBOX_EGGMAN: Player_Hurt(player, self); break;
 
         case ITEMBOX_HYPERRING:
-        case ITEMBOX_TAILSHYPERRING:
-        case ITEMBOX_KNUXHYPERRING:
-        case ITEMBOX_MIGHTYHYPERRING:
-        case ITEMBOX_RAYHYPERRING:
-        case ITEMBOX_AMYHYPERRING:
             RSDK.PlaySfx(ItemBox->sfxHyperRing, false, 255);
             player->hyperRing = true;
             break;
