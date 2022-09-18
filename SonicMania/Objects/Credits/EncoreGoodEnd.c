@@ -48,7 +48,7 @@ void EncoreGoodEnd_Create(void *data)
 
         SceneInfo->timeEnabled = false;
         EncoreGoodEnd->unused1 = 0;
-        Player->playerCount    = 4;
+        Player->playerCount    = 5;
 
         EncoreGoodEnd_SetupDecorations();
     }
@@ -99,6 +99,11 @@ void EncoreGoodEnd_SetupPlayer(int32 playerID)
             EncoreGoodEnd->decorations[E_END_RAY]->visible = false;
             RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_STOOL_STILL, &EncoreGoodEnd->decorations[E_END_STOOLR]->animator, false, 0);
             break;
+
+        case ID_AMY:
+            EncoreGoodEnd->decorations[E_END_AMY]->visible = false;
+            EncoreGoodEnd->decorations[E_END_GLASSA]->visible = false;
+            break;
     }
 }
 
@@ -132,6 +137,7 @@ void EncoreGoodEnd_StatePlayer_MoveToPos(void)
             case ID_KNUCKLES:
             case ID_MIGHTY:
             case ID_RAY:
+            case ID_AMY:
                 self->jumpPress = true;
                 Player_State_Ground();
                 self->jumpPress       = false;
@@ -199,6 +205,16 @@ void EncoreGoodEnd_StatePlayer_EndingIdle(void)
                                             true, 0);
                     RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_STOOL, &EncoreGoodEnd->decorations[E_END_STOOLR]->animator, true, 0);
                     self->state = Player_State_Static;
+                    break;
+
+                case ID_AMY:
+                    RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_AMYSITDOWN,
+                                            &EncoreGoodEnd->decorations[playerID + E_END_SONIC]->animator, true, 0);
+                    EncoreGoodEnd->decorations[E_END_GLASSA]->visible = true;
+                    RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_AMYSITDOWNG, &EncoreGoodEnd->decorations[E_END_GLASSA]->animator,
+                                            true, 0);
+                    EncoreGoodEnd->decorations[E_END_GLASSA]->animator.speed = 0;
+                    self->state                                              = Player_State_Static;
                     break;
             }
         }
@@ -404,12 +420,16 @@ bool32 EncoreGoodEnd_Cutscene_ClinkGlasses(EntityCutsceneSeq *host)
         RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_KNUXCLINKG, &EncoreGoodEnd->decorations[E_END_GLASSK]->animator, true, 0);
         RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_MIGHTYCLINK, &EncoreGoodEnd->decorations[E_END_MIGHTY]->animator, true, 0);
         RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_MIGHTYCLINKG, &EncoreGoodEnd->decorations[E_END_GLASSM]->animator, true, 0);
+        RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_AMYCLINK, &EncoreGoodEnd->decorations[E_END_AMY]->animator, true, 0);
+        RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_AMYCLINKG, &EncoreGoodEnd->decorations[E_END_GLASSA]->animator, true, 0);
     }
     else if (host->timer == 120) {
         RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_KNUXBREATHE, &EncoreGoodEnd->decorations[E_END_KNUX]->animator, true, 0);
         RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_KNUXSITDOWNG, &EncoreGoodEnd->decorations[E_END_GLASSK]->animator, true, 0);
         RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_MIGHTYBREATHE, &EncoreGoodEnd->decorations[E_END_MIGHTY]->animator, true, 0);
         RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_MIGHTYSITDOWNG, &EncoreGoodEnd->decorations[E_END_GLASSM]->animator, true, 0);
+        RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_AMYBREATHE, &EncoreGoodEnd->decorations[E_END_AMY]->animator, true, 0);
+        RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_AMYSITDOWNG, &EncoreGoodEnd->decorations[E_END_GLASSA]->animator, true, 0);
     }
     else if (host->timer == 180) {
         EncoreGoodEnd->decorations[E_END_KING]->velocity.y = -0x60000;
@@ -438,6 +458,7 @@ bool32 EncoreGoodEnd_Cutscene_KingAppear(EntityCutsceneSeq *host)
 
             EncoreGoodEnd->decorations[E_END_RAY]->direction = FLIP_NONE;
             RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_RAYSHOCKED, &EncoreGoodEnd->decorations[E_END_RAY]->animator, true, 0);
+            RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_AMYSHOCKED, &EncoreGoodEnd->decorations[E_END_AMY]->animator, true, 0);
             RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_STOOL_STILL, &EncoreGoodEnd->decorations[E_END_STOOLT]->animator, false, 0);
             RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_STOOL_STILL, &EncoreGoodEnd->decorations[E_END_STOOLR]->animator, false, 0);
             RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_KNUXICECREAMSHOCK, &EncoreGoodEnd->decorations[E_END_GLASSK]->animator, true,
@@ -452,6 +473,12 @@ bool32 EncoreGoodEnd_Cutscene_KingAppear(EntityCutsceneSeq *host)
             EncoreGoodEnd->decorations[E_END_GLASSM]->drawFX |= FX_SCALE;
             EncoreGoodEnd->decorations[E_END_GLASSM]->position.x -= 0x80000;
             EncoreGoodEnd->decorations[E_END_GLASSM]->rotation = 32;
+
+            RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_AMYICECREAMSHOCK, &EncoreGoodEnd->decorations[E_END_GLASSA]->animator, true,
+                                    0);
+            EncoreGoodEnd->decorations[E_END_GLASSA]->drawFX |= FX_SCALE;
+            EncoreGoodEnd->decorations[E_END_GLASSA]->position.x -= 0x80000;
+            EncoreGoodEnd->decorations[E_END_GLASSA]->rotation = 32;
 
             foreach_all(UICreditsText, label)
             {
@@ -545,6 +572,12 @@ void EncoreGoodEnd_EditorLoad(void)
     RSDK_ENUM_VAR("Mighty Cream Shock", E_END_DECOR_MIGHTYICECREAMSHOCK);
     RSDK_ENUM_VAR("Letterbox 1", E_END_DECOR_LETTERBOX1);
     RSDK_ENUM_VAR("Letterbox 2", E_END_DECOR_LETTERBOX2);
+    RSDK_ENUM_VAR("Amy Breathe", E_END_DECOR_AMYBREATHE);
+    RSDK_ENUM_VAR("Amy Clink", E_END_DECOR_AMYCLINK);
+    RSDK_ENUM_VAR("Amy Clink (Glass)", E_END_DECOR_AMYCLINKG);
+    RSDK_ENUM_VAR("Amy Sit Down", E_END_DECOR_AMYSITDOWN);
+    RSDK_ENUM_VAR("Amy Sit Down (Glass)", E_END_DECOR_AMYSITDOWNG);
+    RSDK_ENUM_VAR("Amy Shocked", E_END_DECOR_AMYSHOCKED);
 }
 #endif
 

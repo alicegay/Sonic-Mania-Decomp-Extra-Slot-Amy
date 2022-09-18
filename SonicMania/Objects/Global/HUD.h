@@ -67,6 +67,7 @@ struct EntityHUD {
     int32 ringFlashFrame;
     bool32 enableTimeFlash;
     bool32 enableRingFlash;
+    bool32 enableRingFlash_ERZ;
     Animator hudElementsAnimator;
     Animator numbersAnimator;
     Animator hyperNumbersAnimator;

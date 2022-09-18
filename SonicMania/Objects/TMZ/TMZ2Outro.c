@@ -621,6 +621,11 @@ bool32 TMZ2Outro_Cutscene_TeamEscape(EntityCutsceneSeq *host)
         EntitySuperSparkle *sparkle = RSDK_GET_ENTITY(Player->playerCount, SuperSparkle);
         RSDK.ResetEntity(sparkle, SuperSparkle->classID, player1);
 
+        Player_TryTransform(player2, 0xFF);
+        Player_TryTransform(player3, 0xFF);
+        Player_TryTransform(player4, 0xFF);
+        Player_TryTransform(player5, 0xFF);
+
         Player->playerCount = 6;
         int32 offsetX       = 0;
         for (int32 i = 0; i < Player->playerCount; ++i) {

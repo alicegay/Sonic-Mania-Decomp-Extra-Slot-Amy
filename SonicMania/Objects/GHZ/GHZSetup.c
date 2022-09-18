@@ -100,18 +100,18 @@ void GHZSetup_StageLoad(void)
         RSDK.CopyPalette(0, 128, 2, 128, 80);
         RSDK.RotatePalette(2, 181, 184, true);
         RSDK.RotatePalette(2, 197, 200, true);
+    }
 
-        if (Water) {
-            foreach_all(Water, water)
-            {
-                water->r = 0xA0;
-                water->g = 0xA0;
-                water->b = 0xE0;
-            }
+    if (Water) {
+        foreach_all(Water, water)
+        {
+            water->r = 0xA0;
+            water->g = 0xA0;
+            water->b = 0xE0;
         }
     }
-#endif
 }
+#endif
 
 void GHZSetup_SetupAct1BG(void)
 {

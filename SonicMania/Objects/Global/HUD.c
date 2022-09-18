@@ -276,26 +276,43 @@ void HUD_Draw(void)
     // Draw Life Icon (aka the Leader Icon if in encore mode)
     drawPos.x = lifePos.x;
     drawPos.y = lifePos.y;
-#if MANIA_USE_PLUS
     int32 lives                    = self->lives[player->playerID];
     self->lifeIconAnimator.frameID = HUD_CharacterIndexFromID(player->characterID);
 
     if (self->lifeIconAnimator.frameID < 0) {
-        self->lifeIconAnimator.frameID = self->lifeFrameIDs[player->playerID];
+        if (player->superState == SUPERSTATE_SUPER) {
+            self->lifeIconAnimator.frameID = self->lifeFrameIDs[player->playerID];
+        }
+        else
+            self->lifeIconAnimator.frameID = self->lifeFrameIDs[player->playerID];
         lives--;
     }
     else {
         self->lifeFrameIDs[player->playerID] = self->lifeIconAnimator.frameID;
         self->lives[player->playerID]        = player->lives;
     }
-#else
+
     switch (player->characterID) {
         default:
-        case ID_SONIC: self->lifeIconAnimator.frameID = 0; break;
-        case ID_TAILS: self->lifeIconAnimator.frameID = 1; break;
-        case ID_KNUCKLES: self->lifeIconAnimator.frameID = 2; break;
+        case ID_SONIC:
+                self->lifeIconAnimator.frameID = 0;
+            break;
+        case ID_TAILS:
+                self->lifeIconAnimator.frameID = 1;
+            break;
+        case ID_KNUCKLES:
+                self->lifeIconAnimator.frameID = 2;
+            break;
+        case ID_MIGHTY:
+                self->lifeIconAnimator.frameID = 3;
+            break;
+        case ID_RAY:
+                self->lifeIconAnimator.frameID = 4;
+            break;
+        case ID_AMY:
+                self->lifeIconAnimator.frameID = 5;
+            break;
     }
-#endif
     RSDK.DrawSprite(&self->lifeIconAnimator, &drawPos, true);
 
 #if MANIA_USE_PLUS
@@ -310,7 +327,7 @@ void HUD_Draw(void)
         if (sidekick->classID) {
             // Draw Buddy Icon
             self->lifeIconAnimator.frameID = HUD_CharacterIndexFromID(sidekick->characterID);
-            if (self->lifeIconAnimator.frameID >= 0 && !(HUD->stockFlashTimers[0] & 4)) {
+            if (self->lifeIconAnimator.frameID >= 0 && !(HUD->stockFlashTimers[0] & 5)) {
                 if ((sidekick->state != Player_State_Death && sidekick->state != Player_State_Drown && sidekick->state != Player_State_EncoreRespawn)
                     || !sidekick->abilityValues[0]) {
                     RSDK.DrawSprite(&self->lifeIconAnimator, &drawPos, true);
@@ -320,9 +337,9 @@ void HUD_Draw(void)
             // Draw Stock Icons
             drawPos.x += TO_FIXED(20);
             RSDK.SetSpriteAnimation(HUD->aniFrames, 12, &self->lifeIconAnimator, true, 0);
-            for (int32 i = 1; i < 4; ++i) {
+            for (int32 i = 1; i < 5; ++i) {
                 self->lifeIconAnimator.frameID = HUD_CharacterIndexFromID(GET_STOCK_ID(i));
-                if (self->lifeIconAnimator.frameID >= 0 && !(HUD->stockFlashTimers[i] & 4))
+                if (self->lifeIconAnimator.frameID >= 0 && !(HUD->stockFlashTimers[i] & 5))
                     RSDK.DrawSprite(&self->lifeIconAnimator, &drawPos, true);
 
                 drawPos.x += TO_FIXED(16);
@@ -420,6 +437,7 @@ void HUD_Draw(void)
 void HUD_Create(void *data)
 {
     RSDK_THIS(HUD);
+    EntityPlayer *player = RSDK_GET_ENTITY(SLOT_PLAYER1, Player);
 
     if (!SceneInfo->inEditor) {
 #if MANIA_USE_PLUS
@@ -454,11 +472,29 @@ void HUD_Create(void *data)
             self->vsLifePos[i].y  = self->lifePos.y;
         }
 #endif
-
         RSDK.SetSpriteAnimation(HUD->aniFrames, 0, &self->hudElementsAnimator, true, 0);
         RSDK.SetSpriteAnimation(HUD->aniFrames, 1, &self->numbersAnimator, true, 0);
-        RSDK.SetSpriteAnimation(HUD->aniFrames, 9, &self->hyperNumbersAnimator, true, 0);
         RSDK.SetSpriteAnimation(HUD->aniFrames, 2, &self->lifeIconAnimator, true, 0);
+
+        if (player->characterID == ID_SONIC) {
+            RSDK.SetSpriteAnimation(HUD->aniFrames, 9, &self->hyperNumbersAnimator, true, 0);
+        }
+        if (player->characterID == ID_TAILS) {
+            RSDK.SetSpriteAnimation(HUD->aniFrames, 14, &self->hyperNumbersAnimator, true, 0);
+        }
+        if (player->characterID == ID_KNUCKLES) {
+            RSDK.SetSpriteAnimation(HUD->aniFrames, 15, &self->hyperNumbersAnimator, true, 0);
+        }
+        if (player->characterID == ID_MIGHTY) {
+            RSDK.SetSpriteAnimation(HUD->aniFrames, 16, &self->hyperNumbersAnimator, true, 0);
+        }
+        if (player->characterID == ID_RAY) {
+            RSDK.SetSpriteAnimation(HUD->aniFrames, 17, &self->hyperNumbersAnimator, true, 0);
+        }
+        if (player->characterID == ID_AMY) {
+            RSDK.SetSpriteAnimation(HUD->aniFrames, 18, &self->hyperNumbersAnimator, true, 0);
+        }
+
 #if MANIA_USE_PLUS
         RSDK.SetSpriteAnimation(HUD->aniFrames, globals->gameMode == MODE_ENCORE ? 13 : 8, &self->playerIDAnimator, true, 0);
         RSDK.SetSpriteAnimation(HUD->aniFrames, 10, &self->thumbsUpIconAnimator, true, 2);
@@ -566,6 +602,7 @@ void HUD_DrawNumbersHyperRing(Vector2 *drawPos, int32 value)
             mult2 *= 10;
         }
     }
+
 
     self->hyperNumbersAnimator.frameID = 10;
     drawPos->x -= TO_FIXED(4);

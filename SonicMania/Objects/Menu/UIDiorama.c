@@ -108,6 +108,7 @@ void UIDiorama_StageLoad(void)
     UIDiorama->knuxFramesHCZ   = RSDK.LoadSpriteAnimation("Players/KnuxCutsceneHPZ.bin", SCOPE_STAGE);
     UIDiorama->mightyFrames    = RSDK.LoadSpriteAnimation("Players/Mighty.bin", SCOPE_STAGE);
     UIDiorama->rayFrames       = RSDK.LoadSpriteAnimation("Players/Ray.bin", SCOPE_STAGE);
+    UIDiorama->amyFrames       = RSDK.LoadSpriteAnimation("Players/Amy.bin", SCOPE_STAGE);
     UIDiorama->ringFrames      = RSDK.LoadSpriteAnimation("Global/Ring.bin", SCOPE_STAGE);
     UIDiorama->speedGateFrames = RSDK.LoadSpriteAnimation("Global/SpeedGate.bin", SCOPE_STAGE);
     UIDiorama->bssSonicFrames  = RSDK.LoadSpriteAnimation("SpecialBS/Sonic.bin", SCOPE_STAGE);
@@ -426,6 +427,9 @@ void UIDiorama_State_Competition(void)
 
         RSDK.SetSpriteAnimation(UIDiorama->mightyFrames, ANI_LOOK_UP, &info->mightyAnimator, true, 5);
         self->needsSetup = false;
+
+        RSDK.SetSpriteAnimation(UIDiorama->amyFrames, ANI_BALANCE_1, &info->amyAnimator, true, 0);
+        self->needsSetup = false;
     }
     else {
         info->scrollPos[0] += 0x40;
@@ -460,14 +464,18 @@ void UIDiorama_State_Competition(void)
         info->rayPos.y += RSDK.Sin256(info->rayAngle) << 10;
         info->rayAngle = (info->rayAngle + 1) & 0xFF;
 
-        info->mightyPos.x = info->platformPos.x + 0x100000;
+        info->mightyPos.x = info->platformPos.x + 0x094500;
         info->mightyPos.y = info->platformPos.y - 0x180000;
+
+        info->amyPos.x = info->mightyPos.x + 0x167500;
+        info->amyPos.y = info->platformPos.y - 0x180000;
 
         RSDK.ProcessAnimation(&info->platformAnimator);
         RSDK.ProcessAnimation(&info->ringAnimator);
         RSDK.ProcessAnimation(&info->tailsAnimator);
         RSDK.ProcessAnimation(&info->knuxAnimator);
         RSDK.ProcessAnimation(&info->rayAnimator);
+        RSDK.ProcessAnimation(&info->amyAnimator);
     }
 }
 
@@ -864,10 +872,10 @@ void UIDiorama_Draw_Competition(void)
     }
     else {
         self->inkEffect   = INK_NONE;
-        int32 playerCount = API.CheckDLC(DLC_PLUS) ? 4 : 2;
+        int32 playerCount = API.CheckDLC(DLC_PLUS) ? 5 : 2;
 
-        Vector2 *playerPos[]        = { &info->tailsPos, &info->knuxPos, &info->rayPos, &info->mightyPos };
-        Animator *playerAnimators[] = { &info->tailsAnimator, &info->knuxAnimator, &info->rayAnimator, &info->mightyAnimator };
+        Vector2 *playerPos[]        = { &info->tailsPos, &info->knuxPos, &info->rayPos, &info->mightyPos, &info->amyPos };
+        Animator *playerAnimators[] = { &info->tailsAnimator, &info->knuxAnimator, &info->rayAnimator, &info->mightyAnimator, &info->amyAnimator };
 
         for (int32 i = 0; i < playerCount; ++i) {
             RSDK.DrawSprite(playerAnimators[i], playerPos[i], false);

@@ -104,6 +104,7 @@ void ItemBox_Create(void *data)
 #if MANIA_USE_PLUS
             case ITEMBOX_1UP_MIGHTY:
             case ITEMBOX_1UP_RAY:
+            case ITEMBOX_1UP_AMY:
 #endif
                 if (globals->gameMode == MODE_TIMEATTACK) {
                     self->type = ITEMBOX_RING;
@@ -121,6 +122,7 @@ void ItemBox_Create(void *data)
 #if MANIA_USE_PLUS
                         case ID_MIGHTY: self->type = ITEMBOX_1UP_MIGHTY; break;
                         case ID_RAY: self->type = ITEMBOX_1UP_RAY; break;
+                        case ID_AMY: self->type = ITEMBOX_1UP_AMY; break;
 #endif
                         default: break;
                     }
@@ -139,6 +141,101 @@ void ItemBox_Create(void *data)
                 break;
 
             default: self->contentsAnimator.frameID = self->type; break;
+
+            case ITEMBOX_BLUESHIELD:
+                switch (player->characterID) {
+                    case ID_SONIC: self->type = ITEMBOX_BLUESHIELD; break;
+
+                    case ID_TAILS: self->type = ITEMBOX_ORANGESHIELD; break;
+
+                    case ID_KNUCKLES: self->type = ITEMBOX_REDSHIELD; break;
+#if MANIA_USE_PLUS
+                    case ID_MIGHTY: self->type = ITEMBOX_MAROONSHIELD; break;
+
+                    case ID_RAY: self->type = ITEMBOX_YELLOWSHIELD; break;
+
+                    case ID_AMY: self->type = ITEMBOX_PINKSHIELD; break;
+#endif
+                    default: break;
+                }
+                self->contentsAnimator.frameID = self->type;
+                break;
+
+            case ITEMBOX_INVINCIBLE:
+                switch (player->characterID) {
+                    case ID_SONIC: self->type = ITEMBOX_INVINCIBLE; break;
+
+                    case ID_TAILS: self->type = ITEMBOX_TAILSINVINCIBLE; break;
+
+                    case ID_KNUCKLES: self->type = ITEMBOX_KNUXINVINCIBLE; break;
+#if MANIA_USE_PLUS
+                    case ID_MIGHTY: self->type = ITEMBOX_MIGHTYINVINCIBLE; break;
+
+                    case ID_RAY: self->type = ITEMBOX_RAYINVINCIBLE; break;
+
+                    case ID_AMY: self->type = ITEMBOX_AMYINVINCIBLE; break;
+#endif
+                    default: break;
+                }
+                self->contentsAnimator.frameID = self->type;
+                break;
+
+            case ITEMBOX_SNEAKERS:
+                switch (player->characterID) {
+                    case ID_SONIC: self->type = ITEMBOX_SNEAKERS; break;
+
+                    case ID_TAILS: self->type = ITEMBOX_TAILSSNEAKERS; break;
+
+                    case ID_KNUCKLES: self->type = ITEMBOX_KNUXSNEAKERS; break;
+#if MANIA_USE_PLUS
+                    case ID_MIGHTY: self->type = ITEMBOX_MIGHTYSNEAKERS; break;
+
+                    case ID_RAY: self->type = ITEMBOX_RAYSNEAKERS; break;
+
+                    case ID_AMY: self->type = ITEMBOX_AMYSNEAKERS; break;
+#endif
+                    default: break;
+                }
+                self->contentsAnimator.frameID = self->type;
+                break;
+
+            case ITEMBOX_HYPERRING:
+                switch (player->characterID) {
+                    case ID_SONIC: self->type = ITEMBOX_HYPERRING; break;
+
+                    case ID_TAILS: self->type = ITEMBOX_TAILSHYPERRING; break;
+
+                    case ID_KNUCKLES: self->type = ITEMBOX_KNUXHYPERRING; break;
+#if MANIA_USE_PLUS
+                    case ID_MIGHTY: self->type = ITEMBOX_MIGHTYHYPERRING; break;
+
+                    case ID_RAY: self->type = ITEMBOX_RAYHYPERRING; break;
+
+                    case ID_AMY: self->type = ITEMBOX_AMYHYPERRING; break;
+#endif
+                    default: break;
+                }
+                self->contentsAnimator.frameID = self->type;
+                break;
+
+            case ITEMBOX_SUPER:
+                switch (player->characterID) {
+                    case ID_SONIC: self->type = ITEMBOX_SUPER; break;
+
+                    case ID_TAILS: self->type = ITEMBOX_TAILSSUPER; break;
+
+                    case ID_KNUCKLES: self->type = ITEMBOX_KNUXSUPER; break;
+#if MANIA_USE_PLUS
+                    case ID_MIGHTY: self->type = ITEMBOX_MIGHTYSUPER; break;
+
+                    case ID_RAY: self->type = ITEMBOX_RAYSUPER; break;
+
+                    case ID_AMY: self->type = ITEMBOX_AMYSUPER; break;
+#endif
+                    default: break;
+                }
+                self->contentsAnimator.frameID = self->type;
+                break;
         }
     }
 
@@ -213,7 +310,7 @@ void ItemBox_DebugDraw(void)
 {
     RSDK_THIS(ItemBox);
 
-    DebugMode->itemTypeCount = ITEMBOX_COUNT;
+    DebugMode->itemTypeCount = ITEMBOX_ORANGESHIELD;
 
     RSDK.SetSpriteAnimation(ItemBox->aniFrames, 0, &DebugMode->animator, true, 0);
     RSDK.DrawSprite(&DebugMode->animator, NULL, false);
@@ -228,8 +325,9 @@ void ItemBox_DebugDraw(void)
 void ItemBox_DebugSpawn(void)
 {
     RSDK_THIS(DebugMode);
-
     EntityItemBox *itemBox            = CREATE_ENTITY(ItemBox, NULL, self->position.x, self->position.y);
+
+    switch (player->characterID)
     itemBox->type                     = DebugMode->itemType;
     itemBox->contentsAnimator.frameID = DebugMode->itemType;
 }
@@ -423,6 +521,7 @@ void ItemBox_CheckHit(void)
                 case ID_KNUCKLES: attacking |= anim == ANI_GLIDE || anim == ANI_GLIDE_SLIDE; break;
 #if MANIA_USE_PLUS
                 case ID_MIGHTY: attacking |= anim == ANI_HAMMERDROP || player->jumpAbilityState > 1; break;
+                case ID_AMY: attacking |= anim == 49 || anim == 52; break;
 #endif
             }
 
@@ -486,6 +585,36 @@ void ItemBox_GivePowerup(void)
             RSDK.PlaySfx(Shield->sfxBlueShield, false, 255);
             break;
 
+        case ITEMBOX_ORANGESHIELD:
+            player->shield = SHIELD_ORANGE;
+            Player_ApplyShield(player);
+            RSDK.PlaySfx(Shield->sfxBlueShield, false, 255);
+            break;
+
+        case ITEMBOX_REDSHIELD:
+            player->shield = SHIELD_RED;
+            Player_ApplyShield(player);
+            RSDK.PlaySfx(Shield->sfxBlueShield, false, 255);
+            break;
+
+        case ITEMBOX_MAROONSHIELD:
+            player->shield = SHIELD_MAROON;
+            Player_ApplyShield(player);
+            RSDK.PlaySfx(Shield->sfxBlueShield, false, 255);
+            break;
+
+        case ITEMBOX_YELLOWSHIELD:
+            player->shield = SHIELD_YELLOW;
+            Player_ApplyShield(player);
+            RSDK.PlaySfx(Shield->sfxBlueShield, false, 255);
+            break;
+
+        case ITEMBOX_PINKSHIELD:
+            player->shield = SHIELD_PINK;
+            Player_ApplyShield(player);
+            RSDK.PlaySfx(Shield->sfxBlueShield, false, 255);
+            break;
+
         case ITEMBOX_BUBBLESHIELD:
             player->shield = SHIELD_BUBBLE;
             Player_ApplyShield(player);
@@ -531,6 +660,7 @@ void ItemBox_GivePowerup(void)
 #if MANIA_USE_PLUS
         case ITEMBOX_1UP_MIGHTY:
         case ITEMBOX_1UP_RAY:
+        case ITEMBOX_1UP_AMY:
 #endif
             Player_GiveLife(player);
             break;
@@ -538,6 +668,11 @@ void ItemBox_GivePowerup(void)
         case ITEMBOX_EGGMAN: Player_Hurt(player, self); break;
 
         case ITEMBOX_HYPERRING:
+        case ITEMBOX_TAILSHYPERRING:
+        case ITEMBOX_KNUXHYPERRING:
+        case ITEMBOX_MIGHTYHYPERRING:
+        case ITEMBOX_RAYHYPERRING:
+        case ITEMBOX_AMYHYPERRING:
             RSDK.PlaySfx(ItemBox->sfxHyperRing, false, 255);
             player->hyperRing = true;
             break;
@@ -578,8 +713,8 @@ void ItemBox_GivePowerup(void)
 
 #if MANIA_USE_PLUS
         case ITEMBOX_RANDOM: {
-            uint8 playerIDs[5]    = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
-            uint8 newPlayerIDs[5] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+            uint8 playerIDs[6]    = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+            uint8 newPlayerIDs[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
 
             if (player->animator.animationID == ANI_TRANSFORM) {
                 RSDK.PlaySfx(Player->sfxSwapFail, false, 255);
@@ -595,7 +730,7 @@ void ItemBox_GivePowerup(void)
                     RSDK.PlaySfx(Player->sfxSwapFail, false, 255);
                 }
                 else {
-                    for (int32 i = 1; i < 4; ++i) {
+                    for (int32 i = 1; i < 5; ++i) {
                         if (GET_STOCK_ID(i)) {
                             playerIDs[1 + i] = HUD_CharacterIndexFromID(GET_STOCK_ID(i));
                         }
@@ -610,7 +745,7 @@ void ItemBox_GivePowerup(void)
                         if (playerIDs[p] == 0xFF)
                             break;
 
-                        newPlayerIDs[p] = RSDK.Rand(0, 5);
+                        newPlayerIDs[p] = RSDK.Rand(0, 6);
                         if ((1 << newPlayerIDs[p]) & globals->characterFlags) {
                             while (true) {
                                 if (!((1 << newPlayerIDs[p]) & tempStock)) {
@@ -618,7 +753,7 @@ void ItemBox_GivePowerup(void)
                                         tempStock |= 1 << newPlayerIDs[p];
                                         break;
                                     }
-                                    else if (p == 4 || playerIDs[p + 1] == 0xFF) {
+                                    else if (p == 5 || playerIDs[p + 1] == 0xFF) {
                                         int32 slot         = RSDK.Rand(0, p);
                                         int32 id           = newPlayerIDs[slot];
                                         newPlayerIDs[slot] = newPlayerIDs[p];
@@ -628,7 +763,7 @@ void ItemBox_GivePowerup(void)
                                         break;
                                     }
                                     else {
-                                        newPlayerIDs[p] = RSDK.Rand(0, 5);
+                                        newPlayerIDs[p] = RSDK.Rand(0, 6);
                                         if (!((1 << newPlayerIDs[p]) & globals->characterFlags)) {
                                             inc = false;
                                             break;
@@ -636,7 +771,7 @@ void ItemBox_GivePowerup(void)
                                     }
                                 }
                                 else {
-                                    newPlayerIDs[p] = RSDK.Rand(0, 5);
+                                    newPlayerIDs[p] = RSDK.Rand(0, 6);
                                     if (!((1 << newPlayerIDs[p]) & globals->characterFlags)) {
                                         inc = false;
                                         break;
@@ -686,7 +821,7 @@ void ItemBox_GivePowerup(void)
                         globals->characterFlags |= 1 << self->contentsAnimator.frameID;
                         EntityPlayer *player2 = RSDK_GET_ENTITY(SLOT_PLAYER2, Player);
                         if (player2->classID) {
-                            for (int32 s = 0; s < 3; ++s) {
+                            for (int32 s = 0; s < 5; ++s) {
                                 int32 id = HUD_CharacterIndexFromID(GET_STOCK_ID(1 + s));
                                 if (id < 0) {
                                     globals->stock |= (1 << self->contentsAnimator.frameID) << (8 * s);
@@ -764,6 +899,7 @@ void ItemBox_GivePowerup(void)
                         case 2: Player_ChangeCharacter(player, ID_KNUCKLES); break;
                         case 3: Player_ChangeCharacter(player, ID_MIGHTY); break;
                         case 4: Player_ChangeCharacter(player, ID_RAY); break;
+                        case 5: Player_ChangeCharacter(player, ID_AMY); break;
                         default: break;
                     }
 
@@ -858,13 +994,17 @@ void ItemBox_Break(EntityItemBox *itemBox, EntityPlayer *player)
 
                         switch (player->characterID) {
                             case ID_SONIC: itemBox->type = ITEMBOX_1UP_SONIC; break;
+
                             case ID_TAILS: itemBox->type = ITEMBOX_1UP_TAILS; break;
+
                             case ID_KNUCKLES: itemBox->type = ITEMBOX_1UP_KNUX; break;
 #if MANIA_USE_PLUS
                             case ID_MIGHTY: itemBox->type = ITEMBOX_1UP_MIGHTY; break;
-                            case ID_RAY: itemBox->type = ITEMBOX_1UP_RAY;
+
+                            case ID_RAY: itemBox->type = ITEMBOX_1UP_RAY; break;
+
+                            case ID_AMY: itemBox->type = ITEMBOX_1UP_AMY; break;
 #endif
-                                break;
                             default: break;
                         }
                         itemBox->contentsAnimator.frameID = itemBox->type;
@@ -875,6 +1015,7 @@ void ItemBox_Break(EntityItemBox *itemBox, EntityPlayer *player)
 #if MANIA_USE_PLUS
                     case ITEMBOX_1UP_MIGHTY:
                     case ITEMBOX_1UP_RAY:
+                    case ITEMBOX_1UP_AMY:
 #endif
                         continue;
 
@@ -1233,6 +1374,7 @@ void ItemBox_EditorLoad(void)
     RSDK_ENUM_VAR("1UP Mighty", ITEMBOX_1UP_MIGHTY);
     RSDK_ENUM_VAR("1UP Ray", ITEMBOX_1UP_RAY);
     RSDK_ENUM_VAR("Change", ITEMBOX_STOCK);
+    RSDK_ENUM_VAR("1UP Amy", ITEMBOX_1UP_AMY);
 #endif
 
     RSDK_ACTIVE_VAR(ItemBox, planeFilter);

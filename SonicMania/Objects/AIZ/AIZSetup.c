@@ -316,6 +316,7 @@ void AIZSetup_GetCutsceneSetupPtr(void)
 #if MANIA_USE_PLUS
         case ID_MIGHTY:
         case ID_RAY:
+        case ID_AMY:
 #endif
             AIZSetup_CutsceneST_Setup();
             break;

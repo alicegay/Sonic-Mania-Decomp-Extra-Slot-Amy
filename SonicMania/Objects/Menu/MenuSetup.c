@@ -883,7 +883,7 @@ void MenuSetup_HandleMenuReturn(void)
         if (control == MenuSetup->secrets) {
             EntityUIControl *control = MenuSetup->secrets;
 
-            UIButton_SetChoiceSelection(control->buttons[0], (globals->medalMods & MEDAL_ANDKNUCKLES) != 0);
+            UIButton_SetChoiceSelection(control->buttons[0], (globals->medalMods & MEDAL_AMYASSIST) != 0);
 
             int32 medals = globals->medalMods;
             if (medals & MEDAL_NODROPDASH) {
@@ -895,7 +895,7 @@ void MenuSetup_HandleMenuReturn(void)
             else
                 UIButton_SetChoiceSelection(control->buttons[1], 0);
 
-            UIButton_SetChoiceSelection(control->buttons[2], (globals->medalMods & MEDAL_ANDKNUCKLES) != 0);
+            UIButton_SetChoiceSelection(control->buttons[2], (globals->medalMods & MEDAL_AMYASSIST) != 0);
         }
 
         if (control == MenuSetup->video) {
@@ -1125,7 +1125,7 @@ int32 MenuSetup_GetMedalMods(void)
     }
 
     if (control->buttons[2]->selection == 1)
-        mods |= MEDAL_ANDKNUCKLES;
+        mods |= MEDAL_AMYASSIST;
 
     return mods;
 }
@@ -1217,7 +1217,7 @@ void MenuSetup_SaveSlot_ActionCB(void)
         default: break;
     }
 
-    if ((globals->medalMods & MEDAL_ANDKNUCKLES))
+    if ((globals->medalMods & MEDAL_AMYASSIST))
         globals->playerID |= ID_KNUCKLES_ASSIST;
     else if (!self->frameID)
         globals->playerID |= ID_TAILS_ASSIST;

@@ -464,6 +464,7 @@ void UIVsCharSelector_State_Selected(void)
 #if MANIA_USE_PLUS
                 case UICHARBUTTON_MIGHTY: RSDK.PlaySfx(Announcer->sfxMighty, false, 255); break;
                 case UICHARBUTTON_RAY: RSDK.PlaySfx(Announcer->sfxRay, false, 255); break;
+                case UICHARBUTTON_AMY: RSDK.PlaySfx(Announcer->sfxAmy, false, 255); break;
 #endif
                 default: break;
             }

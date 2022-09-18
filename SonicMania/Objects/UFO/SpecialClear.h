@@ -23,6 +23,8 @@ typedef enum {
     SC_ANI_EMERALDS,
 #if MANIA_USE_PLUS
     SC_ANI_CONTINUE,
+    SC_ANI_AMY,
+    SC_ANI_TIMESTONES,
 #endif
 } SpecialClearAniIDs;
 

@@ -27,9 +27,10 @@ typedef enum {
 #if MANIA_USE_PLUS
     ID_MIGHTY = 0x08,
     ID_RAY    = 0x10,
+    ID_AMY    = 0x20,
 #endif
     ID_TAILS_ASSIST    = ID_TAILS << 8,
-    ID_KNUCKLES_ASSIST = ID_KNUCKLES << 8, // custom-added, can be used to check if "& knux" is active
+    ID_AMY_ASSIST = ID_AMY << 8, // custom-added, Amy can now be P2
     ID_DEFAULT_PLAYER  = ID_SONIC | ID_TAILS_ASSIST,
 } PlayerIDs;
 
@@ -45,7 +46,7 @@ typedef enum { ITEMS_FIXED, ITEMS_RANDOM, ITEMS_TELEPORT } ItemModes;
 
 typedef enum {
     MEDAL_DEBUGMODE   = 1 << 0,
-    MEDAL_ANDKNUCKLES = 1 << 1,
+    MEDAL_AMYASSIST = 1 << 1,
     MEDAL_PEELOUT     = 1 << 2,
     MEDAL_INSTASHIELD = 1 << 3,
     MEDAL_NODROPDASH  = 1 << 4,
@@ -147,6 +148,7 @@ typedef enum {
     SLOT_CAMERA2 = 61,
     SLOT_CAMERA3 = 62,
     SLOT_CAMERA4 = 63,
+
 } ReservedEntities;
 
 typedef enum {

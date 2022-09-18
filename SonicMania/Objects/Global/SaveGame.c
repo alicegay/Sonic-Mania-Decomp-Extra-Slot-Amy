@@ -90,7 +90,7 @@ void SaveGame_LoadSaveData(void)
 
     if (globals->recallEntities) {
         if (SceneInfo->activeCategory < 3) {
-            for (int32 p = 0; p < 4; ++p) {
+            for (int32 p = 0; p < 5; ++p) {
                 StarPost->playerPositions[p].x = globals->restartPos[(p * 2) + 0];
                 StarPost->playerPositions[p].y = globals->restartPos[(p * 2) + 1];
                 StarPost->playerDirections[p]  = globals->restartDir[p];

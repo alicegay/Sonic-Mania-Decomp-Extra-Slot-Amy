@@ -30,6 +30,7 @@ struct ObjectSizeLaser {
     uint16 mightyFrames;
     uint16 rayFrames;
 #endif
+    uint16 amyFrames;
     uint16 sfxShrink2;
     uint16 sfxGrow2;
 };

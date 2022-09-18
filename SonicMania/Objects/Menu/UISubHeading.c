@@ -179,7 +179,7 @@ void UISubHeading_HandleMenuReturn(int32 slot)
     SaveRAM *saveGame        = (SaveRAM *)SaveGame_GetDataPtr(slot, false);
 
     UIButton_SetChoiceSelection(control->buttons[0], (saveGame->medalMods & MEDAL_NOTIMEOVER) != 0);
-    UIButton_SetChoiceSelection(control->buttons[1], (saveGame->medalMods & MEDAL_ANDKNUCKLES) != 0);
+    UIButton_SetChoiceSelection(control->buttons[1], (saveGame->medalMods & MEDAL_AMYASSIST) != 0);
 
     if (saveGame->medalMods & MEDAL_NODROPDASH) {
         if (saveGame->medalMods & MEDAL_PEELOUT)
@@ -191,7 +191,7 @@ void UISubHeading_HandleMenuReturn(int32 slot)
         UIButton_SetChoiceSelection(control->buttons[2], 0);
     }
 
-    if (saveGame->medalMods & MEDAL_ANDKNUCKLES)
+    if (saveGame->medalMods & MEDAL_AMYASSIST)
         UIButton_SetChoiceSelection(control->buttons[3], 1);
     else
         UIButton_SetChoiceSelection(control->buttons[3], 0);
@@ -218,7 +218,7 @@ int32 UISubHeading_GetMedalMods(void)
     }
 
     if (control->buttons[3]->selection == 1)
-        mods |= MEDAL_ANDKNUCKLES;
+        mods |= MEDAL_AMYASSIST;
 
     return mods;
 }
@@ -383,11 +383,12 @@ void UISubHeading_SaveButton_ActionCB(void)
             case 3: globals->playerID = ID_KNUCKLES; break;
             case 4: globals->playerID = ID_MIGHTY; break;
             case 5: globals->playerID = ID_RAY; break;
+            case 6: globals->playerID = ID_AMY; break;
             default: break;
         }
 
-        if ((globals->medalMods & MEDAL_ANDKNUCKLES))
-            globals->playerID |= ID_KNUCKLES_ASSIST;
+        if ((globals->medalMods & MEDAL_AMYASSIST))
+            globals->playerID |= ID_AMY_ASSIST;
         else if (!self->frameID)
             globals->playerID |= ID_TAILS_ASSIST;
     }

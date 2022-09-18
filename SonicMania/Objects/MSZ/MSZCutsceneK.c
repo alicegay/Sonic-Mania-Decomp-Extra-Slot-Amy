@@ -79,7 +79,7 @@ void MSZCutsceneK_StartCutscene(void)
 void MSZCutsceneK_SetupP2(int32 x, int32 y)
 {
     Player->sonicFrames = RSDK.LoadSpriteAnimation("Players/Sonic.bin", SCOPE_STAGE);
-    Player->superFrames = RSDK.LoadSpriteAnimation("Players/SuperSonic.bin", SCOPE_STAGE);
+    Player->supersonicFrames = RSDK.LoadSpriteAnimation("Players/SuperSonic.bin", SCOPE_STAGE);
 
     RSDK.ResetEntitySlot(SLOT_PLAYER2, Player->classID, NULL);
 

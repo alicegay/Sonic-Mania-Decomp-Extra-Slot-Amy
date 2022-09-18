@@ -295,6 +295,7 @@ uint8 UISaveSlot_GetPlayerIDFromID(uint8 id)
         case 3: return ID_KNUCKLES;
         case 4: return ID_MIGHTY;
         case 5: return ID_RAY;
+        case 6: return ID_AMY;
         default: break;
     }
 
@@ -308,6 +309,7 @@ uint8 UISaveSlot_GetIDFromPlayerID(uint8 playerID)
         case ID_KNUCKLES: return 3;
         case ID_MIGHTY: return 4;
         case ID_RAY: return 5;
+        case ID_AMY: return 6;
         default: break;
     }
 
@@ -332,6 +334,7 @@ void UISaveSlot_DrawPlayerIcon_Encore(uint8 playerID, bool32 isSilhouette, uint8
         case ID_KNUCKLES: animator->frameID = 2; break;
         case ID_MIGHTY: animator->frameID = 3; break;
         case ID_RAY: animator->frameID = 4; break;
+        case ID_AMY: animator->frameID = 5; break;
     }
 
     int32 y = drawY;
@@ -350,6 +353,7 @@ void UISaveSlot_DrawPlayerIcon_Encore(uint8 playerID, bool32 isSilhouette, uint8
         case ID_KNUCKLES: animator->frameID = 2; break;
         case ID_MIGHTY: animator->frameID = 3; break;
         case ID_RAY: animator->frameID = 4; break;
+        case ID_AMY: animator->frameID = 5; break;
     }
 
     y = drawY;
@@ -383,6 +387,7 @@ void UISaveSlot_DrawPlayerIcon_Encore(uint8 playerID, bool32 isSilhouette, uint8
                 case ID_KNUCKLES: animator->frameID = 2; break;
                 case ID_MIGHTY: animator->frameID = 3; break;
                 case ID_RAY: animator->frameID = 4; break;
+                case ID_AMY: animator->frameID = 5; break;
             }
             RSDK.DrawSprite(animator, &drawPos, false);
 
@@ -401,14 +406,14 @@ void UISaveSlot_DrawPlayerIcons(int32 drawX, int32 drawY)
     RSDK.SetSpriteAnimation(UISaveSlot->aniFrames, 2, &self->shadowsAnimator, true, 3);
 
 #if MANIA_USE_PLUS
-    uint8 friendIDs[3];
+    uint8 friendIDs[5];
     int32 playerID    = 0;
     int32 buddyID     = 0;
     int32 friendCount = 0;
 
     if (!self->encoreMode) {
 #endif
-        int32 frames[]                = { 3, 0, 1, 2, 4, 5 };
+        int32 frames[]                = { 3, 0, 1, 2, 4, 5, 6 };
         self->shadowsAnimator.frameID = frames[self->frameID];
         self->playersAnimator.frameID = frames[self->frameID];
 #if MANIA_USE_PLUS
@@ -418,7 +423,7 @@ void UISaveSlot_DrawPlayerIcons(int32 drawX, int32 drawY)
             playerID = self->saveEncorePlayer;
             buddyID  = self->saveEncoreBuddy;
 
-            for (int32 i = 0; i < 3; ++i) {
+            for (int32 i = 0; i < 5; ++i) {
                 friendIDs[i] = 0;
                 if (!self->saveEncoreFriends[i])
                     continue;
@@ -435,6 +440,7 @@ void UISaveSlot_DrawPlayerIcons(int32 drawX, int32 drawY)
                     case ID_KNUCKLES: playerID = 2; break;
                     case ID_MIGHTY: playerID = 4; break;
                     case ID_RAY: playerID = 5; break;
+                    case ID_AMY: playerID = 6; break;
                 }
 
                 self->shadowsAnimator.frameID = playerID;
@@ -451,8 +457,8 @@ void UISaveSlot_DrawPlayerIcons(int32 drawX, int32 drawY)
             }
         }
         else {
-            self->playersAnimator.frameID = 6;
-            self->shadowsAnimator.frameID = 6;
+            self->playersAnimator.frameID = 7;
+            self->shadowsAnimator.frameID = 7;
         }
     }
     else if (self->debugEncoreDraw) {
@@ -461,6 +467,7 @@ void UISaveSlot_DrawPlayerIcons(int32 drawX, int32 drawY)
         friendIDs[0] = UISaveSlot_GetPlayerIDFromID(self->dCharStock1);
         friendIDs[1] = UISaveSlot_GetPlayerIDFromID(self->dCharStock2);
         friendIDs[2] = UISaveSlot_GetPlayerIDFromID(self->dCharStock3);
+        friendIDs[3] = UISaveSlot_GetPlayerIDFromID(self->dCharStock4);
 
         if (friendIDs[0])
             friendCount = 1;
@@ -468,6 +475,8 @@ void UISaveSlot_DrawPlayerIcons(int32 drawX, int32 drawY)
             friendCount = 2;
         if (friendIDs[0] && friendIDs[1] && friendIDs[2])
             friendCount = 3;
+        if (friendIDs[0] && friendIDs[1] && friendIDs[2] && friendIDs[3])
+            friendCount = 4;
 
         if (!buddyID) {
             switch (playerID) {
@@ -477,6 +486,7 @@ void UISaveSlot_DrawPlayerIcons(int32 drawX, int32 drawY)
                 case ID_KNUCKLES: playerID = 2; break;
                 case ID_MIGHTY: playerID = 4; break;
                 case ID_RAY: playerID = 5; break;
+                case ID_AMY: playerID = 6; break;
             }
 
             self->shadowsAnimator.frameID = playerID;
@@ -493,8 +503,8 @@ void UISaveSlot_DrawPlayerIcons(int32 drawX, int32 drawY)
         }
     }
     else {
-        self->playersAnimator.frameID = 6;
-        self->shadowsAnimator.frameID = 6;
+        self->playersAnimator.frameID = 7;
+        self->shadowsAnimator.frameID = 7;
     }
 #endif
 
@@ -534,6 +544,7 @@ void UISaveSlot_DrawPlayerInfo(int32 drawX, int32 drawY)
                 case ID_KNUCKLES: playerID = 2; break;
                 case ID_MIGHTY: playerID = 3; break;
                 case ID_RAY: playerID = 4; break;
+                case ID_AMY: playerID = 5; break;
             }
         }
         else {
@@ -544,12 +555,13 @@ void UISaveSlot_DrawPlayerInfo(int32 drawX, int32 drawY)
                 case ID_KNUCKLES: playerID = 2; break;
                 case ID_MIGHTY: playerID = 3; break;
                 case ID_RAY: playerID = 4; break;
+                case ID_AMY: playerID = 5; break;
             }
         }
     }
     else {
 #endif
-        int32 frames[] = { 0, 0, 1, 2, 3, 4 };
+        int32 frames[] = { 0, 0, 1, 2, 3, 4, 5, 6 };
         playerID       = frames[self->frameID];
 #if MANIA_USE_PLUS
     }
@@ -744,7 +756,7 @@ void UISaveSlot_LoadSaveInfo(void)
             self->saveEncoreBuddy  = (saveRAM->playerID >> 8) & 0xFF;
 
             int32 friends = saveRAM->stock;
-            for (int32 i = 0; i < 3; ++i) {
+            for (int32 i = 0; i < 5; ++i) {
                 self->saveEncoreFriends[i] = ID_NONE;
                 if (!friends)
                     continue;
@@ -990,7 +1002,7 @@ void UISaveSlot_NextCharacter(void)
     int32 player = self->frameID;
 
 #if MANIA_USE_PLUS
-    int32 max = API.CheckDLC(DLC_PLUS) ? 6 : 4;
+    int32 max = API.CheckDLC(DLC_PLUS) ? 7 : 4;
 #else
     int32 max = 4;
 #endif
@@ -1013,9 +1025,9 @@ void UISaveSlot_PrevCharacter(void)
     int32 player = self->frameID;
 
 #if MANIA_USE_PLUS
-    int32 max = API.CheckDLC(DLC_PLUS) ? 6 : 4;
+    int32 max = API.CheckDLC(DLC_PLUS) ? 7 : 5;
 #else
-    int32 max = 4;
+    int32 max = 5;
 #endif
     while (player < 0) player += max;
 
@@ -1037,7 +1049,7 @@ void UISaveSlot_NextZone(void)
     }
     else {
         self->saveZoneID++;
-        if (self->saveZoneID > ZONE_TMZ)
+        if (self->saveZoneID > ZONE_ERZ)
             self->saveZoneID = ZONE_GHZ;
     }
 
@@ -1051,12 +1063,12 @@ void UISaveSlot_PrevZone(void)
     RSDK_THIS(UISaveSlot);
 
     if (self->saveZoneID == NO_SAVE_SLOT) {
-        self->saveZoneID = ZONE_TMZ;
+        self->saveZoneID = ZONE_ERZ;
     }
     else {
         self->saveZoneID--;
         if (self->saveZoneID < ZONE_GHZ)
-            self->saveZoneID = ZONE_TMZ;
+            self->saveZoneID = ZONE_ERZ;
     }
 
     RSDK.PlaySfx(UIWidgets->sfxBleep, false, 255);
@@ -1328,6 +1340,7 @@ void UISaveSlot_EditorLoad(void)
     RSDK_ENUM_VAR("Knuckles", knux);
     RSDK_ENUM_VAR("Mighty", mighty);
     RSDK_ENUM_VAR("Ray", ray);
+    RSDK_ENUM_VAR("Amy", amy);
 
     RSDK_ACTIVE_VAR(UISaveSlot, dCharPartner);
     RSDK_ENUM_VAR("None", ID_NONE);
@@ -1336,6 +1349,7 @@ void UISaveSlot_EditorLoad(void)
     RSDK_ENUM_VAR("Knuckles", knux);
     RSDK_ENUM_VAR("Mighty", mighty);
     RSDK_ENUM_VAR("Ray", ray);
+    RSDK_ENUM_VAR("Amy", amy);
 
     RSDK_ACTIVE_VAR(UISaveSlot, dCharStock1);
     RSDK_ENUM_VAR("None", ID_NONE);
@@ -1344,6 +1358,7 @@ void UISaveSlot_EditorLoad(void)
     RSDK_ENUM_VAR("Knuckles", knux);
     RSDK_ENUM_VAR("Mighty", mighty);
     RSDK_ENUM_VAR("Ray", ray);
+    RSDK_ENUM_VAR("Amy", amy);
 
     RSDK_ACTIVE_VAR(UISaveSlot, dCharStock2);
     RSDK_ENUM_VAR("None", ID_NONE);
@@ -1352,6 +1367,7 @@ void UISaveSlot_EditorLoad(void)
     RSDK_ENUM_VAR("Knuckles", knux);
     RSDK_ENUM_VAR("Mighty", mighty);
     RSDK_ENUM_VAR("Ray", ray);
+    RSDK_ENUM_VAR("Amy", amy);
 
     RSDK_ACTIVE_VAR(UISaveSlot, dCharStock3);
     RSDK_ENUM_VAR("None", ID_NONE);
@@ -1360,6 +1376,16 @@ void UISaveSlot_EditorLoad(void)
     RSDK_ENUM_VAR("Knuckles", knux);
     RSDK_ENUM_VAR("Mighty", mighty);
     RSDK_ENUM_VAR("Ray", ray);
+    RSDK_ENUM_VAR("Amy", amy);
+
+    RSDK_ACTIVE_VAR(UISaveSlot, dCharStock4);
+    RSDK_ENUM_VAR("None", ID_NONE);
+    RSDK_ENUM_VAR("Sonic", sonic);
+    RSDK_ENUM_VAR("Tails", tails);
+    RSDK_ENUM_VAR("Knuckles", knux);
+    RSDK_ENUM_VAR("Mighty", mighty);
+    RSDK_ENUM_VAR("Ray", ray);
+    RSDK_ENUM_VAR("Amy", amy);
 #endif
 }
 #endif
@@ -1377,5 +1403,6 @@ void UISaveSlot_Serialize(void)
     RSDK_EDITABLE_VAR(UISaveSlot, VAR_UINT8, dCharStock1);
     RSDK_EDITABLE_VAR(UISaveSlot, VAR_UINT8, dCharStock2);
     RSDK_EDITABLE_VAR(UISaveSlot, VAR_UINT8, dCharStock3);
+    RSDK_EDITABLE_VAR(UISaveSlot, VAR_UINT8, dCharStock4);
 #endif
 }

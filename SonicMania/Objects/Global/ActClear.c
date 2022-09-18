@@ -340,6 +340,7 @@ void ActClear_Create(void *data)
                     else
                         TimeAttackData_TrackActClear(&stat, Zone_GetZoneID(), Zone->actID, 1, time, player1->rings, player1->score);
                     break;
+                case ID_AMY: TimeAttackData_TrackActClear(&stat, Zone_GetZoneID(), Zone->actID, 6, time, player1->rings, player1->score); break;
             }
             API.TryTrackStat(&stat);
 #else
@@ -424,6 +425,7 @@ void ActClear_Create(void *data)
 #if MANIA_USE_PLUS
             case ID_MIGHTY: RSDK.SetSpriteAnimation(ActClear->aniFrames, 3, &self->playerNameAnimator, true, 3); break;
             case ID_RAY: RSDK.SetSpriteAnimation(ActClear->aniFrames, 3, &self->playerNameAnimator, true, 4); break;
+            case ID_AMY: RSDK.SetSpriteAnimation(ActClear->aniFrames, 3, &self->playerNameAnimator, true, 5); break;
 #endif
         }
         RSDK.SetSpriteAnimation(ActClear->aniFrames, 4, &self->gotThroughAnimator, true, 0);

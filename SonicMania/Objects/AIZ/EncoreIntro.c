@@ -200,8 +200,8 @@ bool32 EncoreIntro_Cutscene_SetupAIZEncore(EntityCutsceneSeq *host)
     else {
         if (!host->timer) {
             globals->stock          = ID_NONE;
-            globals->characterFlags = ID_SONIC;
-            Player_ChangeCharacter(player1, ID_SONIC);
+            globals->characterFlags = ID_AMY;
+            Player_ChangeCharacter(player1, ID_AMY);
             destroyEntity(RSDK_GET_ENTITY(SLOT_PLAYER2, Player));
             player1->alpha      = 0;
             player1->inkEffect  = INK_ALPHA;
@@ -406,12 +406,12 @@ bool32 EncoreIntro_Cutscene_BuddySelect(EntityCutsceneSeq *host)
     player->drawGroup      = Zone->playerDrawGroup[1];
     EntityPlayer *selBuddy = RSDK_GET_ENTITY(SLOT_PLAYER3, Player);
     if (player->position.x > selBuddy->position.x - 0x380000) {
-        globals->characterFlags = ID_SONIC | ID_MIGHTY;
+        globals->characterFlags = ID_AMY | ID_MIGHTY;
     }
     else {
         selBuddy = RSDK_GET_ENTITY(SLOT_PLAYER4, Player);
         if (player->position.x < selBuddy->position.x + 0x380000)
-            globals->characterFlags = ID_SONIC | ID_RAY;
+            globals->characterFlags = ID_AMY | ID_RAY;
         else
             return false;
     }
@@ -420,7 +420,7 @@ bool32 EncoreIntro_Cutscene_BuddySelect(EntityCutsceneSeq *host)
     player->nextGroundState = Player_State_Static;
     player->onGround        = false;
     globals->stock          = ID_NONE;
-    if (globals->characterFlags == (ID_SONIC | ID_RAY)) {
+    if (globals->characterFlags == (ID_AMY | ID_RAY)) {
         RSDK.SetSpriteAnimation(EncoreIntro->aniFrames, 0, &player->animator, true, 0);
         player->velocity.x = -0xC000;
     }
@@ -440,7 +440,7 @@ bool32 EncoreIntro_Cutscene_BuddySelect(EntityCutsceneSeq *host)
     buddy->nextGroundState = Player_State_Static;
     buddy->onGround        = false;
 
-    if (globals->characterFlags == (ID_SONIC | ID_RAY)) {
+    if (globals->characterFlags == (ID_AMY | ID_RAY)) {
         RSDK.SetSpriteAnimation(EncoreIntro->aniFrames, 2, &buddy->animator, true, 0);
         buddy->velocity.x = 0xC000;
     }
@@ -449,11 +449,11 @@ bool32 EncoreIntro_Cutscene_BuddySelect(EntityCutsceneSeq *host)
         buddy->velocity.x = -0x8000;
     }
     buddy->velocity.y = -0x30000;
-    globals->playerID = (buddy->characterID << 8) + ID_SONIC;
+    globals->playerID = (buddy->characterID << 8) + ID_AMY;
     Music_FadeOut(0.025);
     RSDK.PlaySfx(EncoreIntro->sfxHighFive, false, 0xFF);
 
-    if (globals->characterFlags == (ID_SONIC | ID_RAY))
+    if (globals->characterFlags == (ID_AMY | ID_RAY))
         CREATE_ENTITY(AIZEncoreTutorial, INT_TO_VOID(5), (buddy->position.x >> 1) + (player->position.x >> 1), player->position.y - 0x480000);
     else
         CREATE_ENTITY(AIZEncoreTutorial, INT_TO_VOID(6), (buddy->position.x >> 1) + (player->position.x >> 1), player->position.y - 0x480000);
@@ -489,7 +489,7 @@ bool32 EncoreIntro_Cutscene_ViewEncoreTutorial(EntityCutsceneSeq *host)
         buddy->direction = ruby->position.x < buddy->position.x;
 
     if (host->timer == 18) {
-        if (globals->characterFlags == (ID_SONIC | ID_RAY)) {
+        if (globals->characterFlags == (ID_AMY | ID_RAY)) {
             player->velocity.x = 0;
             buddy->velocity.x  = 0;
         }

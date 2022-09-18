@@ -167,8 +167,8 @@ void LevelSelect_Cheat_SwapGameMode(void)
         }
         else {
             globals->gameMode = MODE_ENCORE;
-            if (globals->medalMods & MEDAL_ANDKNUCKLES) 
-                globals->medalMods &= ~MEDAL_ANDKNUCKLES;
+            if (globals->medalMods & MEDAL_AMYASSIST) 
+                globals->medalMods &= ~MEDAL_AMYASSIST;
         }
     }
 }
@@ -533,17 +533,13 @@ void LevelSelect_ManagePlayerIcon(void)
 #if MANIA_USE_PLUS
         case LSELECT_PLAYER_MIGHTY:
         case LSELECT_PLAYER_RAY:
+        case LSELECT_PLAYER_AMY:
             if (!API.CheckDLC(DLC_PLUS))
                 self->leaderCharacterID = LSELECT_PLAYER_SONIC;
 
             player1->animator.frameID = self->leaderCharacterID;
             break;
 #endif
-
-        default:
-            self->leaderCharacterID   = LSELECT_PLAYER_SONIC;
-            player1->animator.frameID = LSELECT_PLAYER_SONIC;
-            break;
     }
 
     switch (self->sidekickCharacterID) {

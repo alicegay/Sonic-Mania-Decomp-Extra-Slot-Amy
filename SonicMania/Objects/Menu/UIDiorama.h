@@ -110,6 +110,7 @@ typedef struct {
     Vector2 knuxPos;
     Vector2 rayPos;
     Vector2 mightyPos;
+    Vector2 amyPos;
     Vector2 vectorsPadding[10];
 
     Animator dioramaAnimator;
@@ -119,6 +120,7 @@ typedef struct {
     Animator knuxAnimator;
     Animator rayAnimator;
     Animator mightyAnimator;
+    Animator amyAnimator;
     Animator animatorsPadding[9];
 } UIDiorama_StateInfo_Competition;
 
@@ -190,6 +192,7 @@ struct ObjectUIDiorama {
     uint16 knuxFramesHCZ;
     uint16 mightyFrames;
     uint16 rayFrames;
+    uint16 amyFrames;
     uint16 ringFrames;
     uint16 speedGateFrames;
     uint16 bssSonicFrames;

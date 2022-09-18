@@ -163,6 +163,7 @@ void CPZBoss_State_SetupArena(void)
 #if MANIA_USE_PLUS
             case ID_MIGHTY: CPZBoss->playerFrames = RSDK.LoadSpriteAnimation("CPZ/MBMMighty.bin", SCOPE_STAGE); break;
             case ID_RAY: CPZBoss->playerFrames = RSDK.LoadSpriteAnimation("CPZ/MBMRay.bin", SCOPE_STAGE); break;
+            case ID_AMY: CPZBoss->playerFrames = RSDK.LoadSpriteAnimation("CPZ/MBMAmy.bin", SCOPE_STAGE); break;
 #endif
         }
 

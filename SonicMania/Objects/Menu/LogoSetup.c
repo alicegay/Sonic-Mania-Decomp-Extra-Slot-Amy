@@ -61,6 +61,7 @@ void LogoSetup_StageLoad(void)
 #if MANIA_USE_PLUS
             case 6: globals->playerID = ID_MIGHTY; break;
             case 7: globals->playerID = ID_RAY; break;
+            case 8: globals->playerID = ID_AMY; break;
 #endif
             default: break;
         }

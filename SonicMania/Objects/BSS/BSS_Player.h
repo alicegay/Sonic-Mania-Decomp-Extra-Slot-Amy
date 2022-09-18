@@ -13,6 +13,7 @@ struct ObjectBSS_Player {
     uint16 knuxFrames;
     uint16 mightyFrames;
     uint16 rayFrames;
+    uint16 amyFrames;
     uint16 sfxJump;
 };
 

@@ -19,6 +19,7 @@ struct ObjectAnnouncer {
     uint16 sfxMightyWins;
     uint16 sfxRayWins;
 #endif
+    uint16 sfxAmyWins;
     uint16 sfxNewRecordTop;
     uint16 sfxNewRecordMid;
     uint16 sfxSonic;
@@ -28,6 +29,7 @@ struct ObjectAnnouncer {
     uint16 sfxMighty;
     uint16 sfxRay;
 #endif
+    uint16 sfxAmy;
     uint16 sfxTheWinnerIs;
     uint16 sfxPlayer1;
     uint16 sfxPlayer2;

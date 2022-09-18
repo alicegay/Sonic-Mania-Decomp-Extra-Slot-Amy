@@ -242,6 +242,7 @@ void UICharButton_State_Selected(void)
 #if MANIA_USE_PLUS
                 case UICHARBUTTON_MIGHTY: RSDK.PlaySfx(Announcer->sfxMighty, false, 255); break;
                 case UICHARBUTTON_RAY: RSDK.PlaySfx(Announcer->sfxRay, false, 255); break;
+                case UICHARBUTTON_AMY: RSDK.PlaySfx(Announcer->sfxAmy, false, 255); break;
 #endif
                 default: break;
             }
@@ -272,6 +273,7 @@ void UICharButton_EditorLoad(void)
 #if MANIA_USE_PLUS
     RSDK_ENUM_VAR("Mighty", UICHARBUTTON_MIGHTY);
     RSDK_ENUM_VAR("Ray", UICHARBUTTON_RAY);
+    RSDK_ENUM_VAR("Amy", UICHARBUTTON_AMY);
 #endif
 }
 #endif

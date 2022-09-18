@@ -119,6 +119,7 @@ void MetalSonic_StageLoad(void)
 #if MANIA_USE_PLUS
     MetalSonic->sfxMSTransform = RSDK.GetSfx("SSZ2/MSTransform.wav");
     MetalSonic->sfxTransform2  = RSDK.GetSfx("Stage/Transform2.wav");
+    MetalSonic->sfxAmySqueal   = RSDK.GetSfx("SSZ2/AmySqueal.wav");
 #endif
 }
 
@@ -462,6 +463,20 @@ void MetalSonic_State_WaitForHologram(void)
             self->visible    = true;
             RSDK.SetSpriteAnimation(MetalSonic->aniFrames, MS_ANI_ENTERPANEL, &self->metalSonicAnimator, false, 6);
             RSDK.SetSpriteAnimation(MetalSonic->aniFrames, MS_ANI_BOOSTER_INTRO, &self->boosterAnimator, false, 0);
+
+            EntityPlayer *player = RSDK_GET_ENTITY(SLOT_PLAYER1, Player);
+
+            if (player->characterID == ID_AMY) {
+                for (int32 i = 0; i < 1; ++i) {
+                    EntityPlayer *playerPtr = RSDK_GET_ENTITY(i, Player);
+                    playerPtr->state        = Player_State_Air;
+                    playerPtr->onGround     = false;
+                    playerPtr->velocity.y   = -0x38000;
+                    RSDK.SetSpriteAnimation(playerPtr->aniFrames, ANI_HURT, &playerPtr->animator, false, 0);
+                    RSDK.PlaySfx(MetalSonic->sfxAmySqueal, false, 255);
+                    break;
+                }
+            }
 
             self->direction                = FLIP_X;
             self->metalSonicAnimator.speed = 0;

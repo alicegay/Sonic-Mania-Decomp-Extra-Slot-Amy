@@ -222,6 +222,7 @@ void SpecialClear_Draw(void)
 void SpecialClear_Create(void *data)
 {
     RSDK_THIS(SpecialClear);
+    int32 playerID = GET_CHARACTER_ID(1);
 
     if (!SceneInfo->inEditor) {
         self->active    = ACTIVE_NORMAL;
@@ -286,7 +287,10 @@ void SpecialClear_Create(void *data)
         self->continuePos.x     = 0x5480000;
         self->continuePos.y     = 0xCC0000;
 
-        RSDK.CopyPalette(1, 0, 0, 128, 48);
+        if (playerID == ID_AMY)
+            RSDK.CopyPalette(1, 48, 0, 176, 48);
+        else
+            RSDK.CopyPalette(1, 0, 0, 128, 48);
 
         for (int32 i = 0; i < 7; ++i) {
             self->emeraldPositions[i] = 0x1100000 + (i * 0x200000);
@@ -295,7 +299,11 @@ void SpecialClear_Create(void *data)
 
         RSDK.SetSpriteAnimation(SpecialClear->aniFrames, SC_ANI_BONUS, &self->bonusAnimator, true, 0);
         RSDK.SetSpriteAnimation(SpecialClear->aniFrames, SC_ANI_NUMBERS, &self->numbersAnimator, true, 0);
+        if (playerID == ID_AMY)
+            RSDK.SetSpriteAnimation(SpecialClear->aniFrames, SC_ANI_TIMESTONES, &self->emeraldsAnimator, true, 0);
+        else
         RSDK.SetSpriteAnimation(SpecialClear->aniFrames, SC_ANI_EMERALDS, &self->emeraldsAnimator, true, 0);
+
         switch (GET_CHARACTER_ID(1)) {
             default:
             case ID_SONIC: RSDK.SetSpriteAnimation(SpecialClear->aniFrames, SC_ANI_SONIC, &self->playerNameAnimator, true, 0);
@@ -332,6 +340,11 @@ void SpecialClear_Create(void *data)
                 RSDK.SetSpriteAnimation(SpecialClear->aniFrames, SC_ANI_RAY, &self->playerNameAnimator, true, 0);
                 RSDK.SetSpriteAnimation(SpecialClear->aniFrames, SC_ANI_CONTINUE, &self->continueAnimator, true, SC_ANI_RAY);
                 break;
+
+            case ID_AMY:
+                RSDK.SetSpriteAnimation(SpecialClear->aniFrames, SC_ANI_AMY, &self->playerNameAnimator, true, 0);
+                RSDK.SetSpriteAnimation(SpecialClear->aniFrames, SC_ANI_CONTINUE, &self->continueAnimator, true, SC_ANI_AMY);
+                break;
 #endif
         }
     }
@@ -350,6 +363,7 @@ void SpecialClear_StageLoad(void)
     SpecialClear->sfxSpecialWarp = RSDK.GetSfx("Global/SpecialWarp.wav");
     SpecialClear->sfxContinue    = RSDK.GetSfx("Special/Continue.wav");
     SpecialClear->sfxEmerald     = RSDK.GetSfx("Special/Emerald.wav");
+    // SpecialClear->sfxTimeStone   = RSDK.GetSfx("Special/TimeStone.wav");
 }
 
 void SpecialClear_DrawNumbers(Vector2 *pos, int32 value)

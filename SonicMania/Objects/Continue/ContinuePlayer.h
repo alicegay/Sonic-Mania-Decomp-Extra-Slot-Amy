@@ -18,6 +18,8 @@ typedef enum {
 #endif
     CONTPLR_ANI_IDLE_AI,
     CONTPLR_ANI_ICON,
+    CONTPLR_ANI_IDLE_AMY,
+    CONTPLR_ANI_REACT_AMY,
 } ContinuePlayerAniIDs;
 
 // Object Class

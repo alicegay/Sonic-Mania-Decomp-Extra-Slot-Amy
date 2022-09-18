@@ -161,6 +161,9 @@ void Zone_StageLoad(void)
             if (GET_STOCK_ID(3))
                 globals->characterFlags |= 1 << HUD_CharacterIndexFromID(GET_STOCK_ID(3));
 
+            if (GET_STOCK_ID(4))
+                globals->characterFlags |= 1 << HUD_CharacterIndexFromID(GET_STOCK_ID(4));
+
             saveRAM->playerID       = globals->playerID;
             saveRAM->characterFlags = globals->characterFlags;
         }

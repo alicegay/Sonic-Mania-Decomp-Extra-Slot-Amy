@@ -32,7 +32,7 @@ struct EntityUISaveSlot {
 #if MANIA_USE_PLUS
     uint8 saveEncorePlayer;
     uint8 saveEncoreBuddy;
-    uint8 saveEncoreFriends[3];
+    uint8 saveEncoreFriends[4];
 #endif
     UISaveSlotTypes type;
     int32 slotID;
@@ -54,6 +54,7 @@ struct EntityUISaveSlot {
     uint8 dCharStock1;
     uint8 dCharStock2;
     uint8 dCharStock3;
+    uint8 dCharStock4;
 #endif
     Animator uiAnimator;
     Animator playersAnimator;

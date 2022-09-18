@@ -39,6 +39,7 @@ void ChaosEmerald_Draw(void)
 void ChaosEmerald_Create(void *data)
 {
     RSDK_THIS(ChaosEmerald);
+    int32 playerID = GET_CHARACTER_ID(1);
 
     self->active        = ACTIVE_BOUNDS;
     self->drawGroup     = Zone->objectDrawGroup[1];
@@ -48,6 +49,9 @@ void ChaosEmerald_Create(void *data)
     self->updateRange.x = 0x800000;
     self->updateRange.y = 0x800000;
     self->state         = ChaosEmerald_State_None;
+    if (playerID == ID_AMY)
+        RSDK.SetSpriteAnimation(ChaosEmerald->aniFrames, 1, &self->animator, true, self->type);
+    else
     RSDK.SetSpriteAnimation(ChaosEmerald->aniFrames, 0, &self->animator, true, self->type);
 }
 
@@ -57,6 +61,7 @@ void ChaosEmerald_State_None(void)
 {
     // hello
 }
+
 void ChaosEmerald_State_Rotate(void)
 {
     RSDK_THIS(ChaosEmerald);

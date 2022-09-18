@@ -94,6 +94,12 @@ typedef enum {
     ANI_HANG2    = ANI_ABILITY_0,
     ANI_FLY_UP   = ANI_ABILITY_1,
     ANI_FLY_DOWN = ANI_ABILITY_2,
+
+    // Amy Ability Anim Aliases
+    ANI_HAMMER_HIT  = ANI_ABILITY_0,
+    ANI_SPIN_JUMP   = ANI_ABILITY_1,
+    ANI_FREE_FALL   = ANI_ABILITY_2,
+    ANI_HELI_HAMMER = ANI_ABILITY_3,
 #endif
 } PlayerAnimationIDs;
 
@@ -104,6 +110,7 @@ typedef enum {
     PLAYER_CHAR_TAILS,
     PLAYER_CHAR_SONIC_TAILS,
     PLAYER_CHAR_KNUX,
+    PLAYER_CHAR_AMY,
     PLAYER_CHAR_SONIC_KNUX,
     PLAYER_CHAR_TAILS_KNUX,
     PLAYER_CHAR_SONIC_TAILS_KNUX,
@@ -115,6 +122,11 @@ typedef enum {
     SHIELD_BUBBLE,
     SHIELD_FIRE,
     SHIELD_LIGHTNING,
+    SHIELD_ORANGE,
+    SHIELD_RED,
+    SHIELD_MAROON,
+    SHIELD_YELLOW,
+    SHIELD_PINK,
 } ShieldTypes;
 
 typedef enum {
@@ -178,6 +190,8 @@ struct ObjectPlayer {
                                            0xF0B8B8, 0xF0E0E8, 0x701010, 0xD84040, 0xF05858, 0xF07878, 0xF0B8B8, 0xF0E0E8 });
     TABLE(color superPalette_Ray[18], { 0xA06800, 0xB88810, 0xD0A810, 0xE0C020, 0xE8D038, 0xF0E078, 0xE0A801, 0xF0C820, 0xF0E820, 0xF0F040, 0xF0F068,
                                         0xF0F0B8, 0xE0A801, 0xF0C820, 0xF0E820, 0xF0F040, 0xF0F068, 0xF0F0B8 });
+    TABLE(color superPalette_Amy[18], { 0x64036E, 0x980F8C, 0xC02AAA, 0xEA51B5, 0xF678D0, 0xFABBE3, 0x008080, 0x00BDAD, 0x00F0C0, 0x09F6A7, 0x1FFF8B,
+                                        0x66FF99, 0x00802B, 0x00BD5E, 0x00F0A0, 0x0AF5C6, 0x1FFFEC, 0x67FEFE });
     TABLE(color superPalette_Sonic_HCZ[18], { 0x200888, 0x3020C8, 0x3840F0, 0x4070F0, 0x4098F0, 0x40C0F0, 0x88C880, 0x68E090, 0x50F098, 0x68F0C0,
                                               0x78F0C8, 0xA0F0D8, 0x60E898, 0x48F0A0, 0x58F0B0, 0x68F0C0, 0x90F0D0, 0xA0F0D8 });
     TABLE(color superPalette_Tails_HCZ[18], { 0x880808, 0xA03810, 0xA05848, 0xB07058, 0xC08068, 0xC89078, 0xCC6161, 0xDC8462, 0xD5978A, 0xDEA893,
@@ -188,6 +202,8 @@ struct ObjectPlayer {
                                                0xA8C0D8, 0xC0E8F0, 0x401078, 0x9038C0, 0x9068C0, 0x9890E0, 0xA8C0D8, 0xC0E8F0 });
     TABLE(color superPalette_Ray_HCZ[18], { 0x406090, 0x488890, 0x68A880, 0x70C080, 0x68D080, 0x50E888, 0x80B088, 0x78D090, 0x68F080, 0x50F098,
                                             0x90F0C0, 0xA8F0E0, 0x80B088, 0x78D090, 0x68F080, 0x50F098, 0x90F0C0, 0xA8F0E0 });
+    TABLE(color superPalette_Amy_HCZ[18], { 0x200888, 0x3020C8, 0x3840F0, 0x4070F0, 0x4098F0, 0x40C0F0, 0x88C880, 0x68E090, 0x50F098, 0x68F0C0,
+                                            0x78F0C8, 0xA0F0D8, 0x60E898, 0x48F0A0, 0x58F0B0, 0x68F0C0, 0x90F0D0, 0xA0F0D8 });
     TABLE(color superPalette_Sonic_CPZ[18], { 0x4000D8, 0x5800E0, 0x6810E0, 0x8020E0, 0xA020E0, 0xC040E0, 0xE04880, 0xE06890, 0xE078A8, 0xE078D8,
                                               0xE080E0, 0xE080E0, 0xE080B0, 0xE080B0, 0xE080C0, 0xE080C0, 0xE080E0, 0xE080E0 });
     TABLE(color superPalette_Tails_CPZ[18], { 0xC80180, 0xD00178, 0xE00180, 0xE81088, 0xE83098, 0xE84898, 0xF078F0, 0xF078F0, 0xF080F0, 0xF088F0,
@@ -198,6 +214,8 @@ struct ObjectPlayer {
                                                0xE040E0, 0xE078E0, 0xB80180, 0xE001A8, 0xE001C8, 0xE001E0, 0xE040E0, 0xE078E0 });
     TABLE(color superPalette_Ray_CPZ[18], { 0xE00180, 0xE00190, 0xE02898, 0xE048A8, 0xE060B8, 0xE078E0, 0xE02880, 0xE05888, 0xE08088, 0xE080A8,
                                             0xE080D8, 0xE080E0, 0xE02880, 0xE05888, 0xE08088, 0xE080A8, 0xE080D8, 0xE080E0 });
+    TABLE(color superPalette_Amy_CPZ[18], { 0x4000D8, 0x5800E0, 0x6810E0, 0x8020E0, 0xA020E0, 0xC040E0, 0xE04880, 0xE06890, 0xE078A8, 0xE078D8,
+                                              0xE080E0, 0xE080E0, 0xE080B0, 0xE080B0, 0xE080C0, 0xE080C0, 0xE080E0, 0xE080E0 });
     bool32 cantSwap;
     int32 playerCount;
     uint16 upState;
@@ -221,12 +239,13 @@ struct ObjectPlayer {
     int32 savedScore;
     STATIC(int32 savedScore1UP, 50000);
     uint16 sonicFrames;
-    uint16 superFrames;
+    uint16 supersonicFrames;
     uint16 tailsFrames;
     uint16 tailsTailsFrames;
     uint16 knuxFrames;
     uint16 mightyFrames;
     uint16 rayFrames;
+    uint16 amyFrames;
     uint16 sfxJump;
     uint16 sfxRoll;
     uint16 sfxCharge;
@@ -253,6 +272,8 @@ struct ObjectPlayer {
     uint16 sfxMightyDrill;
     uint16 sfxMightyLand;
     uint16 sfxMightyUnspin;
+    uint16 sfxAmyHammer;
+    uint16 sfxAmyHammerFly;
     int32 raySwoopTimer;
     int32 rayDiveTimer;
     bool32 gotHit[PLAYER_COUNT];
@@ -302,7 +323,7 @@ struct ObjectPlayer {
     int32 savedScore;
     STATIC(int32 savedScore1UP, 50000);
     uint16 sonicFrames;
-    uint16 superFrames;
+    uint16 supersonicFrames;
     uint16 tailsTailsFrames;
     uint16 tailsFrames;
     uint16 knuxFrames;
@@ -429,10 +450,13 @@ struct EntityPlayer {
     bool32 right;
     bool32 jumpPress;
     bool32 jumpHold;
+    bool32 bPress; // Amy Specific, for ground hammer stuff
     bool32 applyJumpCap;
     int32 jumpAbilityState;
     StateMachine(stateAbility);
     StateMachine(statePeelout);
+    StateMachine(stateTallJump);
+    StateMachine(stateHammerHit);
     int32 flyCarryTimer;
     Vector2 flyCarrySidekickPos;
     Vector2 flyCarryLeaderPos;
@@ -480,6 +504,7 @@ void Player_BlendSuperKnuxColors(int32 bankID);
 #if MANIA_USE_PLUS
 void Player_BlendSuperMightyColors(int32 bankID);
 void Player_BlendSuperRayColors(int32 bankID);
+void Player_BlendSuperAmyColors(int32 bankID);
 #endif
 void Player_HandleSuperForm(void);
 bool32 Player_CheckP2KeyPress(void);
@@ -545,6 +570,8 @@ void Player_Action_Jump(EntityPlayer *entity);
 void Player_Action_Roll(void);
 void Player_Action_Spindash(void);
 void Player_Action_Peelout(void);
+void Player_Action_HammerWhack(void);
+void Player_Action_TallJump(void);
 #if MANIA_USE_PLUS
 bool32 Player_SwapMainPlayer(bool32 forceSwap);
 #endif
@@ -587,6 +614,9 @@ void Player_State_MightyUnspin(void);
 void Player_SpawnMightyHammerdropDust(int32 speed, Hitbox *hitbox);
 bool32 Player_CheckMightyUnspin(EntityPlayer *player, int32 bounceDistance, bool32 checkHammerDrop, int32 *uncurlTimer);
 void Player_State_RayGlide(void);
+void Player_State_AmyHammer(void);
+void Player_State_AmyHeliHammer_Left(void);
+void Player_State_AmyHeliHammer_Right(void);
 #endif
 void Player_State_FlyToPlayer(void);
 void Player_State_ReturnToPlayer(void);
@@ -609,6 +639,7 @@ void Player_JumpAbility_Knux(void);
 #if MANIA_USE_PLUS
 void Player_JumpAbility_Mighty(void);
 void Player_JumpAbility_Ray(void);
+void Player_JumpAbility_Amy(void);
 
 bool32 Player_SfxCheck_RayDive(void);
 bool32 Player_SfxCheck_RaySwoop(void);
