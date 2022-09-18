@@ -6947,7 +6947,7 @@ void Player_JumpAbility_Amy(void)
     }
 #if GAME_VERSION != VER_100
     else if (ControllerInfo[self->controllerID].keyY.press)
-        Player_TryTransform(self, SaveGame->saveRAM->chaosEmeralds);
+        Player_TryTransform(self, SaveGame->saveRAM->collectedEmeralds);
 #endif
 }
 #endif

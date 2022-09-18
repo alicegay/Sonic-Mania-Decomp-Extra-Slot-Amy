@@ -327,7 +327,6 @@ void ItemBox_DebugSpawn(void)
     RSDK_THIS(DebugMode);
     EntityItemBox *itemBox            = CREATE_ENTITY(ItemBox, NULL, self->position.x, self->position.y);
 
-    switch (player->characterID)
     itemBox->type                     = DebugMode->itemType;
     itemBox->contentsAnimator.frameID = DebugMode->itemType;
 }
