@@ -1,62 +1,52 @@
-# **SUPPORT THE OFFICIAL RELEASE OF SONIC MANIA (PLUS)**
-+ Without assets from the official releases, this decompilation will not run.
+# **READ THE ORIGINAL README.MD!!!**
++ [Original README](https://github.com/Rubberduckycooly/Sonic-Mania-Decompilation#readme)
 
-+ You can get the official release of Sonic Mania (Plus) from:
-  * Windows
-    * [Via Steam](https://store.steampowered.com/app/584400/Sonic_Mania/)
-    * [Via The Epic Games Store](https://www.epicgames.com/store/en-US/p/sonic-mania)
-    * [Via Origin](https://www.origin.com/aus/en-us/store/sonic-the-hedgehog/sonic-mania)
-  * [Switch, via the eShop](https://www.nintendo.com/games/detail/sonic-mania-switch/)
-  * [PS4, via the Store](https://store.playstation.com/en-us/product/UP0177-CUSA07023_00-SONICMANIA000000)
-  * [Xbox One, via the Store](https://www.xbox.com/en-US/games/store/sonic-mania/BXH46NQT9W4Q/0001)
+# **Sonic Mania Plus: Extra Slot Amy**
+### Welcome!
+You may be familiar with the Sonic 3 A.I.R. "Extra Slot" mods, and if so, you should know exactly what this is!
+But in case you don't, here's the jist of what this mod is, in one sentence:
+*Amy as an entirely new character, as opposed to a character _replacement_.*
 
-Even if your platform isn't supported by the official releases, you **must** buy or officially download it for the assets.
-
-## **DO NOT USE THIS DECOMPILATION PROJECT AS A MEANS TO PIRATE SONIC MANIA.**
-We do not condone using this project as a means for piracy in any form. This project was made with love and care for the source material and was created for purely educational purposes, and would not exist without the work of Sega, Headcannon, and Evening Star.
-
-If you want to transfer your save from the official PC versions, you can just copy your savedata into the folder containing the decompilation!
-
-# Additional Tweaks
-* Added a built-in mod loader and API calls to enable a much smoother modding experience.
-* Added support for targeting RSDKv5U rather than standalone RSDKv5
-* Added all content from all released versions of the game. Including: 1.00 (Console initial release), 1.03 (PC initial release) & 1.06 (Plus update)
-
-# How to Build
-Most platforms will heavily encourage you to build it in conjunction with RSDKv5. However, there are some options available for some platforms if you wish to build separately.
-
-## Windows
-Open SonicMania.sln and build the project you wish to build.
-* Projects ending with `All` use the generated `All.c` file in-place of compiling each object seperately. Use for faster compilation speed.
-  * Adversely, projects without `All` compile each object using their separate source files. Use for JIT-compiling.
-* The version you choose **must match up** with the RSDKv5 version you run. A v5U executable cannot run a v5 Mania, etc.
-
-## Linux/Make-like systems
-The makefile is a trimmed down version of the RSDKv5 makefile that only supports game compilation.
-By default, unlike the RSDK makefile, this will look for the default game name of `SonicMania` and use it as source and compile as such. Pass `GAME_NAME` to the makefile to change it/
-
-### Other platforms
-The only directly supported platforms are those listed above. Since Mania is very easy to build, requiring no dependencies, virtually any platform that can run RSDKv5 can compile Mania easily.
-
-However, there are a multitude of ports listed in the **[RSDKv5 repository.](https://github.com/Rubberduckycooly/RSDKv5-Decompilation)**
-
-# FAQ
-### Q: I found a bug/I have a feature request!
-A: Submit an issue in the issues tab and we _might_ fix it in the main branch. Don't expect any major future releases, however.
-
-### Q: Will you do a decompilation for Sonic CD (2011) and/or Sonic 1/2 (2013)?
-A: I already have! You can find Sonic CD [here](https://github.com/Rubberduckycooly/Sonic-CD-11-Decompilation) and Sonic 1/2 [here](https://github.com/Rubberduckycooly/Sonic-1-2-2013-Decompilation).
-
-### Q: Will there be a decompilation for Sonic Origins/Sonic 3?
-A: No. This is the last decompilation from us. This project took about 1.5 years to do, and doing Sonic 3 would take equally as long, if not longer, as Sonic 3 is not only larger in scope, but Origins' hybrid codebase makes it harder to read. We would also like to expand our horizons beyond sonic going forward, and we don't wish to spend forever just playing catchup with Sega's official releases.
-
-### Q: Are there anymore decompilation projects in the works?
-A: Absolutely not. Between the last two and this one, we're done with decompiling, at least for the time being. Please do not expect any more decompilations from us, Sonic or otherwise!
-
-# Special Thanks
-* [Chuli](https://github.com/MGRich) for general decompilation assistance, helping me fix bugs, tweaking up my sometimes sloppy code and generally being really helpful and fun to work with on this project
-* The Weigman for creating the header you see up here along with similar assets
-* Everyone in the [Retro Engine Modding Server](https://dc.railgun.works/retroengine) for being supportive of me and for giving me a place to show off these things that I've found
-
-# Contact:
-Join the [Retro Engine Modding Discord Server](https://dc.railgun.works/retroengine) for any extra questions you may need to know about the decompilation or modding it.
+## Disclaimers/Notices
+ * CHECK THE AMY MANIA GAMEBANANA PAGE FOR THE MOD ASSETS!!!
+   * [Gamebanana page](https://gamebanana.com/wips/50006) (GB page not updated yet, this line will be removed once it is)
+ * All art assets used within this mod are made by Troopsushi, NOT ME. I have full permission from Troopsushi to release this project.
+ * This build is unfinished. I'm releasing this now due to sudden, debilitating health issues, and because of it, I am unsure about my ability to continue this project.
+ * Amy is locked behind the Encore DLC, and as such, requires Plus to use. I am not changing this.
+ * This project was tested on a 32-bit RSDKv5U.exe and a 64-bit Game.dll built with the Release and RSDKv5U - All configurations.
+ 
+## Extra Slot Amy Additions
+### Amy as a new character
+  * Amy is a newly-added character, and doesn't replace anyone else, meaning the game now has six characters to choose from!
+  * Amy has a unique palette and a unique Super palette. Do NOT try to open this modified 36D61A3DE508B500AE0ECF8D33F32943.bin in ManiaPal, as it can't properly read this modified file.
+  * Amy collects Time Stones instead of Chaos Emeralds. This is purely cosmetic, meaning Amy can still turn Super (referred to as "Miracle" in-game) and obtains the Time Stones in the way you'd obtain Chaos Emeralds. Putting Amy in Egg Reverie Zone replaces the Chaos Emeralds with Time Stones as well.
+  
+### Amy's Moveset
+  * Amy has her moveset from Troopsushi's Amy Mania mod, although the moves work a bit differently here.
+    * Heli-Hammer: Pressing A or C while in the air activates Amy's Heli-Hammer move, where she will spin her hammer around her and can damage badniks and bosses. Falling on enemies or item boxes will give you a vertical boost, and the more falling momentum you have before pulling off the move, the higher the vertical boost will be! This move, however, does not work on bosses, and hitting them with this move will put you in a vulnerable falling state.
+    * Tall Jump: Holding Up and pressing either A or C while at a stand-still will give Amy a much higher jump than other characters, but at the cost of damage vulnerability. No spin-jump protection here, be careful!
+    * Hammer Whack: Pressing B while standing, walking, running, or dashing will make Amy hit whatever is in front of her with her hammer. Hammering conserves all momentum, so hammering won't slow you down at all. Works on badniks, item monitors, and bosses.
+    * Za Waru- I mean, Time Stop: When in Amy's Miracle form, press the Z key when jumping to stop the timer. I hadn't got to freezing enemies or ring/item box animations yet, but given you can get 50 rings fast enough, that time bonus could be huge. This comes with the trade-off of losing the Miracle form, so you have to play carefully to get the biggest score bonuses you can! (This ability was originally going to be Mania/Encore layout swapping, (Mania Mode takes place in the present and Encore Mode takes place in the future, so to me this made sense) but I couldn't code everything I wanted to include with that ability, so I opted for this instead)
+   
+### Vanilla changes
+ * Amy is the starting character in Encore Mode, to have a larger focus on the (now three) new Plus characters. Sonic, Tails, and Knuckles were the focus of Mania Mode, so it made sense to me to have the three other characters be the focus of Encore Mode.
+ * "& Knuckles" Mode is replaced with "Amy Assist", allowing you to have Amy as Player 2 in Mania Mode. (yes, this does mean Amy & Amy is a thing now)
+ 
+## Known Bugs
+  * LOADING A SAVEDATA.BIN WITH AN AMY SLOT OUTSIDE OF EXTRA SLOT AMY WILL CRASH THE GAME UPON ENTERING MANIA MODE. BACKUP YOUR ORIGINAL SAVEDATA.BIN!!!
+  * Amy uses Sonic's ending cinematic cutscenes. This could be easily fixed with a bit of coding.
+  * Titanic Monarch Encore's escape sequence is bugged. Knuckles and Amy do not show up. Fix is unknown as of right now.
+  * Amy does not have underwater Super palettes. This could be easily fixed with a bit of coding.
+  * Encore Mode does not support having all six characters. Fix is unknown as of right now, so just choose your characters carefully when playing Encore.
+  * Trying to rescue character number six from the Pinball bonus stage when your reserves are full will add an invalid character ID to reserve slot 2. The fix, and quite frankly, the cause of this, are unknown, so try to avoid the Pinball bonus stage if you can.
+  
+## Installation
+To install this mod, you need to build this project into a Game.dll. Refer to [this tutorial](https://gamebanana.com/tuts/15254) for help with setting up dependencies for building Game.dlls and whatnot.
+After building, put this in the same directory as your RSDKv5U.exe and make sure it is named Game.dll. Also make sure to enable required assets mod, (linked above) or else the mod will not function properly.
+  
+## Final Words
+ * Huge thanks to RDC and Chuli for decompiling Mania in the first place, it's the only thing that makes this mod possible!
+ * A gigantic shout-out to the folks over at REMS (Retro Engine Modding Server) for supporting this project over its roughly 20-day development cycle. (you should join [REMS](https://dc.railgun.works/retroengine), it's a pretty cool Discord server)
+ * Big thanks to TroopSushi for allowing me to use all of their Amy sprites for this project. (gigachad move right there tbh)
+ * Additional thanks to [CodenameGamma](https://www.patreon.com/CnGMods) for giving me the original Amy Mania code to reference when re-making Amy's moveset for the decomp.
+ * Special thanks to my brother, bob.bmp, for originally inspiring me to make this mod, with his [Sonic 1 Score Attack](https://github.com/Gareth-McCullough/sth-score-attack) and [Sonic 1 w/ Super Sonic](https://github.com/Gareth-McCullough/sth-super-score-attack) mods for the original Genesis version.
