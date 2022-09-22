@@ -9,7 +9,7 @@ But in case you don't, here's the jist of what this mod is, in one sentence:
 
 ## Disclaimers/Notices
  * CHECK THE AMY MANIA GAMEBANANA PAGE FOR THE MOD ASSETS!!!
-   * [Gamebanana page](https://gamebanana.com/wips/50006) (GB page not updated yet, this line will be removed once it is)
+   * [Gamebanana page](https://gamebanana.com/wips/50006)
  * All art assets used within this mod are made by Troopsushi, NOT ME. I have full permission from Troopsushi to release this project.
  * This build is unfinished. I'm releasing this now due to sudden, debilitating health issues, and because of it, I am unsure about my ability to continue this project.
  * Amy is locked behind the Encore DLC, and as such, requires Plus to use. I am not changing this.
@@ -43,6 +43,7 @@ But in case you don't, here's the jist of what this mod is, in one sentence:
 ## Installation
 To install this mod, you need to build this project into a Game.dll. Refer to [this tutorial](https://gamebanana.com/tuts/15254) for help with setting up dependencies for building Game.dlls and whatnot.
 After building, put this in the same directory as your RSDKv5U.exe and make sure it is named Game.dll. Also make sure to enable required assets mod, (linked above) or else the mod will not function properly.
+More in-depth installation instructions can be found [here](https://gamebanana.com/wips/50006).
   
 ## Final Words
  * Huge thanks to RDC and Chuli for decompiling Mania in the first place, it's the only thing that makes this mod possible!
