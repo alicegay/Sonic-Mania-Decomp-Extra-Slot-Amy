@@ -406,7 +406,7 @@ void UISaveSlot_DrawPlayerIcons(int32 drawX, int32 drawY)
     RSDK.SetSpriteAnimation(UISaveSlot->aniFrames, 2, &self->shadowsAnimator, true, 3);
 
 #if MANIA_USE_PLUS
-    uint8 friendIDs[5];
+    uint8 friendIDs[4];//Don't think this should be 5
     int32 playerID    = 0;
     int32 buddyID     = 0;
     int32 friendCount = 0;
@@ -423,7 +423,7 @@ void UISaveSlot_DrawPlayerIcons(int32 drawX, int32 drawY)
             playerID = self->saveEncorePlayer;
             buddyID  = self->saveEncoreBuddy;
 
-            for (int32 i = 0; i < 5; ++i) {
+            for (int32 i = 0; i < 4; ++i) {
                 friendIDs[i] = 0;
                 if (!self->saveEncoreFriends[i])
                     continue;
@@ -561,7 +561,7 @@ void UISaveSlot_DrawPlayerInfo(int32 drawX, int32 drawY)
     }
     else {
 #endif
-        int32 frames[] = { 0, 0, 1, 2, 3, 4, 5, 6 };
+        int32 frames[] = { 0, 0, 1, 2, 3, 4, 5 }; //Why would this go up to 6?
         playerID       = frames[self->frameID];
 #if MANIA_USE_PLUS
     }
@@ -738,7 +738,7 @@ void UISaveSlot_SetupAnimators(void)
     RSDK.SetSpriteAnimation(UISaveSlot->aniFrames, 8, &self->numbersAnimator, true, 0);
 }
 
-void UISaveSlot_LoadSaveInfo(void)
+void UISaveSlot_LoadSaveInfo(void) //THIS IS IMPORTANT
 {
     RSDK_THIS(UISaveSlot);
 
@@ -756,7 +756,7 @@ void UISaveSlot_LoadSaveInfo(void)
             self->saveEncoreBuddy  = (saveRAM->playerID >> 8) & 0xFF;
 
             int32 friends = saveRAM->stock;
-            for (int32 i = 0; i < 5; ++i) {
+            for (int32 i = 0; i < 4; ++i) {
                 self->saveEncoreFriends[i] = ID_NONE;
                 if (!friends)
                     continue;
@@ -1025,9 +1025,9 @@ void UISaveSlot_PrevCharacter(void)
     int32 player = self->frameID;
 
 #if MANIA_USE_PLUS
-    int32 max = API.CheckDLC(DLC_PLUS) ? 7 : 5;
+    int32 max = API.CheckDLC(DLC_PLUS) ? 7 : 5; //why?
 #else
-    int32 max = 5;
+    int32 max = 4;
 #endif
     while (player < 0) player += max;
 
@@ -1049,7 +1049,7 @@ void UISaveSlot_NextZone(void)
     }
     else {
         self->saveZoneID++;
-        if (self->saveZoneID > ZONE_ERZ)
+        if (self->saveZoneID > ZONE_TMZ)
             self->saveZoneID = ZONE_GHZ;
     }
 
@@ -1063,12 +1063,12 @@ void UISaveSlot_PrevZone(void)
     RSDK_THIS(UISaveSlot);
 
     if (self->saveZoneID == NO_SAVE_SLOT) {
-        self->saveZoneID = ZONE_ERZ;
+        self->saveZoneID = ZONE_TMZ;
     }
     else {
         self->saveZoneID--;
         if (self->saveZoneID < ZONE_GHZ)
-            self->saveZoneID = ZONE_ERZ;
+            self->saveZoneID = ZONE_TMZ;
     }
 
     RSDK.PlaySfx(UIWidgets->sfxBleep, false, 255);

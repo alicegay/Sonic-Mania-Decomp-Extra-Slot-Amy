@@ -541,6 +541,11 @@ void LevelSelect_ManagePlayerIcon(void)
             player1->animator.frameID = self->leaderCharacterID;
             break;
 #endif
+
+        default:
+            self->leaderCharacterID   = LSELECT_PLAYER_SONIC;
+            player1->animator.frameID = LSELECT_PLAYER_SONIC;
+            break;
     }
 
     switch (self->sidekickCharacterID) {

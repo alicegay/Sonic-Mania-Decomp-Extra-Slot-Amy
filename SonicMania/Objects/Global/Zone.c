@@ -773,7 +773,7 @@ int32 Zone_GetListPos_ManiaMode(void)
 void Zone_Draw_Fade(void)
 {
     RSDK_THIS(Zone);
-    RSDK.FillScreen(self->fadeColor, self->timer, self->timer - 0x80, self->timer - 0x100);
+    RSDK.FillScreen(self->fadeColor, self->timer, self->timer - 128, self->timer - 0x100);
 }
 
 void Zone_State_FadeOut(void)
@@ -796,7 +796,7 @@ void Zone_State_FadeOut(void)
 
                 globals->gameMode = MODE_MANIA;
             }
-            SceneInfo->filter ^= 6;
+            SceneInfo->filter ^= (FILTER_MANIA | FILTER_ENCORE);
 
             globals->enableIntro         = true;
             globals->suppressAutoMusic   = true;
@@ -921,7 +921,7 @@ void Zone_HandlePlayerSwap(void)
     int32 cameraBoundsT[PLAYER_COUNT];
     int32 cameraBoundsR[PLAYER_COUNT];
     int32 cameraBoundsL[PLAYER_COUNT];
-    int32 layerIDs[LAYER_COUNT];
+    uint8 layerIDs[PLAYER_COUNT][LAYER_COUNT];
 
 #if MANIA_USE_PLUS
     for (int32 p = 0; p < Player->playerCount; ++p) {
@@ -942,13 +942,12 @@ void Zone_HandlePlayerSwap(void)
         playerBoundActiveT[p] = Zone->playerBoundActiveT[p];
         playerBoundActiveB[p] = Zone->playerBoundActiveB[p];
 
-        uint8 *layerPlanes = (uint8 *)&layerIDs[2 * p];
         for (int32 l = 0; l < LAYER_COUNT; ++l) {
             TileLayer *layer = RSDK.GetTileLayer(l);
             if (layer)
-                layerPlanes[l] = layer->drawGroup[Zone->preSwapPlayerIDs[p]];
+                layerIDs[p][l] = layer->drawGroup[Zone->preSwapPlayerIDs[p]];
             else
-                layerPlanes[l] = DRAWGROUP_COUNT;
+                layerIDs[p][l] = DRAWGROUP_COUNT;
         }
 
         EntityCamera *camera = player->camera;
@@ -1019,10 +1018,9 @@ void Zone_HandlePlayerSwap(void)
         Zone->playerBoundActiveT[Zone->swappedPlayerIDs[p]] = playerBoundActiveT[p];
         Zone->playerBoundActiveB[Zone->swappedPlayerIDs[p]] = playerBoundActiveB[p];
 
-        uint8 *layerPlanes = (uint8 *)&layerIDs[2 * p];
         for (int32 l = 0; l < LAYER_COUNT; ++l) {
             TileLayer *layer                            = RSDK.GetTileLayer(l);
-            layer->drawGroup[Zone->swappedPlayerIDs[p]] = layerPlanes[l];
+            layer->drawGroup[Zone->swappedPlayerIDs[p]] = layerIDs[p][l];
         }
 
         EntityCamera *camera = player->camera;
@@ -1072,13 +1070,12 @@ void Zone_HandlePlayerSwap(void)
         playerBoundActiveT[p] = Zone->playerBoundActiveT[p];
         playerBoundActiveB[p] = Zone->playerBoundActiveB[p];
 
-        uint8 *layerPlanes = (uint8 *)&layerIDs[2 * p];
         for (int32 l = 0; l < LAYER_COUNT; ++l) {
             TileLayer *layer = RSDK.GetTileLayer(l);
             if (layer)
-                layerPlanes[l] = layer->drawGroup[p];
+                layerIDs[p][l] = layer->drawGroup[p];
             else
-                layerPlanes[l] = DRAWGROUP_COUNT;
+                layerIDs[p][l] = DRAWGROUP_COUNT;
         }
     }
 
@@ -1151,10 +1148,9 @@ void Zone_HandlePlayerSwap(void)
         Zone->playerBoundActiveT[newPlayerID] = playerBoundActiveT[curPlayerID];
         Zone->playerBoundActiveB[newPlayerID] = playerBoundActiveB[curPlayerID];
 
-        uint8 *layerPlanes = (uint8 *)&layerIDs[2 * curPlayerID];
         for (int32 l = 0; l < LAYER_COUNT; ++l) {
             TileLayer *layer = RSDK.GetTileLayer(l);
-            layer->drawGroup[newPlayerID] = layerPlanes[l];
+            layer->drawGroup[newPlayerID] = layerIDs[curPlayerID][l];
         }
         EntityCamera *newCamera = RSDK_GET_ENTITY(SLOT_CAMERA1 + newPlayerID, Camera);
         EntityCamera *curCamera = RSDK_GET_ENTITY(SLOT_CAMERA1 + curPlayerID, Camera);
@@ -1240,10 +1236,9 @@ void Zone_HandlePlayerSwap(void)
         Zone->playerBoundActiveT[newPlayerID] = playerBoundActiveT[curPlayerID];
         Zone->playerBoundActiveB[newPlayerID] = playerBoundActiveB[curPlayerID];
 
-        uint8 *layerPlanes = (uint8 *)&layerIDs[2 * curPlayerID];
         for (int32 l = 0; l < LAYER_COUNT; ++l) {
             TileLayer *layer = RSDK.GetTileLayer(l);
-            layer->drawGroup[newPlayerID] = layerPlanes[l];
+            layer->drawGroup[newPlayerID] = layerIDs[curPlayerID][l];
         }
         EntityCamera *curCamera = &camStore;
         EntityCamera *newCamera = RSDK_GET_ENTITY(SLOT_CAMERA1 + newPlayerID, Camera);

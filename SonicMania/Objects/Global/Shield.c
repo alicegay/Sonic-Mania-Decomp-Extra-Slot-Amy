@@ -110,36 +110,6 @@ void Shield_Create(void *data)
 
         case SHIELD_LIGHTNING: RSDK.SetSpriteAnimation(Shield->aniFrames, SHIELDANI_LIGHTNING, &self->shieldAnimator, true, 0); break;
 
-        case SHIELD_ORANGE:
-            RSDK.SetSpriteAnimation(Shield->aniFrames, SHIELDANI_ORANGE, &self->shieldAnimator, true, 0);
-            self->inkEffect = INK_ADD;
-            self->alpha     = 0x80;
-            break;
-
-        case SHIELD_RED:
-            RSDK.SetSpriteAnimation(Shield->aniFrames, SHIELDANI_RED, &self->shieldAnimator, true, 0);
-            self->inkEffect = INK_ADD;
-            self->alpha     = 0x80;
-            break;
-
-        case SHIELD_MAROON:
-            RSDK.SetSpriteAnimation(Shield->aniFrames, SHIELDANI_MAROON, &self->shieldAnimator, true, 0);
-            self->inkEffect = INK_ADD;
-            self->alpha     = 0x80;
-            break;
-
-        case SHIELD_YELLOW:
-            RSDK.SetSpriteAnimation(Shield->aniFrames, SHIELDANI_YELLOW, &self->shieldAnimator, true, 0);
-            self->inkEffect = INK_ADD;
-            self->alpha     = 0x80;
-            break;
-
-        case SHIELD_PINK:
-            RSDK.SetSpriteAnimation(Shield->aniFrames, SHIELDANI_PINK, &self->shieldAnimator, true, 0);
-            self->inkEffect = INK_ADD;
-            self->alpha     = 0x80;
-            break;
-
         default: break;
     }
 }

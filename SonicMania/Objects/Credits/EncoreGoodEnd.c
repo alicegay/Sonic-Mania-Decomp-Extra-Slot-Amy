@@ -208,13 +208,12 @@ void EncoreGoodEnd_StatePlayer_EndingIdle(void)
                     break;
 
                 case ID_AMY:
-                    RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_AMYSITDOWN,
-                                            &EncoreGoodEnd->decorations[playerID + E_END_SONIC]->animator, true, 0);
-                    EncoreGoodEnd->decorations[E_END_GLASSA]->visible = true;
-                    RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_AMYSITDOWNG, &EncoreGoodEnd->decorations[E_END_GLASSA]->animator,
+                    RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_AMYSITDOWN, &EncoreGoodEnd->decorations[playerID + E_END_SONIC]->animator,
                                             true, 0);
+                    EncoreGoodEnd->decorations[E_END_GLASSA]->visible = true;
+                    RSDK.SetSpriteAnimation(Decoration->aniFrames, E_END_DECOR_AMYSITDOWNG, &EncoreGoodEnd->decorations[E_END_GLASSA]->animator, true, 0);
                     EncoreGoodEnd->decorations[E_END_GLASSA]->animator.speed = 0;
-                    self->state                                              = Player_State_Static;
+                    self->state = Player_State_Static;
                     break;
             }
         }

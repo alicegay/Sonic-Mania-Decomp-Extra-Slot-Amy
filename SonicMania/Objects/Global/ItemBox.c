@@ -230,8 +230,8 @@ void ItemBox_DebugDraw(void)
 void ItemBox_DebugSpawn(void)
 {
     RSDK_THIS(DebugMode);
-    EntityItemBox *itemBox            = CREATE_ENTITY(ItemBox, NULL, self->position.x, self->position.y);
 
+    EntityItemBox *itemBox            = CREATE_ENTITY(ItemBox, NULL, self->position.x, self->position.y);
     itemBox->type                     = DebugMode->itemType;
     itemBox->contentsAnimator.frameID = DebugMode->itemType;
 }
@@ -609,7 +609,7 @@ void ItemBox_GivePowerup(void)
 
                     int32 tempStock = 0;
                     int32 p         = 0;
-                    for (; p < 5;) {
+                    for (; p < 6;) {
                         bool32 inc = true;
                         if (playerIDs[p] == 0xFF)
                             break;
@@ -690,7 +690,7 @@ void ItemBox_GivePowerup(void)
                         globals->characterFlags |= 1 << self->contentsAnimator.frameID;
                         EntityPlayer *player2 = RSDK_GET_ENTITY(SLOT_PLAYER2, Player);
                         if (player2->classID) {
-                            for (int32 s = 0; s < 5; ++s) {
+                            for (int32 s = 0; s < 4; ++s) { //idk about this change. s < 5 WAS s < 3
                                 int32 id = HUD_CharacterIndexFromID(GET_STOCK_ID(1 + s));
                                 if (id < 0) {
                                     globals->stock |= (1 << self->contentsAnimator.frameID) << (8 * s);
@@ -863,15 +863,11 @@ void ItemBox_Break(EntityItemBox *itemBox, EntityPlayer *player)
 
                         switch (player->characterID) {
                             case ID_SONIC: itemBox->type = ITEMBOX_1UP_SONIC; break;
-
                             case ID_TAILS: itemBox->type = ITEMBOX_1UP_TAILS; break;
-
                             case ID_KNUCKLES: itemBox->type = ITEMBOX_1UP_KNUX; break;
 #if MANIA_USE_PLUS
                             case ID_MIGHTY: itemBox->type = ITEMBOX_1UP_MIGHTY; break;
-
                             case ID_RAY: itemBox->type = ITEMBOX_1UP_RAY; break;
-
                             case ID_AMY: itemBox->type = ITEMBOX_1UP_AMY; break;
 #endif
                             default: break;
@@ -1243,8 +1239,8 @@ void ItemBox_EditorLoad(void)
 #if MANIA_USE_PLUS
     RSDK_ENUM_VAR("1UP Mighty", ITEMBOX_1UP_MIGHTY);
     RSDK_ENUM_VAR("1UP Ray", ITEMBOX_1UP_RAY);
-    RSDK_ENUM_VAR("Change", ITEMBOX_STOCK);
     RSDK_ENUM_VAR("1UP Amy", ITEMBOX_1UP_AMY);
+    RSDK_ENUM_VAR("Change", ITEMBOX_STOCK);
 #endif
 
     RSDK_ACTIVE_VAR(ItemBox, planeFilter);

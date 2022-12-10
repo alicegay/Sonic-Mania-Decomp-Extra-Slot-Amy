@@ -29,8 +29,8 @@ struct ObjectSizeLaser {
 #if MANIA_USE_PLUS
     uint16 mightyFrames;
     uint16 rayFrames;
-#endif
     uint16 amyFrames;
+#endif
     uint16 sfxShrink2;
     uint16 sfxGrow2;
 };

@@ -333,6 +333,7 @@ void ActClear_Create(void *data)
                 case ID_TAILS: TimeAttackData_TrackActClear(&stat, Zone_GetZoneID(), Zone->actID, 2, time, player1->rings, player1->score); break;
                 case ID_KNUCKLES: TimeAttackData_TrackActClear(&stat, Zone_GetZoneID(), Zone->actID, 3, time, player1->rings, player1->score); break;
                 case ID_MIGHTY: TimeAttackData_TrackActClear(&stat, Zone_GetZoneID(), Zone->actID, 4, time, player1->rings, player1->score); break;
+                case ID_AMY: TimeAttackData_TrackActClear(&stat, Zone_GetZoneID(), Zone->actID, 6, time, player1->rings, player1->score); break;
                 default:
                 case ID_RAY:
                     if ((GET_CHARACTER_ID(1)) == ID_RAY)
@@ -340,7 +341,6 @@ void ActClear_Create(void *data)
                     else
                         TimeAttackData_TrackActClear(&stat, Zone_GetZoneID(), Zone->actID, 1, time, player1->rings, player1->score);
                     break;
-                case ID_AMY: TimeAttackData_TrackActClear(&stat, Zone_GetZoneID(), Zone->actID, 6, time, player1->rings, player1->score); break;
             }
             API.TryTrackStat(&stat);
 #else

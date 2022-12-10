@@ -26,7 +26,6 @@ void SpecialClear_Draw(void)
 
     Vector2 vertPos[4];
     Vector2 drawPos;
-    SaveRAM *saveRAM = SaveGame_GetSaveRAM();
 
     int32 centerX = ScreenInfo->center.x << 16;
     drawPos.x     = centerX - 0x600000;
@@ -300,8 +299,7 @@ void SpecialClear_Create(void *data)
         if (playerID == ID_AMY)
             RSDK.SetSpriteAnimation(SpecialClear->aniFrames, SC_ANI_TIMESTONES, &self->emeraldsAnimator, true, 0);
         else
-        RSDK.SetSpriteAnimation(SpecialClear->aniFrames, SC_ANI_EMERALDS, &self->emeraldsAnimator, true, 0);
-
+            RSDK.SetSpriteAnimation(SpecialClear->aniFrames, SC_ANI_EMERALDS, &self->emeraldsAnimator, true, 0);
         switch (GET_CHARACTER_ID(1)) {
             default:
             case ID_SONIC: RSDK.SetSpriteAnimation(SpecialClear->aniFrames, SC_ANI_SONIC, &self->playerNameAnimator, true, 0);
@@ -689,7 +687,7 @@ void SpecialClear_State_ExitFadeOut(void)
     RSDK_THIS(SpecialClear);
 
     if (self->fillColor) {
-        self->fillColor -= 0x80808;
+        self->fillColor -= 0x080808;
     }
     else if (!self->saveInProgress) {
         EntityMenuParam *param = MenuParam_GetParam();
