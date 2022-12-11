@@ -1293,7 +1293,7 @@ bool32 Player_TryTransform(EntityPlayer *player, uint8 emeraldMasks)
         case ID_AMY:
             for (int32 c = 0; c < PLAYER_PRIMARY_COLOR_COUNT; ++c) {
                 RSDK.SetPaletteEntry(6, PLAYER_PALETTE_INDEX_AMY + c, Player->superPalette_Amy[(0 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
-                RSDK.SetPaletteEntry(7, PLAYER_PALETTE_INDEX_AMY + c, Player->superPalette_Amy[(2 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
+                RSDK.SetPaletteEntry(7, PLAYER_PALETTE_INDEX_AMY + c, Player->superPalette_Amy[(1 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
             }
             break;
 #endif
@@ -1729,8 +1729,8 @@ void Player_HandleSuperForm(void)
                     Player_BlendSuperTailsColors(1);
 
                     for (int32 c = 0; c < PLAYER_PRIMARY_COLOR_COUNT; ++c) {
-                        RSDK.SetPaletteEntry(6, PLAYER_PALETTE_INDEX_TAILS + c, Player->superPalette_Tails[(1 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
-                        RSDK.SetPaletteEntry(7, PLAYER_PALETTE_INDEX_TAILS + c, Player->superPalette_Tails[(2 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
+                        RSDK.SetPaletteEntry(6, PLAYER_PALETTE_INDEX_TAILS + c, Player->superPalette_Tails[(0 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
+                        RSDK.SetPaletteEntry(7, PLAYER_PALETTE_INDEX_TAILS + c, Player->superPalette_Tails[(1 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
                     }
                 }
                 else if (CPZSetup) {
@@ -1742,8 +1742,8 @@ void Player_HandleSuperForm(void)
                     Player_BlendSuperTailsColors(2);
 
                     for (int32 c = 0; c < PLAYER_PRIMARY_COLOR_COUNT; ++c) {
-                        RSDK.SetPaletteEntry(6, PLAYER_PALETTE_INDEX_TAILS + c, Player->superPalette_Tails[(1 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
-                        RSDK.SetPaletteEntry(7, PLAYER_PALETTE_INDEX_TAILS + c, Player->superPalette_Tails[(2 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
+                        RSDK.SetPaletteEntry(6, PLAYER_PALETTE_INDEX_TAILS + c, Player->superPalette_Tails[(0 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
+                        RSDK.SetPaletteEntry(7, PLAYER_PALETTE_INDEX_TAILS + c, Player->superPalette_Tails[(1 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
                     }
                 }
                 break;
@@ -1767,8 +1767,8 @@ void Player_HandleSuperForm(void)
                     Player_BlendSuperKnuxColors(1);
 
                     for (int32 c = 0; c < PLAYER_PRIMARY_COLOR_COUNT; ++c) {
-                        RSDK.SetPaletteEntry(6, PLAYER_PALETTE_INDEX_KNUX + c, Player->superPalette_Knux[(1 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
-                        RSDK.SetPaletteEntry(7, PLAYER_PALETTE_INDEX_KNUX + c, Player->superPalette_Knux[(2 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
+                        RSDK.SetPaletteEntry(6, PLAYER_PALETTE_INDEX_KNUX + c, Player->superPalette_Knux[(0 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
+                        RSDK.SetPaletteEntry(7, PLAYER_PALETTE_INDEX_KNUX + c, Player->superPalette_Knux[(1 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
                     }
                 }
                 else if (CPZSetup) {
@@ -1780,8 +1780,8 @@ void Player_HandleSuperForm(void)
                     Player_BlendSuperKnuxColors(2);
 
                     for (int32 c = 0; c < PLAYER_PRIMARY_COLOR_COUNT; ++c) {
-                        RSDK.SetPaletteEntry(6, PLAYER_PALETTE_INDEX_KNUX + c, Player->superPalette_Knux[(1 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
-                        RSDK.SetPaletteEntry(7, PLAYER_PALETTE_INDEX_KNUX + c, Player->superPalette_Knux[(2 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
+                        RSDK.SetPaletteEntry(6, PLAYER_PALETTE_INDEX_KNUX + c, Player->superPalette_Knux[(0 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
+                        RSDK.SetPaletteEntry(7, PLAYER_PALETTE_INDEX_KNUX + c, Player->superPalette_Knux[(1 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
                     }
                 }
                 break;
@@ -1806,8 +1806,8 @@ void Player_HandleSuperForm(void)
                     Player_BlendSuperMightyColors(1);
 
                     for (int32 c = 0; c < PLAYER_PRIMARY_COLOR_COUNT; ++c) {
-                        RSDK.SetPaletteEntry(6, PLAYER_PALETTE_INDEX_MIGHTY + c, Player->superPalette_Mighty[(1 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
-                        RSDK.SetPaletteEntry(7, PLAYER_PALETTE_INDEX_MIGHTY + c, Player->superPalette_Mighty[(2 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
+                        RSDK.SetPaletteEntry(6, PLAYER_PALETTE_INDEX_MIGHTY + c, Player->superPalette_Mighty[(0 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
+                        RSDK.SetPaletteEntry(7, PLAYER_PALETTE_INDEX_MIGHTY + c, Player->superPalette_Mighty[(1 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
                     }
                 }
                 else if (CPZSetup) {
@@ -1819,8 +1819,8 @@ void Player_HandleSuperForm(void)
                     Player_BlendSuperMightyColors(2);
 
                     for (int32 c = 0; c < PLAYER_PRIMARY_COLOR_COUNT; ++c) {
-                        RSDK.SetPaletteEntry(6, PLAYER_PALETTE_INDEX_MIGHTY + c, Player->superPalette_Mighty[(1 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
-                        RSDK.SetPaletteEntry(7, PLAYER_PALETTE_INDEX_MIGHTY + c, Player->superPalette_Mighty[(2 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
+                        RSDK.SetPaletteEntry(6, PLAYER_PALETTE_INDEX_MIGHTY + c, Player->superPalette_Mighty[(0 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
+                        RSDK.SetPaletteEntry(7, PLAYER_PALETTE_INDEX_MIGHTY + c, Player->superPalette_Mighty[(1 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
                     }
                 }
                 break;
@@ -1844,8 +1844,8 @@ void Player_HandleSuperForm(void)
                     Player_BlendSuperRayColors(1);
 
                     for (int32 c = 0; c < PLAYER_PRIMARY_COLOR_COUNT; ++c) {
-                        RSDK.SetPaletteEntry(6, PLAYER_PALETTE_INDEX_RAY + c, Player->superPalette_Ray[(1 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
-                        RSDK.SetPaletteEntry(7, PLAYER_PALETTE_INDEX_RAY + c, Player->superPalette_Ray[(2 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
+                        RSDK.SetPaletteEntry(6, PLAYER_PALETTE_INDEX_RAY + c, Player->superPalette_Ray[(0 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
+                        RSDK.SetPaletteEntry(7, PLAYER_PALETTE_INDEX_RAY + c, Player->superPalette_Ray[(1 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
                     }
                 }
                 else if (CPZSetup) {
@@ -1857,8 +1857,8 @@ void Player_HandleSuperForm(void)
                     Player_BlendSuperRayColors(2);
 
                     for (int32 c = 0; c < PLAYER_PRIMARY_COLOR_COUNT; ++c) {
-                        RSDK.SetPaletteEntry(6, PLAYER_PALETTE_INDEX_RAY + c, Player->superPalette_Ray[(1 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
-                        RSDK.SetPaletteEntry(7, PLAYER_PALETTE_INDEX_RAY + c, Player->superPalette_Ray[(2 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
+                        RSDK.SetPaletteEntry(6, PLAYER_PALETTE_INDEX_RAY + c, Player->superPalette_Ray[(0 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
+                        RSDK.SetPaletteEntry(7, PLAYER_PALETTE_INDEX_RAY + c, Player->superPalette_Ray[(1 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
                     }
                 }
                 break;
@@ -1881,8 +1881,8 @@ void Player_HandleSuperForm(void)
                     Player_BlendSuperAmyColors(1);
 
                     for (int32 c = 0; c < PLAYER_PRIMARY_COLOR_COUNT; ++c) {
-                        RSDK.SetPaletteEntry(6, PLAYER_PALETTE_INDEX_AMY + c, Player->superPalette_Amy[(1 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
-                        RSDK.SetPaletteEntry(7, PLAYER_PALETTE_INDEX_AMY + c, Player->superPalette_Amy[(2 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
+                        RSDK.SetPaletteEntry(6, PLAYER_PALETTE_INDEX_AMY + c, Player->superPalette_Amy[(0 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
+                        RSDK.SetPaletteEntry(7, PLAYER_PALETTE_INDEX_AMY + c, Player->superPalette_Amy[(1 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
                     }
                 }
                 else if (CPZSetup) {
@@ -1894,8 +1894,8 @@ void Player_HandleSuperForm(void)
                     Player_BlendSuperAmyColors(2);
 
                     for (int32 c = 0; c < PLAYER_PRIMARY_COLOR_COUNT; ++c) {
-                        RSDK.SetPaletteEntry(6, PLAYER_PALETTE_INDEX_AMY + c, Player->superPalette_Amy[(1 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
-                        RSDK.SetPaletteEntry(7, PLAYER_PALETTE_INDEX_AMY + c, Player->superPalette_Amy[(2 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
+                        RSDK.SetPaletteEntry(6, PLAYER_PALETTE_INDEX_AMY + c, Player->superPalette_Amy[(0 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
+                        RSDK.SetPaletteEntry(7, PLAYER_PALETTE_INDEX_AMY + c, Player->superPalette_Amy[(1 * PLAYER_PRIMARY_COLOR_COUNT) + c]);
                     }
                 }
                 break;
@@ -6744,10 +6744,6 @@ void Player_JumpAbility_Amy(void)
     RSDKControllerState *controller = &ControllerInfo[self->controllerID];
 
     self->timer = 0;
-    if (self->characterID == ID_AMY && controller->keyZ.press && self->superState == SUPERSTATE_SUPER) {
-        SceneInfo->timeEnabled = false;
-    }
-
     if (self->jumpPress && self->jumpAbilityState == 1
         && (self->stateInput != Player_Input_P2_AI
             || (self->up
