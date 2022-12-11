@@ -40,11 +40,10 @@ void SummaryEmerald_Create(void *data)
                 RSDK.SetSpriteAnimation(SummaryEmerald->aniFrames, 1, &self->animator, true, self->emeraldID % 7);
             else
                 RSDK.SetSpriteAnimation(SummaryEmerald->aniFrames, 0, &self->animator, true, self->emeraldID % 7);
+        else if (playerID == ID_AMY)
+            RSDK.SetSpriteAnimation(SummaryEmerald->aniFrames, 1, &self->animator, true, 7);
         else
-            if (playerID == ID_AMY)
-                RSDK.SetSpriteAnimation(SummaryEmerald->aniFrames, 1, &self->animator, true, 7);
-            else
-                RSDK.SetSpriteAnimation(SummaryEmerald->aniFrames, 0, &self->animator, true, 7);
+            RSDK.SetSpriteAnimation(SummaryEmerald->aniFrames, 0, &self->animator, true, 7);
     }
 }
 

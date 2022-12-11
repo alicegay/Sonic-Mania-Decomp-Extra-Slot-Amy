@@ -52,7 +52,7 @@ void ChaosEmerald_Create(void *data)
     if (playerID == ID_AMY)
         RSDK.SetSpriteAnimation(ChaosEmerald->aniFrames, 1, &self->animator, true, self->type);
     else
-    RSDK.SetSpriteAnimation(ChaosEmerald->aniFrames, 0, &self->animator, true, self->type);
+        RSDK.SetSpriteAnimation(ChaosEmerald->aniFrames, 0, &self->animator, true, self->type);
 }
 
 void ChaosEmerald_StageLoad(void) { ChaosEmerald->aniFrames = RSDK.LoadSpriteAnimation("Cutscene/Emeralds.bin", SCOPE_STAGE); }
@@ -61,7 +61,6 @@ void ChaosEmerald_State_None(void)
 {
     // hello
 }
-
 void ChaosEmerald_State_Rotate(void)
 {
     RSDK_THIS(ChaosEmerald);

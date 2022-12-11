@@ -3,6 +3,21 @@
 
 #include "Game.h"
 
+// Helper Constants
+#define PLAYER_PALETTE_INDEX_SONIC_OLD (2) // sonic's original palette indices, here for legacy reasons. Only exists in a few places in the final game.
+
+#define PLAYER_PALETTE_INDEX_SONIC     (64)
+#define PLAYER_PALETTE_INDEX_TAILS     (70)
+#define PLAYER_PALETTE_INDEX_KNUX      (80)
+#if MANIA_USE_PLUS
+#define PLAYER_PALETTE_INDEX_MIGHTY (96)
+#define PLAYER_PALETTE_INDEX_RAY    (113)
+#define PLAYER_PALETTE_INDEX_AMY    (86)
+#endif
+
+#define PLAYER_PRIMARY_COLOR_COUNT (6)
+
+// Helper Enums
 typedef enum {
     ANI_IDLE,
     ANI_BORED_1,
@@ -110,10 +125,10 @@ typedef enum {
     PLAYER_CHAR_TAILS,
     PLAYER_CHAR_SONIC_TAILS,
     PLAYER_CHAR_KNUX,
-    PLAYER_CHAR_AMY,
     PLAYER_CHAR_SONIC_KNUX,
     PLAYER_CHAR_TAILS_KNUX,
     PLAYER_CHAR_SONIC_TAILS_KNUX,
+    PLAYER_CHAR_AMY
 } PlayerCharacterIDS;
 
 typedef enum {
@@ -122,11 +137,6 @@ typedef enum {
     SHIELD_BUBBLE,
     SHIELD_FIRE,
     SHIELD_LIGHTNING,
-    SHIELD_ORANGE,
-    SHIELD_RED,
-    SHIELD_MAROON,
-    SHIELD_YELLOW,
-    SHIELD_PINK,
 } ShieldTypes;
 
 typedef enum {
@@ -215,7 +225,7 @@ struct ObjectPlayer {
     TABLE(color superPalette_Ray_CPZ[18], { 0xE00180, 0xE00190, 0xE02898, 0xE048A8, 0xE060B8, 0xE078E0, 0xE02880, 0xE05888, 0xE08088, 0xE080A8,
                                             0xE080D8, 0xE080E0, 0xE02880, 0xE05888, 0xE08088, 0xE080A8, 0xE080D8, 0xE080E0 });
     TABLE(color superPalette_Amy_CPZ[18], { 0x4000D8, 0x5800E0, 0x6810E0, 0x8020E0, 0xA020E0, 0xC040E0, 0xE04880, 0xE06890, 0xE078A8, 0xE078D8,
-                                              0xE080E0, 0xE080E0, 0xE080B0, 0xE080B0, 0xE080C0, 0xE080C0, 0xE080E0, 0xE080E0 });
+                                            0xE080E0, 0xE080E0, 0xE080B0, 0xE080B0, 0xE080C0, 0xE080C0, 0xE080E0, 0xE080E0 });
     bool32 cantSwap;
     int32 playerCount;
     uint16 upState;
@@ -239,7 +249,7 @@ struct ObjectPlayer {
     int32 savedScore;
     STATIC(int32 savedScore1UP, 50000);
     uint16 sonicFrames;
-    uint16 supersonicFrames;
+    uint16 superFrames;
     uint16 tailsFrames;
     uint16 tailsTailsFrames;
     uint16 knuxFrames;
@@ -323,7 +333,7 @@ struct ObjectPlayer {
     int32 savedScore;
     STATIC(int32 savedScore1UP, 50000);
     uint16 sonicFrames;
-    uint16 supersonicFrames;
+    uint16 superFrames;
     uint16 tailsTailsFrames;
     uint16 tailsFrames;
     uint16 knuxFrames;

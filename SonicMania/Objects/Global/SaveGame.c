@@ -92,7 +92,8 @@ void SaveGame_LoadSaveData(void)
 
     if (globals->recallEntities) {
         if (SceneInfo->activeCategory < 3) {
-            for (int32 p = 0; p < 5; ++p) {
+            for (int32 p = 0; p < 4; ++p) { //I don't think this should be 5
+                //LogHelpers_Print("xpos: %ld", globals->restartPos[(p * 2) + 0]);
                 StarPost->playerPositions[p].x = globals->restartPos[(p * 2) + 0];
                 StarPost->playerPositions[p].y = globals->restartPos[(p * 2) + 1];
                 StarPost->playerDirections[p]  = globals->restartDir[p];
@@ -461,7 +462,7 @@ void SaveGame_SaveFile_CB(int32 status)
     }
 }
 
-bool32 SaveGame_AllChaosEmeralds()
+bool32 SaveGame_AllChaosEmeralds(void)
 {
     SaveRAM *saveRAM = SaveGame_GetSaveRAM();
     return saveRAM->collectedEmeralds == 0b01111111;
@@ -478,7 +479,7 @@ void SaveGame_SetEmerald(uint8 emeraldID)
     saveRAM->collectedEmeralds |= 1 << emeraldID;
 }
 
-void SaveGame_ClearCollectedSpecialRings()
+void SaveGame_ClearCollectedSpecialRings(void)
 {
     SaveRAM *saveRAM               = SaveGame_GetSaveRAM();
     saveRAM->collectedSpecialRings = 0;

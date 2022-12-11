@@ -118,7 +118,7 @@ void PBL_Crane_HandlePrizes(void)
         case PBL_CRANE_PRIZE_TAILS:
         case PBL_CRANE_PRIZE_KNUCKLES:
         case PBL_CRANE_PRIZE_MIGHTY:
-        case PBL_CRANE_PRIZE_RAY:
+        case PBL_CRANE_PRIZE_RAY: 
         case PBL_CRANE_PRIZE_AMY: {
             int32 playerID = 1 << self->displayAnimator.frameID;
             globals->characterFlags |= playerID;
@@ -135,7 +135,7 @@ void PBL_Crane_HandlePrizes(void)
             else if (!GET_STOCK_ID(3))
                 globals->stock |= playerID << 16;
             else if (!GET_STOCK_ID(4))
-                globals->stock |= playerID << 12;
+                globals->stock |= playerID << 16;
 
             break;
         }

@@ -172,7 +172,6 @@ void UFO_Player_StageLoad(void)
             UFO_Player->tumbleModel = RSDK.LoadMesh("Special/AmyTumble.bin", SCOPE_STAGE);
             break;
 #endif
-        
     }
 
     UFO_Player->sceneIndex = RSDK.Create3DScene("View:Special", 4096, SCOPE_STAGE);

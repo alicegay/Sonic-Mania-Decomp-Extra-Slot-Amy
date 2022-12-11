@@ -345,7 +345,6 @@ bool32 CPZ1Intro_Cutscene_PlayerChemicalReact(EntityCutsceneSeq *host)
                 player1->state          = Player_State_Static;
                 player1->tileCollisions = TILECOLLISION_NONE;
                 break;
-
             case ID_AMY:
                 CPZ1Intro->playerAnimID = 5;
                 RSDK.SetSpriteAnimation(CPZ1Intro->playerFrames, CPZ1Intro->playerAnimID, &player1->animator, true, 0);

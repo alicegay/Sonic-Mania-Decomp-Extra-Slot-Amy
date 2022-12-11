@@ -28,7 +28,7 @@ typedef enum {
     ID_AMY    = 1 << 5,
 #endif
     ID_TAILS_ASSIST    = ID_TAILS << 8,
-    ID_AMY_ASSIST = ID_AMY << 8, // custom-added, Amy can now be P2
+    ID_AMY_ASSIST = ID_AMY << 8, // custom-added, look ma I'm coding!
     ID_DEFAULT_PLAYER  = ID_SONIC | ID_TAILS_ASSIST,
 } PlayerIDs;
 
@@ -169,7 +169,6 @@ typedef enum {
     SLOT_CAMERA2 = 61,
     SLOT_CAMERA3 = 62,
     SLOT_CAMERA4 = 63,
-
 } ReservedEntities;
 
 typedef enum {
