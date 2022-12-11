@@ -4106,6 +4106,11 @@ void Player_State_Ground(void)
                 }
             }
             if (self->characterID == ID_AMY) {
+                if (self->aPress) {
+                    RSDK.SetSpriteAnimation(self->aniFrames, 49, &self->animator, true, 0);
+                    self->state = Player_Action_TallJump;
+                }
+
                 if (self->bPress) {
                     RSDK.SetSpriteAnimation(self->aniFrames, 49, &self->animator, true, 0);
                     self->timer = 0;
@@ -4313,14 +4318,9 @@ void Player_State_LookUp(void)
                 Player_Action_Jump(self);
             }
         }
-        if (self->characterID == ID_AMY) { // I think it goes to the "else" function in all instances tbh, but I'm scared to touch
-            if (self->jumpPress) {         // this in fear of breaking the ability, and if it ain't broke, don't fix it, as they say
-                if (self->stateTallJump) {
-                    StateMachine_Run(self->stateTallJump);
-                }
-                else {
-                    Player_Action_TallJump();
-                }
+        if (self->characterID == ID_AMY) {
+            if (self->aPress) {
+                Player_Action_TallJump();
             }
         }
     }
@@ -6815,8 +6815,9 @@ void Player_Input_P1(void)
                 self->right = false;
             }
             if (self->characterID == ID_AMY) {
-                self->jumpPress = controller->keyA.press || controller->keyC.press || controller->keyX.press;
+                self->jumpPress = controller->keyC.press || controller->keyX.press;
                 self->jumpHold  = controller->keyA.down || controller->keyB.down || controller->keyC.down || controller->keyX.down;
+                self->aPress    = controller->keyA.press;
                 self->bPress    = controller->keyB.press;
             }
             else {
@@ -6956,6 +6957,7 @@ void Player_Input_P2_AI(void)
         self->right     = leader->right;
         self->jumpHold  = leader->jumpHold;
         self->jumpPress = leader->jumpPress;
+        self->aPress    = leader->aPress;
         self->bPress = leader->bPress;
     }
     else if (leader->classID == Player->classID && leader->state != Player_State_FlyCarried) {
@@ -7110,8 +7112,9 @@ void Player_Input_P2_Player(void)
             }
 
             if (self->characterID == ID_AMY) {
-                self->jumpPress = controller->keyA.press || controller->keyB.press || controller->keyC.press || controller->keyX.press;
+                self->jumpPress = controller->keyB.press || controller->keyC.press || controller->keyX.press;
                 self->jumpHold  = controller->keyA.down || controller->keyB.down || controller->keyC.down || controller->keyX.down;
+                self->aPress    = controller->keyA.press;
                 self->bPress    = controller->keyB.press;
             }
             else {
