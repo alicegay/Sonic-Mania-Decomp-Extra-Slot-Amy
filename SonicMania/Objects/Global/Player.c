@@ -873,7 +873,7 @@ void Player_LoadSprites(void)
 #if MANIA_USE_PLUS
             case ID_MIGHTY: Player->mightyFrames = RSDK.LoadSpriteAnimation("Players/Mighty.bin", SCOPE_STAGE); break;
             case ID_RAY: Player->rayFrames = RSDK.LoadSpriteAnimation("Players/Ray.bin", SCOPE_STAGE); break;
-            case ID_AMY: Player->rayFrames = RSDK.LoadSpriteAnimation("Players/Amy.bin", SCOPE_STAGE); break;
+            case ID_AMY: Player->amyFrames = RSDK.LoadSpriteAnimation("Players/Amy.bin", SCOPE_STAGE); break;
 #endif
         }
     }
