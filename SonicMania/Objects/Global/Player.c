@@ -4318,7 +4318,15 @@ void Player_State_LookUp(void)
                 Player_Action_Jump(self);
             }
         }
-        if (self->characterID == ID_AMY) {
+        if (self->characterID == ID_AMY) { // I think it goes to the "else" function in all instances tbh, but I'm scared to touch
+            if (self->jumpPress) {         // this in fear of breaking the ability, and if it ain't broke, don't fix it, as they say
+                if (self->stateTallJump) {
+                    StateMachine_Run(self->stateTallJump);
+                }
+                else {
+                    Player_Action_TallJump();
+                }
+            }
             if (self->aPress) {
                 Player_Action_TallJump();
             }
@@ -5814,21 +5822,17 @@ void Player_State_AmyHeliHammer_Left(void)
 
     if (self->onGround) {
         self->state = Player_State_Ground;
+        Player_HandleAirMovement();
     }
     else {
-        if (self->jumpHold) {
-            if (self->velocity.x < -0x10000)
+        if (self->velocity.x < -0x10000)
+            self->abilitySpeed = 0x1300;
+
+        if (self->velocity.x <= 0) {
+            if (self->abilityValue >= 60)
                 self->abilitySpeed = 0x1300;
-            if (self->velocity.x <= 0) {
-                if (self->abilityValue >= 60)
-                    self->abilitySpeed = 0x1300;
-                else
-                    self->abilityValue++;
-            }
-        }
-        else {
-            RSDK.SetSpriteAnimation(self->aniFrames, ANI_JUMP, &self->animator, false, 0);
-            self->state = Player_State_Air;
+            else
+                self->abilityValue++;
         }
 
         self->velocity.y += self->abilitySpeed;
@@ -5836,6 +5840,11 @@ void Player_State_AmyHeliHammer_Left(void)
         uint16 slot = 0;
         if (!self->sidekick)
             slot = SceneInfo->entitySlot;
+
+        EntityPlayer *leader = RSDK_GET_ENTITY(SLOT_PLAYER1, Player);
+
+        if (self->timer >= 480)
+            RSDK.SetSpriteAnimation(self->aniFrames, ANI_JUMP, &self->animator, false, 0);
     }
 }
 
@@ -5847,21 +5856,17 @@ void Player_State_AmyHeliHammer_Right(void)
 
     if (self->onGround) {
         self->state = Player_State_Ground;
+        Player_HandleAirMovement();
     }
     else {
-        if (self->jumpHold) {
-            if (self->velocity.x > -0x10000)
+        if (self->velocity.x > -0x10000)
+            self->abilitySpeed = 0x1300;
+
+        if (self->velocity.x <= 0) {
+            if (self->abilityValue >= 60)
                 self->abilitySpeed = 0x1300;
-            if (self->velocity.x <= 0) {
-                if (self->abilityValue >= 60)
-                    self->abilitySpeed = 0x1300;
-                else
-                    self->abilityValue++;
-            }
-        }
-        else {
-            RSDK.SetSpriteAnimation(self->aniFrames, ANI_JUMP, &self->animator, false, 0);
-            self->state = Player_State_Air;
+            else
+                self->abilityValue++;
         }
 
         self->velocity.y += self->abilitySpeed;
@@ -5869,6 +5874,11 @@ void Player_State_AmyHeliHammer_Right(void)
         uint16 slot = 0;
         if (!self->sidekick)
             slot = SceneInfo->entitySlot;
+
+        EntityPlayer *leader = RSDK_GET_ENTITY(SLOT_PLAYER1, Player);
+
+        if (self->timer >= 480)
+            RSDK.SetSpriteAnimation(self->aniFrames, ANI_JUMP, &self->animator, false, 0);
     }
 }
 
@@ -6815,10 +6825,10 @@ void Player_Input_P1(void)
                 self->right = false;
             }
             if (self->characterID == ID_AMY) {
-                self->jumpPress = controller->keyC.press || controller->keyX.press;
+                self->jumpPress = controller->keyC.press || controller->keyA.press;
                 self->jumpHold  = controller->keyA.down || controller->keyB.down || controller->keyC.down || controller->keyX.down;
-                self->aPress    = controller->keyA.press;
-                self->bPress    = controller->keyB.press;
+                self->aPress    = controller->keyB.press;
+                self->bPress    = controller->keyX.press;
             }
             else {
                 self->jumpPress = controller->keyA.press || controller->keyB.press || controller->keyC.press || controller->keyX.press;
@@ -7112,10 +7122,10 @@ void Player_Input_P2_Player(void)
             }
 
             if (self->characterID == ID_AMY) {
-                self->jumpPress = controller->keyB.press || controller->keyC.press || controller->keyX.press;
+                self->jumpPress = controller->keyB.press || controller->keyC.press || controller->keyX.press || controller->keyA.press;
                 self->jumpHold  = controller->keyA.down || controller->keyB.down || controller->keyC.down || controller->keyX.down;
-                self->aPress    = controller->keyA.press;
-                self->bPress    = controller->keyB.press;
+                self->aPress    = controller->keyB.press;
+                self->bPress    = controller->keyX.press;
             }
             else {
                 self->jumpPress = controller->keyA.press || controller->keyB.press || controller->keyC.press || controller->keyX.press;
