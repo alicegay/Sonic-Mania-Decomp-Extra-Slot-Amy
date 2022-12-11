@@ -128,6 +128,8 @@ void BSS_Player_Create(void *data)
                 self->aniFrames = BSS_Player->rayFrames;
                 RSDK.SetSpriteAnimation(self->aniFrames, 4, &self->tailAnimator, true, 0);
                 break;
+
+            case ID_AMY: self->aniFrames = BSS_Player->amyFrames; break;
 #endif
         }
 
@@ -153,6 +155,7 @@ void BSS_Player_StageLoad(void)
     BSS_Player->knuxFrames   = RSDK.LoadSpriteAnimation("SpecialBS/Knuckles.bin", SCOPE_STAGE);
     BSS_Player->mightyFrames = RSDK.LoadSpriteAnimation("SpecialBS/Mighty.bin", SCOPE_STAGE);
     BSS_Player->rayFrames    = RSDK.LoadSpriteAnimation("SpecialBS/Ray.bin", SCOPE_STAGE);
+    BSS_Player->amyFrames    = RSDK.LoadSpriteAnimation("SpecialBS/Amy.bin", SCOPE_STAGE);
 
     if (globals->playerID == ID_NONE)
         globals->playerID = ID_DEFAULT_PLAYER;

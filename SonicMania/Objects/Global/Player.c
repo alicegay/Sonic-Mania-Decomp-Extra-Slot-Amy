@@ -786,8 +786,8 @@ void Player_StageLoad(void)
     Player->sfxMightyDrill   = RSDK.GetSfx("Global/MightyDrill.wav");
     Player->sfxMightyLand    = RSDK.GetSfx("Global/MightyLand.wav");
     Player->sfxMightyUnspin  = RSDK.GetSfx("Global/MightyUnspin.wav");
-    Player->sfxAmyHammer    = RSDK.GetSfx("Global/AmyHammerHit.wav");
-    Player->sfxAmyHammerFly  = RSDK.GetSfx("Global/AmyHammerFly.wav");
+    Player->sfxAmyHammer    = RSDK.GetSfx("Amy/AmyHammerHit.wav");
+    Player->sfxAmyHammerFly  = RSDK.GetSfx("Amy/AmyHammerFly.wav");
 
     Soundboard_LoadSfx("Global/RaySwoop.wav", 41417, Player_SfxCheck_RaySwoop, Player_SfxUpdate_RaySwoop);
     Soundboard_LoadSfx("Global/RayDive.wav", 72323, Player_SfxCheck_RayDive, Player_SfxUpdate_RayDive);
