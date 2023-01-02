@@ -466,6 +466,7 @@ struct EntityPlayer {
     bool32 jumpHold;
     bool32 aPress; // Amy Specific, for Tall Jump stuff
     bool32 bPress; // Amy Specific, for ground hammer stuff
+    bool32 aHold; // Amy Specific, Heli-Hammer stuff for Android controls
     bool32 applyJumpCap;
     int32 jumpAbilityState;
     StateMachine(stateAbility);

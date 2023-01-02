@@ -4105,16 +4105,35 @@ void Player_State_Ground(void)
                     self->state = Player_State_Crouch;
                 }
             }
-            if (self->characterID == ID_AMY) {
-                if (self->aPress) {
-                    RSDK.SetSpriteAnimation(self->aniFrames, 49, &self->animator, true, 0);
-                    self->state = Player_Action_TallJump;
-                }
 
-                if (self->bPress) {
-                    RSDK.SetSpriteAnimation(self->aniFrames, 49, &self->animator, true, 0);
-                    self->timer = 0;
-                    self->state = Player_State_AmyHammer;
+            bool32 enabled = false;
+            Mod.LoadModInfo("ManiaTouchControls", NULL, NULL, NULL, &enabled);
+
+            if (enabled) {
+                if (self->characterID == ID_AMY) {
+                    if (self->aPress) {
+                        Player_Action_Jump(self);
+                    }
+
+                    if (self->bPress) {
+                        RSDK.SetSpriteAnimation(self->aniFrames, 49, &self->animator, true, 0);
+                        self->timer = 0;
+                        self->state = Player_State_AmyHammer;
+                    }
+                }
+            }
+            else {
+                if (self->characterID == ID_AMY) {
+                    if (self->aPress) {
+                        RSDK.SetSpriteAnimation(self->aniFrames, 49, &self->animator, true, 0);
+                        self->state = Player_Action_TallJump;
+                    }
+
+                    if (self->bPress) {
+                        RSDK.SetSpriteAnimation(self->aniFrames, 49, &self->animator, true, 0);
+                        self->timer = 0;
+                        self->state = Player_State_AmyHammer;
+                    }
                 }
             }
         }
@@ -4204,8 +4223,17 @@ void Player_State_Roll(void)
 
         Player_Gravity_False();
 
-        if (self->jumpPress)
-            Player_Action_Jump(self);
+        bool32 enabled = false;
+        Mod.LoadModInfo("ManiaTouchControls", NULL, NULL, NULL, &enabled);
+
+        if (enabled) {
+            if (self->aPress)
+                Player_Action_Jump(self);
+        }
+        else {
+            if (self->jumpPress)
+                Player_Action_Jump(self);
+        }
     }
 }
 void Player_State_TubeRoll(void)
@@ -4369,8 +4397,17 @@ void Player_State_Crouch(void)
             }
         }
 
-        if (self->jumpPress) {
-            Player_Action_Spindash();
+        bool32 enabled = false;
+        Mod.LoadModInfo("ManiaTouchControls", NULL, NULL, NULL, &enabled);
+        if (enabled) {
+            if (self->aPress) {
+                Player_Action_Spindash();
+            }
+        }
+        else {
+            if (self->jumpPress) {
+                Player_Action_Spindash();
+            }
         }
     }
     else {
@@ -4379,8 +4416,17 @@ void Player_State_Crouch(void)
         if (self->animator.frameID == 0 || self->left || self->right)
             self->state = Player_State_Ground;
 
-        if (self->jumpPress)
-            Player_Action_Jump(self);
+        bool32 enabled = false;
+        Mod.LoadModInfo("ManiaTouchControls", NULL, NULL, NULL, &enabled);
+
+        if (enabled) {
+            if (self->aPress)
+                Player_Action_Jump(self);
+        }
+        else {
+            if (self->jumpPress)
+                Player_Action_Jump(self);
+        }
     }
 }
 void Player_State_Spindash(void)
@@ -5812,23 +5858,55 @@ void Player_State_AmyHeliHammer_Left(void)
 
     Player_HandleAirFriction();
 
-    if (self->onGround) {
-        self->state = Player_State_Ground;
-    }
-    else {
-        if (self->jumpHold) {
-            if (self->velocity.x < -0x10000)
-                self->abilitySpeed = 0x1300;
-            if (self->velocity.x <= 0) {
-                if (self->abilityValue >= 60)
-                    self->abilitySpeed = 0x1300;
-                else
-                    self->abilityValue++;
-            }
+    bool32 enabled = false;
+    Mod.LoadModInfo("ManiaTouchControls", NULL, NULL, NULL, &enabled);
+
+    if (enabled) {
+        if (self->onGround) {
+            self->state = Player_State_Ground;
         }
         else {
-            RSDK.SetSpriteAnimation(self->aniFrames, ANI_JUMP, &self->animator, false, 0);
-            self->state = Player_State_Air;
+            if (self->aHold) {
+                if (self->velocity.x < -0x10000)
+                    self->abilitySpeed = 0x1300;
+                if (self->velocity.x <= 0) {
+                    if (self->abilityValue >= 60)
+                        self->abilitySpeed = 0x1300;
+                    else
+                        self->abilityValue++;
+                }
+            }
+            else {
+                RSDK.SetSpriteAnimation(self->aniFrames, ANI_JUMP, &self->animator, false, 0);
+                self->state = Player_State_Air;
+            }
+        }
+
+        self->velocity.y += self->abilitySpeed;
+
+        uint16 slot = 0;
+        if (!self->sidekick)
+            slot = SceneInfo->entitySlot;
+    }
+    else {
+        if (self->onGround) {
+            self->state = Player_State_Ground;
+        }
+        else {
+            if (self->jumpHold) {
+                if (self->velocity.x < -0x10000)
+                    self->abilitySpeed = 0x1300;
+                if (self->velocity.x <= 0) {
+                    if (self->abilityValue >= 60)
+                        self->abilitySpeed = 0x1300;
+                    else
+                        self->abilityValue++;
+                }
+            }
+            else {
+                RSDK.SetSpriteAnimation(self->aniFrames, ANI_JUMP, &self->animator, false, 0);
+                self->state = Player_State_Air;
+            }
         }
 
         self->velocity.y += self->abilitySpeed;
@@ -5845,23 +5923,55 @@ void Player_State_AmyHeliHammer_Right(void)
 
     Player_HandleAirFriction();
 
-    if (self->onGround) {
-        self->state = Player_State_Ground;
-    }
-    else {
-        if (self->jumpHold) {
-            if (self->velocity.x > -0x10000)
-                self->abilitySpeed = 0x1300;
-            if (self->velocity.x <= 0) {
-                if (self->abilityValue >= 60)
-                    self->abilitySpeed = 0x1300;
-                else
-                    self->abilityValue++;
-            }
+    bool32 enabled = false;
+    Mod.LoadModInfo("ManiaTouchControls", NULL, NULL, NULL, &enabled);
+
+    if (enabled) {
+        if (self->onGround) {
+            self->state = Player_State_Ground;
         }
         else {
-            RSDK.SetSpriteAnimation(self->aniFrames, ANI_JUMP, &self->animator, false, 0);
-            self->state = Player_State_Air;
+            if (self->aHold) {
+                if (self->velocity.x > -0x10000)
+                    self->abilitySpeed = 0x1300;
+                if (self->velocity.x <= 0) {
+                    if (self->abilityValue >= 60)
+                        self->abilitySpeed = 0x1300;
+                    else
+                        self->abilityValue++;
+                }
+            }
+            else {
+                RSDK.SetSpriteAnimation(self->aniFrames, ANI_JUMP, &self->animator, false, 0);
+                self->state = Player_State_Air;
+            }
+        }
+
+        self->velocity.y += self->abilitySpeed;
+
+        uint16 slot = 0;
+        if (!self->sidekick)
+            slot = SceneInfo->entitySlot;
+    }
+    else {
+        if (self->onGround) {
+            self->state = Player_State_Ground;
+        }
+        else {
+            if (self->jumpHold) {
+                if (self->velocity.x > -0x10000)
+                    self->abilitySpeed = 0x1300;
+                if (self->velocity.x <= 0) {
+                    if (self->abilityValue >= 60)
+                        self->abilitySpeed = 0x1300;
+                    else
+                        self->abilityValue++;
+                }
+            }
+            else {
+                RSDK.SetSpriteAnimation(self->aniFrames, ANI_JUMP, &self->animator, false, 0);
+                self->state = Player_State_Air;
+            }
         }
 
         self->velocity.y += self->abilitySpeed;
@@ -6742,46 +6852,86 @@ void Player_JumpAbility_Amy(void)
 {
     RSDK_THIS(Player);
     RSDKControllerState *controller = &ControllerInfo[self->controllerID];
+    bool32 enabled                  = false;
+    Mod.LoadModInfo("ManiaTouchControls", NULL, NULL, NULL, &enabled);
 
     self->timer = 0;
-    if (self->jumpPress && self->jumpAbilityState == 1
-        && (self->stateInput != Player_Input_P2_AI
-            || (self->up
-#if MANIA_USE_PLUS
-                && globals->gameMode != MODE_ENCORE
-#endif
-                ))
-#if GAME_VERSION == VER_100
-        && !Player_TryTransform(self, SaveGame->saveRAM->chaosEmeralds)
-#endif
-    ) {
-        if (!self->invertGravity) {
-            self->jumpAbilityState = 0;
-            self->abilitySpeed     = 0x1300;
+    if (enabled) {
+        if (self->aPress && self->jumpAbilityState == 1
+            && (self->stateInput != Player_Input_P2_AI
+                || (self->up
+    #if MANIA_USE_PLUS
+                    && globals->gameMode != MODE_ENCORE
+    #endif
+                    ))
+    #if GAME_VERSION == VER_100
+            && !Player_TryTransform(self, SaveGame->saveRAM->chaosEmeralds)
+    #endif
+        ) {
+            if (!self->invertGravity) {
+                self->jumpAbilityState = 0;
+                self->abilitySpeed     = 0x1300;
 
-            if (self->velocity.y < 0)
-                self->velocity.y = 0;
+                if (self->velocity.y < 0)
+                    self->velocity.y = 0;
 
-            if (self->direction) {
-                self->state      = Player_State_AmyHeliHammer_Left;
-                self->velocity.x = -0x40000;
-                self->timer      = 0x100;
+                if (self->direction) {
+                    self->state      = Player_State_AmyHeliHammer_Left;
+                    self->velocity.x = (self->velocity.x - 0x15000);
+                    self->timer      = 0x100;
+                }
+                else {
+                    self->state      = Player_State_AmyHeliHammer_Right;
+                    self->velocity.x = (self->velocity.x + 0x15000);
+                    self->timer      = 0;
+                }
+
+                self->nextGroundState = StateMachine_None;
+                self->nextAirState    = StateMachine_None;
+                RSDK.SetSpriteAnimation(self->aniFrames, 52, &self->animator, false, 6);
             }
-            else {
-                self->state      = Player_State_AmyHeliHammer_Right;
-                self->velocity.x = 0x40000;
-                self->timer      = 0;
-            }
-
-            self->nextGroundState = StateMachine_None;
-            self->nextAirState    = StateMachine_None;
-            RSDK.SetSpriteAnimation(self->aniFrames, 52, &self->animator, false, 6);
         }
     }
+    else {
+        if (self->jumpPress && self->jumpAbilityState == 1
+            && (self->stateInput != Player_Input_P2_AI
+                || (self->up
+#if MANIA_USE_PLUS
+                    && globals->gameMode != MODE_ENCORE
+#endif
+                    ))
+#if GAME_VERSION == VER_100
+            && !Player_TryTransform(self, SaveGame->saveRAM->chaosEmeralds)
+#endif
+        ) {
+            if (!self->invertGravity) {
+                self->jumpAbilityState = 0;
+                self->abilitySpeed     = 0x1300;
+
+                if (self->velocity.y < 0)
+                    self->velocity.y = 0;
+
+                if (self->direction) {
+                    self->state      = Player_State_AmyHeliHammer_Left;
+                    self->velocity.x = (self->velocity.x - 0x15000);
+                    self->timer = 0x100;
+                }
+                else {
+                    self->state      = Player_State_AmyHeliHammer_Right;
+                    self->velocity.x = (self->velocity.x + 0x15000);
+                    self->timer = 0;
+                }
+
+                self->nextGroundState = StateMachine_None;
+                self->nextAirState    = StateMachine_None;
+                RSDK.SetSpriteAnimation(self->aniFrames, 52, &self->animator, false, 6);
+            }
+        }
 #if GAME_VERSION != VER_100
     else if (ControllerInfo[self->controllerID].keyY.press)
         Player_TryTransform(self, SaveGame->saveRAM->collectedEmeralds);
 #endif
+    }
 }
 
 void Player_Input_P1(void)
@@ -6814,15 +6964,34 @@ void Player_Input_P1(void)
                 self->left  = false;
                 self->right = false;
             }
-            if (self->characterID == ID_AMY) {
-                self->jumpPress = controller->keyC.press || controller->keyX.press;
-                self->jumpHold  = controller->keyA.down || controller->keyB.down || controller->keyC.down || controller->keyX.down;
-                self->aPress    = controller->keyA.press;
-                self->bPress    = controller->keyB.press;
+
+            bool32 enabled = false;
+            Mod.LoadModInfo("ManiaTouchControls", NULL, NULL, NULL, &enabled);
+
+            if (enabled) {
+                if (self->characterID == ID_AMY) {
+                    self->jumpPress = controller->keyC.press || controller->keyX.press;
+                    self->jumpHold  = controller->keyA.down || controller->keyB.down || controller->keyC.down || controller->keyX.down;
+                    self->aPress    = controller->keyA.press;
+                    self->bPress    = controller->keyB.press;
+                    self->aHold     = controller->keyA.down;
+                }
+                else {
+                    self->jumpPress = controller->keyA.press || controller->keyB.press || controller->keyC.press || controller->keyX.press;
+                    self->jumpHold  = controller->keyA.down || controller->keyB.down || controller->keyC.down || controller->keyX.down;
+                }
             }
             else {
-                self->jumpPress = controller->keyA.press || controller->keyB.press || controller->keyC.press || controller->keyX.press;
-                self->jumpHold  = controller->keyA.down || controller->keyB.down || controller->keyC.down || controller->keyX.down;
+                if (self->characterID == ID_AMY) {
+                    self->jumpPress = controller->keyC.press || controller->keyX.press;
+                    self->jumpHold  = controller->keyA.down || controller->keyB.down || controller->keyC.down || controller->keyX.down;
+                    self->aPress    = controller->keyA.press;
+                    self->bPress    = controller->keyB.press;
+                }
+                else {
+                    self->jumpPress = controller->keyA.press || controller->keyB.press || controller->keyC.press || controller->keyX.press;
+                    self->jumpHold  = controller->keyA.down || controller->keyB.down || controller->keyC.down || controller->keyX.down;
+                }
             }
 
             if (!LottoMachine || !((1 << self->playerID) & LottoMachine->activePlayers)) {
