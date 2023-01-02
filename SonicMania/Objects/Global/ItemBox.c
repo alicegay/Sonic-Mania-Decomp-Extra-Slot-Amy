@@ -18,7 +18,7 @@ void ItemBox_Update(void)
 #if MANIA_USE_PLUS
     if (self->type == ITEMBOX_STOCK) {
         if (self->contentsAnimator.animationID == 2 || self->contentsAnimator.animationID == 7 || self->contentsAnimator.animationID == 8) {
-            if (globals->characterFlags == 0x1F && globals->gameMode == MODE_ENCORE) {
+            if ((globals->characterFlags == 0x1F || GET_STOCK_ID(3)) && globals->gameMode == MODE_ENCORE) { //Prevent box from displaying last character
                 RSDK.SetSpriteAnimation(ItemBox->aniFrames, 8, &self->contentsAnimator, false, 0);
             }
             else {
@@ -26,7 +26,7 @@ void ItemBox_Update(void)
                 if (globals->gameMode == MODE_ENCORE) {
                     int32 id = 0;
                     while ((1 << self->contentsAnimator.frameID) & globals->characterFlags) {
-                        if (++self->contentsAnimator.frameID > 4)
+                        if (++self->contentsAnimator.frameID > 5) //Amy in item box?
                             self->contentsAnimator.frameID = 0;
                         if (++id > 5) {
                             RSDK.SetSpriteAnimation(ItemBox->aniFrames, 8, &self->contentsAnimator, false, 0);
@@ -111,7 +111,7 @@ void ItemBox_Create(void *data)
                 }
 #if MANIA_USE_PLUS
                 else if (globals->gameMode == MODE_ENCORE) {
-                    self->type = ITEMBOX_STOCK;
+                    self->type = ITEMBOX_STOCK; //Look at this later
                 }
 #endif
                 else {
