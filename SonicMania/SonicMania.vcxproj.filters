@@ -1943,6 +1943,9 @@
     <ClInclude Include="Objects\HCZ\Fan.h">
       <Filter>Sources\Objects\HCZ</Filter>
     </ClInclude>
+    <ClInclude Include="Objects\MSZ\AmyHearts.h">
+      <Filter>Sources\Objects\MSZ</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Objects\Global\ActClear.c">
@@ -3774,6 +3777,9 @@
     </ClCompile>
     <ClCompile Include="Objects\HCZ\Jawz.c">
       <Filter>Sources\Objects\HCZ</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\MSZ\AmyHearts.c">
+      <Filter>Sources\Objects\MSZ</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

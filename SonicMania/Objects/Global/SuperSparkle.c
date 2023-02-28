@@ -61,6 +61,28 @@ void SuperSparkle_Update(void)
             sparkle->animator.speed = RSDK.Rand(6, 8);
         }
 
+        if (player->characterID == ID_AMY && !(Zone->timer & 7)) {
+            int32 x = player->position.x + RSDK.Rand(-TO_FIXED(12), TO_FIXED(12));
+            int32 y = player->position.y + RSDK.Rand(-TO_FIXED(18), TO_FIXED(18));
+            Ring->amyFrames = RSDK.LoadSpriteAnimation("Global/MiracleSparkles.bin", SCOPE_STAGE);
+
+            EntityRing *sparkle = CREATE_ENTITY(Ring, NULL, x, y);
+            sparkle->state      = Ring_State_Sparkle;
+            sparkle->stateDraw  = Ring_Draw_Sparkle;
+            sparkle->active     = ACTIVE_NORMAL;
+            sparkle->visible    = false;
+            sparkle->velocity.y = -TO_FIXED(1);
+            sparkle->drawGroup  = player->drawGroup;
+            RSDK.SetSpriteAnimation(Ring->amyFrames, Zone->timer % 3, &sparkle->animator, true, 0);
+            int32 cnt = sparkle->animator.frameCount;
+            if (sparkle->animator.animationID == 2) {
+                sparkle->alpha = 0xE0;
+                cnt >>= 1;
+            }
+            sparkle->maxFrameCount  = cnt - 1;
+            sparkle->animator.speed = RSDK.Rand(6, 8);
+        }
+
         if (player->superState != SUPERSTATE_SUPER || player->active == ACTIVE_NEVER)
             destroyEntity(self);
     }

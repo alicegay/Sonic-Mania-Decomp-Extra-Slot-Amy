@@ -159,31 +159,44 @@ void UISubHeading_SetupActions(void)
 
 void UISubHeading_HandleMenuReturn(int32 slot)
 {
+    RSDK_THIS(UISaveSlot);
     EntityUIControl *control = ManiaModeMenu->secretsMenu;
     SaveRAM *saveGame        = (SaveRAM *)SaveGame_GetDataPtr(slot, false);
+    int32 playerID           = self->frameID;
 
     UIButton_SetChoiceSelection(control->buttons[0], (saveGame->medalMods & MEDAL_NOTIMEOVER) != 0);
     UIButton_SetChoiceSelection(control->buttons[1], (saveGame->medalMods & MEDAL_AMYASSIST) != 0);
 
-    if (saveGame->medalMods & MEDAL_NODROPDASH) {
-        if (saveGame->medalMods & MEDAL_PEELOUT)
+    if (playerID == 6) {
+        if (saveGame->medalMods & MEDAL_AMYCDR)
             UIButton_SetChoiceSelection(control->buttons[2], 1);
-        else if (saveGame->medalMods & MEDAL_INSTASHIELD)
-            UIButton_SetChoiceSelection(control->buttons[2], 2);
+        else {
+            UIButton_SetChoiceSelection(control->buttons[2], 0);
+        }
     }
     else {
-        UIButton_SetChoiceSelection(control->buttons[2], 0);
-    }
+        if (saveGame->medalMods & MEDAL_NODROPDASH) {
+            if (saveGame->medalMods & MEDAL_PEELOUT)
+                UIButton_SetChoiceSelection(control->buttons[2], 1);
+            else if (saveGame->medalMods & MEDAL_INSTASHIELD)
+                UIButton_SetChoiceSelection(control->buttons[2], 2);
+        }
+        else {
+            UIButton_SetChoiceSelection(control->buttons[2], 0);
+        }
 
-    if (saveGame->medalMods & MEDAL_AMYASSIST)
-        UIButton_SetChoiceSelection(control->buttons[3], 1);
-    else
-        UIButton_SetChoiceSelection(control->buttons[3], 0);
+        if (saveGame->medalMods & MEDAL_AMYASSIST)
+            UIButton_SetChoiceSelection(control->buttons[3], 1);
+        else
+            UIButton_SetChoiceSelection(control->buttons[3], 0);
+    }
 }
 
 int32 UISubHeading_GetMedalMods(void)
 {
+    RSDK_THIS(UISaveSlot);
     EntityUIControl *control = ManiaModeMenu->secretsMenu;
+    int32 playerID           = self->frameID;
 
     int32 mods = 0;
     if (control->buttons[0]->selection == 1)
@@ -191,6 +204,11 @@ int32 UISubHeading_GetMedalMods(void)
 
     if (control->buttons[1]->selection == 1)
         mods |= MEDAL_DEBUGMODE;
+
+    if (playerID == 6) {
+        if (control->buttons[2]->selection == 1)
+            mods |= MEDAL_AMYCDR;
+    }
 
     if (control->buttons[2]->selection == 1) {
         mods |= MEDAL_NODROPDASH;
@@ -371,15 +389,15 @@ void UISubHeading_SaveButton_ActionCB(void)
             default: break;
         }
 
-        if ((globals->medalMods & MEDAL_AMYASSIST))
-            globals->playerID |= ID_AMY_ASSIST;
+        if (globals->medalMods & MEDAL_AMYASSIST)
+            globals->playerID |= ID_AMYASSIST;
         else if (!self->frameID)
             globals->playerID |= ID_TAILS_ASSIST;
     }
 
     if (self->type == UISAVESLOT_NOSAVE || self->isNewSave) {
         if (self->encoreMode) {
-            globals->playerID          = ID_SONIC;
+            globals->playerID          = ID_AMY;
             globals->stock             = ID_NONE;
             globals->characterFlags    = ID_NONE;
             globals->enableIntro       = true;

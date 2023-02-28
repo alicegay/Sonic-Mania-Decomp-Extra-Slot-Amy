@@ -19,6 +19,8 @@ typedef struct ObjectAIZTornadoPath ObjectAIZTornadoPath;
 typedef struct EntityAIZTornadoPath EntityAIZTornadoPath;
 typedef struct ObjectAmoebaDroid ObjectAmoebaDroid;
 typedef struct EntityAmoebaDroid EntityAmoebaDroid;
+// typedef struct ObjectAmyHearts ObjectAmyHearts;
+// typedef struct EntityAmyHearts EntityAmyHearts;
 typedef struct ObjectAnimalHBH ObjectAnimalHBH;
 typedef struct EntityAnimalHBH EntityAnimalHBH;
 typedef struct ObjectAnimals ObjectAnimals;
@@ -1229,6 +1231,7 @@ typedef struct EntityZone EntityZone;
 #include "AIZ/AIZTornado.h"
 #include "AIZ/AIZTornadoPath.h"
 #include "CPZ/AmoebaDroid.h"
+#include "MSZ/AmyHearts.h"
 #include "Credits/AnimalHBH.h"
 #include "Global/Animals.h"
 #include "Global/Announcer.h"

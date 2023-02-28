@@ -1943,6 +1943,9 @@
     <ClInclude Include="Objects\MMZ\ConveyorPlatform.h">
       <Filter>Sources\Objects\MMZ</Filter>
     </ClInclude>
+    <ClInclude Include="Objects\MSZ\AmyHearts.h">
+      <Filter>Sources\Objects\MSZ</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Objects\Global\ActClear.c">
@@ -3777,6 +3780,9 @@
     </ClCompile>
     <ClCompile Include="Game.c">
       <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\MSZ\AmyHearts.c">
+      <Filter>Sources\Objects\MSZ</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

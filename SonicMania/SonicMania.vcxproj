@@ -391,6 +391,7 @@
     <ClInclude Include="Objects\MMZ\SizeLaser.h" />
     <ClInclude Include="Objects\MMZ\SpikeCorridor.h" />
     <ClInclude Include="Objects\MMZ\VanishPlatform.h" />
+    <ClInclude Include="Objects\MSZ\AmyHearts.h" />
     <ClInclude Include="Objects\MSZ\Armadiloid.h" />
     <ClInclude Include="Objects\MSZ\BarStool.h" />
     <ClInclude Include="Objects\MSZ\Bumpalo.h" />
@@ -1362,6 +1363,7 @@
     </ClCompile>
     <ClCompile Include="Objects\MMZ\VanishPlatform.c">
     </ClCompile>
+    <ClCompile Include="Objects\MSZ\AmyHearts.c" />
     <ClCompile Include="Objects\MSZ\Armadiloid.c">
     </ClCompile>
     <ClCompile Include="Objects\MSZ\BarStool.c">

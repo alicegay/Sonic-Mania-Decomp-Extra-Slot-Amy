@@ -175,11 +175,22 @@ void UISaveSlot_Draw(void)
 
             drawPos.x = self->position.x - 0x240000;
             drawPos.y = 0x450000 + self->position.y;
-            for (int32 i = 0; i < 7; ++i) {
-                self->emeraldsAnimator.frameID = ((1 << i) & self->saveEmeralds) ? i : 7;
-                RSDK.DrawSprite(&self->emeraldsAnimator, &drawPos, false);
 
-                drawPos.x += 0xC0000;
+            if (self->playersAnimator.frameID == 6) {
+                for (int32 i = 0; i < 7; ++i) {
+                    self->stonesAnimator.frameID = ((1 << i) & self->saveEmeralds) ? i : 7;
+                    RSDK.DrawSprite(&self->stonesAnimator, &drawPos, false);
+
+                    drawPos.x += 0xC0000;
+                }
+            }
+            else {
+                for (int32 i = 0; i < 7; ++i) {
+                    self->emeraldsAnimator.frameID = ((1 << i) & self->saveEmeralds) ? i : 7;
+                    RSDK.DrawSprite(&self->emeraldsAnimator, &drawPos, false);
+
+                    drawPos.x += 0xC0000;
+                }
             }
 
             drawPos.x = self->position.x;
@@ -406,7 +417,7 @@ void UISaveSlot_DrawPlayerIcons(int32 drawX, int32 drawY)
     RSDK.SetSpriteAnimation(UISaveSlot->aniFrames, 2, &self->shadowsAnimator, true, 3);
 
 #if MANIA_USE_PLUS
-    uint8 friendIDs[4];//Don't think this should be 5
+    uint8 friendIDs[4];
     int32 playerID    = 0;
     int32 buddyID     = 0;
     int32 friendCount = 0;
@@ -561,7 +572,7 @@ void UISaveSlot_DrawPlayerInfo(int32 drawX, int32 drawY)
     }
     else {
 #endif
-        int32 frames[] = { 0, 0, 1, 2, 3, 4, 5 }; //Why would this go up to 6?
+        int32 frames[] = { 0, 0, 1, 2, 3, 4, 5 };
         playerID       = frames[self->frameID];
 #if MANIA_USE_PLUS
     }
@@ -729,6 +740,7 @@ void UISaveSlot_SetupAnimators(void)
     RSDK.SetSpriteAnimation(UISaveSlot->aniFrames, 7, &self->fuzzAnimator, true, 0);
     RSDK.SetSpriteAnimation(UISaveSlot->aniFrames, 4, &self->emeraldsAnimator, true, 0);
     RSDK.SetSpriteAnimation(UISaveSlot->aniFrames, 5, &self->zoneIconAnimator, true, 0);
+    RSDK.SetSpriteAnimation(UISaveSlot->aniFrames, 22, &self->stonesAnimator, true, 0);
 
     if (self->type == UISAVESLOT_NOSAVE)
         RSDK.SetSpriteAnimation(UIWidgets->textFrames, 2, &self->zoneNameAnimator, true, 2);
@@ -1025,7 +1037,7 @@ void UISaveSlot_PrevCharacter(void)
     int32 player = self->frameID;
 
 #if MANIA_USE_PLUS
-    int32 max = API.CheckDLC(DLC_PLUS) ? 7 : 5; //why?
+    int32 max = API.CheckDLC(DLC_PLUS) ? 7 : 4;
 #else
     int32 max = 4;
 #endif

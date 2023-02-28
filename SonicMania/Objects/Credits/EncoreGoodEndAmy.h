@@ -34,6 +34,10 @@ typedef enum {
     E_END_DECOR_MIGHTYICECREAMSHOCK,
     E_END_DECOR_LETTERBOX1,
     E_END_DECOR_LETTERBOX2,
+    E_END_DECOR_AMYIDLE,
+    E_END_DECOR_AMYADMIRE,
+    E_END_DECOR_AMYSHOCKED,
+    E_END_DECOR_AMYHEARTS,
 } EncoreGoodEndDecorTypes;
 
 typedef enum {
@@ -53,6 +57,7 @@ typedef enum {
     E_END_ICECREAM_PINK,
     E_END_ICECREAM_GREEN,
     E_END_ICECREAM_PINK2,
+    E_END_AMY,
     E_END_COUNT,
 } EncoreGoodEndDecorIDs;
 

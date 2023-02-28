@@ -68,6 +68,7 @@
 #include "Common/Water.c"
 #include "Continue/ContinuePlayer.c"
 #include "Continue/ContinueSetup.c"
+#include "MSZ/AmyHearts.c"
 #include "Credits/AnimalHBH.c"
 #include "Credits/CreditsSetup.c"
 #include "Credits/EncoreGoodEnd.c"

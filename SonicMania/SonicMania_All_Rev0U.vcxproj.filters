@@ -1790,9 +1790,6 @@
     <ClInclude Include="Objects\Credits\CreditsSetup.h">
       <Filter>Sources\Objects\Credits</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Credits\EncoreGoodEnd.h">
-      <Filter>Sources\Objects\Credits</Filter>
-    </ClInclude>
     <ClInclude Include="Objects\Credits\TryAgain.h">
       <Filter>Sources\Objects\Credits</Filter>
     </ClInclude>
@@ -1942,6 +1939,9 @@
     </ClInclude>
     <ClInclude Include="Objects\MMZ\ConveyorPlatform.h">
       <Filter>Sources\Objects\MMZ</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\MSZ\AmyHearts.h">
+      <Filter>Sources\Objects\MSZ</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -3622,9 +3622,6 @@
     <ClCompile Include="Objects\Credits\CreditsSetup.c">
       <Filter>Sources\Objects\Credits</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Credits\EncoreGoodEnd.c">
-      <Filter>Sources\Objects\Credits</Filter>
-    </ClCompile>
     <ClCompile Include="Objects\Credits\TryAgain.c">
       <Filter>Sources\Objects\Credits</Filter>
     </ClCompile>
@@ -3777,6 +3774,9 @@
     </ClCompile>
     <ClCompile Include="Game.c">
       <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\MSZ\AmyHearts.c">
+      <Filter>Sources\Objects\MSZ</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

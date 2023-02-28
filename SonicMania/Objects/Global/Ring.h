@@ -25,6 +25,7 @@ struct ObjectRing {
     Hitbox hitbox;
     int32 pan;
     uint16 aniFrames;
+    uint16 amyFrames;
     uint16 sfxRing;
 };
 

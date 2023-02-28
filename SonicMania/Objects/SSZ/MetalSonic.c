@@ -465,14 +465,27 @@ void MetalSonic_State_WaitForHologram(void)
             RSDK.SetSpriteAnimation(MetalSonic->aniFrames, MS_ANI_BOOSTER_INTRO, &self->boosterAnimator, false, 0);
 
             EntityPlayer *player = RSDK_GET_ENTITY(SLOT_PLAYER1, Player);
+            EntityPlayer *sidekick = RSDK_GET_ENTITY(SLOT_PLAYER2, Player);
 
             if (player->characterID == ID_AMY) {
                 for (int32 i = 0; i < 1; ++i) {
                     EntityPlayer *playerPtr = RSDK_GET_ENTITY(i, Player);
                     playerPtr->state        = Player_State_Air;
                     playerPtr->onGround     = false;
-                    playerPtr->velocity.y   = -0x38000;
+                    playerPtr->velocity.y   = -0x38500;
                     RSDK.SetSpriteAnimation(playerPtr->aniFrames, ANI_HURT, &playerPtr->animator, false, 0);
+                    RSDK.PlaySfx(MetalSonic->sfxAmySqueal, false, 255);
+                    break;
+                }
+            }
+
+            if (sidekick->characterID == ID_AMY) {
+                for (int32 i = 0; i < 1; ++i) {
+                    EntityPlayer *sidekickPtr = RSDK_GET_ENTITY((i) + 1, Player);
+                    sidekickPtr->state        = Player_State_Air;
+                    sidekickPtr->onGround     = false;
+                    sidekickPtr->velocity.y   = -0x38500;
+                    RSDK.SetSpriteAnimation(sidekickPtr->aniFrames, ANI_HURT, &sidekickPtr->animator, false, 0);
                     RSDK.PlaySfx(MetalSonic->sfxAmySqueal, false, 255);
                     break;
                 }

@@ -28,8 +28,8 @@ typedef enum {
     ID_AMY    = 1 << 5,
 #endif
     ID_TAILS_ASSIST    = ID_TAILS << 8,
-    ID_AMY_ASSIST = ID_AMY << 8, // custom-added, look ma I'm coding!
-    ID_DEFAULT_PLAYER  = ID_SONIC | ID_TAILS_ASSIST,
+    ID_AMYASSIST = ID_AMY << 8, // custom-added, can be used to see if "& knux" is active
+    ID_DEFAULT_PLAYER  = ID_AMY,
 } PlayerIDs;
 
 #define GET_CHARACTER_ID(playerNum)                (((globals->playerID >> (8 * ((playerNum)-1))) & 0xFF))
@@ -44,12 +44,13 @@ typedef enum { ITEMS_FIXED, ITEMS_RANDOM, ITEMS_TELEPORT } ItemModes;
 
 typedef enum {
     MEDAL_DEBUGMODE   = 1 << 0,
-    MEDAL_AMYASSIST = 1 << 1,
+    MEDAL_AMYASSIST   = 1 << 1,
     MEDAL_PEELOUT     = 1 << 2,
     MEDAL_INSTASHIELD = 1 << 3,
     MEDAL_NODROPDASH  = 1 << 4,
 #if MANIA_USE_PLUS
-    MEDAL_NOTIMEOVER = 1 << 5,
+    MEDAL_NOTIMEOVER  = 1 << 5,
+    MEDAL_AMYCDR      = 1 << 6,
 #endif
 } MedalMods;
 

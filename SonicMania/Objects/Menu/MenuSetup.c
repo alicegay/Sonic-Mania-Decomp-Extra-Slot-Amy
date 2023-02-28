@@ -1117,7 +1117,7 @@ void MenuSetup_SaveSlot_ActionCB(void)
     }
 
     if ((globals->medalMods & MEDAL_ANDKNUCKLES))
-        globals->playerID |= ID_KNUCKLES_ASSIST;
+        globals->playerID |= ID_AMYASSIST;
     else if (!self->frameID)
         globals->playerID |= ID_TAILS_ASSIST;
 

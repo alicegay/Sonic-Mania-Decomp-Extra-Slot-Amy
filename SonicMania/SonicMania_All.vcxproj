@@ -426,6 +426,7 @@
     <ClInclude Include="Objects\MMZ\SizeLaser.h" />
     <ClInclude Include="Objects\MMZ\SpikeCorridor.h" />
     <ClInclude Include="Objects\MMZ\VanishPlatform.h" />
+    <ClInclude Include="Objects\MSZ\AmyHearts.h" />
     <ClInclude Include="Objects\MSZ\Armadiloid.h" />
     <ClInclude Include="Objects\MSZ\BarStool.h" />
     <ClInclude Include="Objects\MSZ\Bumpalo.h" />
@@ -2885,6 +2886,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Objects\MSZ\AmyHearts.c" />
     <ClCompile Include="Objects\MSZ\Armadiloid.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>

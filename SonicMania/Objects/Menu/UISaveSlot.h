@@ -64,6 +64,7 @@ struct EntityUISaveSlot {
     Animator continuesAnimator;
 #endif
     Animator emeraldsAnimator;
+    Animator stonesAnimator;
     Animator zoneIconAnimator;
     Animator zoneNameAnimator;
     Animator fuzzAnimator;
