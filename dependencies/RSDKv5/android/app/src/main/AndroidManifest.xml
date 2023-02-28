@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.rems.esa" android:versionCode="100" android:versionName="1.0.0" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.rems.rsdkv5" android:versionCode="100" android:versionName="1.0.0" android:installLocation="auto">
 
     <uses-feature android:glEsVersion="0x00020000"/>
 
@@ -27,7 +27,7 @@
         android:allowBackup="true" 
         android:hardwareAccelerated="true">
 
-        <activity android:name="org.rems.esa.Launcher"
+        <activity android:name="org.rems.rsdkv5.Launcher"
             android:exported="true" 
             android:label="@string/app_name" 
             android:icon="@mipmap/ic_launcher"
