@@ -572,7 +572,7 @@ void Player_Create(void *data)
                 self->stateAbility = Player_JumpAbility_Sonic;
                 self->sensorY      = TO_FIXED(20);
 
-                if (globals->medalMods & MEDAL_PEELOUT) {
+                if (globals->medalMods & (MEDAL_PEELOUT || MEDAL_AMYCDR)) {
                     self->statePeelout = Player_Action_Peelout;
                     for (int32 f = 0; f < 4; ++f) {
                         SpriteFrame *dst = RSDK.GetFrame(self->aniFrames, ANI_DASH, f + 1);
@@ -1030,7 +1030,7 @@ void Player_ChangeCharacter(EntityPlayer *entity, int32 character)
             entity->stateAbility = Player_JumpAbility_Sonic;
             entity->sensorY      = TO_FIXED(20);
 
-            if (globals->medalMods & MEDAL_PEELOUT) {
+            if (globals->medalMods & (MEDAL_PEELOUT || MEDAL_AMYCDR)) {
                 entity->statePeelout = Player_Action_Peelout;
                 for (int32 f = 0; f < 4; ++f) {
                     SpriteFrame *dst = RSDK.GetFrame(entity->aniFrames, ANI_DASH, f);
@@ -3637,10 +3637,7 @@ void Player_Action_Spindash_CD(void)
 {
     RSDK_THIS(Player);
 
-    EntityDust *dust = CREATE_ENTITY(Dust, self, self->position.x, self->position.y);
-    RSDK.SetSpriteAnimation(Dust->aniFrames, 1, &dust->animator, true, 0);
-
-    RSDK.SetSpriteAnimation(self->aniFrames, ANI_JUMP, &self->animator, true, 0);
+    RSDK.SetSpriteAnimation(self->aniFrames, ANI_JUMP_GROUND, &self->animator, true, 0);
     self->state = Player_State_Spindash_CD;
     self->abilityTimer   = 0;
     self->spindashCharge = 0;
@@ -4219,7 +4216,7 @@ void Player_State_Ground(void)
             }
         }
         else {
-            if (self->jumpPress) {
+            if (self->jumpPress && self->state != Player_State_LookUp) {
                 Player_Action_Jump(self);
                 self->timer = 0;
             }
@@ -4437,21 +4434,18 @@ void Player_State_LookUp(void)
         }
         
         if (self->jumpPress) {
-            if (self->characterID == ID_SONIC) {
+            if (ControllerInfo[self->controllerID].keyUp.down) {
                 if (globals->medalMods & MEDAL_PEELOUT) {
                     StateMachine_Run(self->statePeelout);
                 }
-                else {
-                    Player_Action_Jump(self);
-                }
-            }
 
-            if (self->characterID == ID_AMY) {
-                if (globals->medalMods & MEDAL_AMYCDR)
-                    Player_Action_Jump(self);
-                else {
-                    RSDK.SetSpriteAnimation(self->aniFrames, 49, &self->animator, true, 0);
-                    self->state = Player_Action_TallJump;
+                if (self->characterID == ID_AMY) {
+                    if (globals->medalMods & MEDAL_AMYCDR)
+                        Player_Action_Jump(self);
+                    else {
+                        RSDK.SetSpriteAnimation(self->aniFrames, 49, &self->animator, true, 0);
+                        self->state = Player_Action_TallJump;
+                    }
                 }
             }
             else {
@@ -7093,7 +7087,6 @@ void Player_State_AmyDoubleJump(void)
 void Player_State_Spindash_CD(void)
 {
     RSDK_THIS(Player);
-    EntityDust *dust = CREATE_ENTITY(Dust, self, self->position.x, self->position.y);
 
     float chargeTimes[13]       = { 2.46f, 4.92f, 7.38f, 9.84f, 12.30f, 14.76f, 17.22f, 19.68f, 22.14f, 24.60f, 27.06f, 29.52f, 31.98f };
     int32 averageSpeedperCharge = 0x7943;
@@ -7104,20 +7097,23 @@ void Player_State_Spindash_CD(void)
 
     if (self->abilityTimer < 0x112520)
         self->abilityTimer += 0x3516; // 1.599715606114469
-
-    if (self->spindashCharge > 32) {
-        self->spindashCharge = 32;
-        RSDK.SetSpriteAnimation(self->aniFrames, ANI_JUMP, &self->animator, false, 0);
-        self->animator.speed = 120;
+    
+    if (self->spindashCharge < 32)
+        self->spindashCharge += 1;
+    
+    RSDK.SetSpriteAnimation(self->aniFrames, ANI_JUMP_GROUND, &self->animator, false, 0);
+    self->animator.speed = 120;
+    
+    if (self->spindashCharge == 32) {
+        self->spindashCharge = 33;
+        EntityDust *dust = CREATE_ENTITY(Dust, self, self->position.x, self->position.y);
+        RSDK.SetSpriteAnimation(Dust->aniFrames, 1, &dust->animator, true, 0);
+        dust->state      = Dust_State_SpinDash_CD;
+        dust->drawGroup  = self->drawGroup;
     }
 
-    if (self->spindashCharge < 0)
+    if (self->spindashCharge < 0) // this probably isn't needed, but keeping it here just to be safe
         self->spindashCharge = 0;
-
-    if (self->abilityTimer >= 0x112520) {
-        dust->state     = Dust_State_SpinDash_CD;
-        dust->drawGroup = self->drawGroup;
-    }
 
     if (!self->down) {
         RSDK.SetSpriteAnimation(self->aniFrames, ANI_JUMP, &self->animator, false, 0);
@@ -7142,9 +7138,6 @@ void Player_State_Spindash_CD(void)
         RSDK.PlaySfx(Player->sfxRelease, false, 0xFF);
 
         RSDK.SetSpriteAnimation(self->aniFrames, ANI_JUMP, &self->animator, false, 0);
-
-        if (!self->collisionMode)
-            self->position.y += self->jumpOffset;
 
         self->pushing = 0;
         self->state   = Player_State_Roll;

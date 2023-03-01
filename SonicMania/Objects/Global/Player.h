@@ -116,6 +116,7 @@ typedef enum {
     ANI_FREE_FALL     = ANI_ABILITY_2,
     ANI_HELI_HAMMER   = 52,
     ANI_DASH_NOHAMMER = 53,
+    ANI_JUMP_GROUND   = 54,
 #endif
 } PlayerAnimationIDs;
 
