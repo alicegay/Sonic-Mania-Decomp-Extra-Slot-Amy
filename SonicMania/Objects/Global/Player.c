@@ -572,7 +572,7 @@ void Player_Create(void *data)
                 self->stateAbility = Player_JumpAbility_Sonic;
                 self->sensorY      = TO_FIXED(20);
 
-                if (globals->medalMods & (MEDAL_PEELOUT || MEDAL_AMYCDR)) {
+                if (globals->medalMods & MEDAL_PEELOUT) {
                     self->statePeelout = Player_Action_Peelout;
                     for (int32 f = 0; f < 4; ++f) {
                         SpriteFrame *dst = RSDK.GetFrame(self->aniFrames, ANI_DASH, f + 1);
@@ -1030,7 +1030,7 @@ void Player_ChangeCharacter(EntityPlayer *entity, int32 character)
             entity->stateAbility = Player_JumpAbility_Sonic;
             entity->sensorY      = TO_FIXED(20);
 
-            if (globals->medalMods & (MEDAL_PEELOUT || MEDAL_AMYCDR)) {
+            if (globals->medalMods & MEDAL_PEELOUT) {
                 entity->statePeelout = Player_Action_Peelout;
                 for (int32 f = 0; f < 4; ++f) {
                     SpriteFrame *dst = RSDK.GetFrame(entity->aniFrames, ANI_DASH, f);
@@ -4434,22 +4434,22 @@ void Player_State_LookUp(void)
         }
         
         if (self->jumpPress) {
-            if (ControllerInfo[self->controllerID].keyUp.down) {
-                if (globals->medalMods & MEDAL_PEELOUT) {
-                    StateMachine_Run(self->statePeelout);
-                }
-
-                if (self->characterID == ID_AMY) {
-                    if (globals->medalMods & MEDAL_AMYCDR)
-                        Player_Action_Jump(self);
-                    else {
-                        RSDK.SetSpriteAnimation(self->aniFrames, 49, &self->animator, true, 0);
-                        self->state = Player_Action_TallJump;
-                    }
-                }
-            }
-            else {
-                Player_Action_Jump(self);
+			if (self->characterID == ID_AMY) {
+				if (globals->medalMods & MEDAL_AMYCDR)
+					Player_Action_Jump(self);
+				else {
+					RSDK.SetSpriteAnimation(self->aniFrames, 49, &self->animator, true, 0);
+					self->state = Player_Action_TallJump;
+				}
+			}
+			else {
+           		if (globals->medalMods & MEDAL_PEELOUT) {
+					if (self->statePeelout)
+               			StateMachine_Run(self->statePeelout);
+				}
+				else {
+                	Player_Action_Jump(self);
+            	}
             }
         }
     }
