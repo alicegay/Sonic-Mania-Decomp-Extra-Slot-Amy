@@ -98,6 +98,7 @@ void Ring_Create(void *data)
 void Ring_StageLoad(void)
 {
     Ring->aniFrames = RSDK.LoadSpriteAnimation("Global/Ring.bin", SCOPE_STAGE);
+    Ring->amyFrames = RSDK.LoadSpriteAnimation("Global/MiracleSparkles.bin", SCOPE_STAGE);
 
     Ring->hitbox.left   = -8;
     Ring->hitbox.top    = -8;
