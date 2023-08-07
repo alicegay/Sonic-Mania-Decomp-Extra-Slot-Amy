@@ -75,6 +75,9 @@
 #define MANIA_USE_PLUS (GAME_VERSION >= VER_105)
 #define MANIA_USE_EGS  (GAME_VERSION == VER_107)
 
+#ifndef ESA_ENABLE_HAMMERWHACK
+#define ESA_ENABLE_HAMMERWHACK (MANIA_USE_PLUS && 0)
+#endif
 // -------------------------
 // GAME LOGIC
 // -------------------------
