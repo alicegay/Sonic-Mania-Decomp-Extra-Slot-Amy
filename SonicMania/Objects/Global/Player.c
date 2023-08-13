@@ -623,7 +623,9 @@ void Player_Create(void *data)
                 self->stateAbility   = Player_JumpAbility_Amy;
                 self->sensorY        = TO_FIXED(20);
                 self->stateTallJump  = Player_Action_TallJump;
-                // self->stateHammerHit = Player_Action_HammerWhack;
+#if ESA_ENABLE_HAMMERWHACK
+                self->stateHammerHit = Player_Action_HammerWhack;
+#endif
 
                 if (globals->medalMods & MEDAL_AMYCDR) {
                     for (int32 f = 0; f < 5; ++f) {
@@ -1150,7 +1152,9 @@ void Player_ChangeCharacter(EntityPlayer *entity, int32 character)
                     *dst = *src;
                 }
             }
-            // entity->stateHammerHit = Player_Action_HammerWhack;
+#if ESA_ENABLE_HAMMERWHACK
+            entity->stateHammerHit = Player_Action_HammerWhack;
+#endif
             break;
 #endif
     }
@@ -3655,20 +3659,22 @@ void Player_Action_Peelout(void)
     RSDK.PlaySfx(Player->sfxPeelCharge, false, 255);
 }
 
-// The Feburary 27th update completely removed the Ground Hammer move. However, if you still want to use it, you can remove the "/*" and "*/" parts of
-// the commented code to re-enable it. I cannot guarantee 100% compatibility with this though, especially as more updates for Extra Slot Amy are
-// released. Do not report bugs in regards to this, as I will not be updating this code after the late-Feburary update. If there's issues with it, fix
-// it yourself. Make sure to also uncomment Player_State_AmyHammer if attempting to restore this ability.
+// The Feburary 27th update completely removed the Ground Hammer move. However, if you still want to use it, you can enable the
+// "ESA_ENABLE_HAMMERWHACK" flag in Game.h to re-enable it. I cannot guarantee 100% compatibility with this though, especially as more updates for Extra Slot Amy are
+// released. Do not report bugs in regards to this, as I will not be updating this code after the late-Feburary update. If there's issues with it, fix it yourself.
 void Player_Action_HammerWhack(void)
 {
-    /*
+#if ESA_ENABLE_HAMMERWHACK
     RSDK_THIS(Player);
 
     self->state          = Player_State_AmyHammer;
+    self->timer          = 0;
     self->abilityTimer   = 0;
     self->spindashCharge = 0;
-    RSDK.PlaySfx(Player->sfxAmyHammer, false, 255);
-    */
+	
+	RSDK.SetSpriteAnimation(self->aniFrames, 49, &self->animator, false, 0);
+	self->animator.speed = 10;
+#endif
 }
 
 void Player_Action_TallJump(void)
@@ -4204,14 +4210,21 @@ void Player_State_Ground(void)
                 }
             }
             else {
-                if (self->jumpPress && !(ControllerInfo[self->controllerID].keyUp.down)) {
-                    Player_Action_Jump(self);
-                    self->timer = 0;
-                }
-
-                if (self->jumpPress && ControllerInfo[self->controllerID].keyUp.down) {
-                    RSDK.SetSpriteAnimation(self->aniFrames, 49, &self->animator, true, 0);
-                    self->state = Player_Action_TallJump;
+#if ESA_ENABLE_HAMMERWHACK
+				if (ControllerInfo[self->controllerID].keyB.press)
+					StateMachine_Run(self->stateHammerHit);
+                else if (self->jumpPress) {
+#else
+                if (self->jumpPress) {
+#endif
+					if (!self->up) {
+						Player_Action_Jump(self);
+						self->timer = 0;
+					}
+					else {
+						RSDK.SetSpriteAnimation(self->aniFrames, 49, &self->animator, true, 0);
+						self->state = Player_Action_TallJump;
+					}
                 }
             }
         }
@@ -6027,29 +6040,26 @@ void Player_State_AmyHeliHammer_Right(void)
     self->velocity.y += self->abilitySpeed;
 }
 
-// The Feburary 27th update completely removed the Ground Hammer move. However, if you still want to use it, you can remove the "/*" and "*/" parts of
-// the commented code to re-enable it. I cannot guarantee 100% compatibility with this though, especially as more updates for Extra Slot Amy are
-// released. Do not report bugs in regards to this, as I will not be updating this code after the late-Feburary update. If there's issues with it, fix
-// it yourself. Make sure to also uncomment all instances of Player_Action_HammerWhack if attempting to restore this ability.
+// The Feburary 27th update completely removed the Ground Hammer move. However, if you still want to use it, you can enable the
+// "ESA_ENABLE_HAMMERWHACK" flag in Game.h to re-enable it. I cannot guarantee 100% compatibility with this though, especially as more updates for Extra Slot Amy are
+// released. Do not report bugs in regards to this, as I will not be updating this code after the late-Feburary update. If there's issues with it, fix it yourself.
 void Player_State_AmyHammer(void)
 {
-    /*
+#if ESA_ENABLE_HAMMERWHACK
     RSDK_THIS(Player);
-    int32 hammeranim                = self->animator.frameID;
-    RSDKControllerState *controller = &ControllerInfo[self->controllerID];
+    int32 hammeranim = self->animator.frameID;
 
-    if (controller->keyB.press && (self->onGround)) {
-        RSDK.SetSpriteAnimation(self->aniFrames, 49, &self->animator, false, 0);
-        self->animator.speed = 10;
-    }
-
-    if (hammeranim == 7) {
+    if (hammeranim == 7)
         RSDK.PlaySfx(Player->sfxAmyHammer, false, 255);
-    }
-
-    if (hammeranim == 12)
-        self->state = Player_State_Ground;
-    */
+	else if (hammeranim == 12) {
+		if (self->onGround)
+			self->state = Player_State_Ground;
+		else {
+			self->state = Player_State_Air;
+			RSDK.SetSpriteAnimation(self->aniFrames, ANI_AIR_WALK, &self->animator, false, 0);
+		}
+	}
+#endif
 }
 #endif
 void Player_State_FlyToPlayer(void)
