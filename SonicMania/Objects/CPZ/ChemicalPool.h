@@ -53,7 +53,7 @@ void ChemicalPool_StaticUpdate(void);
 void ChemicalPool_Draw(void);
 void ChemicalPool_Create(void *data);
 void ChemicalPool_StageLoad(void);
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void ChemicalPool_EditorDraw(void);
 void ChemicalPool_EditorLoad(void);
 #endif
@@ -65,6 +65,7 @@ void ChemicalPool_ProcessDeformations(void);
 void ChemicalPool_SetDeform(int32 impactX, int32 impactVelocity);
 void ChemicalPool_SpawnDebris(int32 x, int32 y);
 void ChemicalPool_SetupColors(void);
+
 // States
 void ChemicalPool_State_HarmfulBlue(void);
 void ChemicalPool_State_Green(void);

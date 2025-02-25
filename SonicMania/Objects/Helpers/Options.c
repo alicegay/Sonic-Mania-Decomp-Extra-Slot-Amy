@@ -157,7 +157,7 @@ void Options_SaveFile(void (*callback)(void))
         }
         else {
 #if MANIA_USE_PLUS
-            RSDK.SetVideoSetting(VIDEOSETTING_CHANGED, true);
+            RSDK.SetVideoSetting(VIDEOSETTING_WRITE, true);
 #else
             APICallback_SaveSettingsINI();
 #endif
@@ -265,7 +265,7 @@ void Options_SaveOptionsCallback(int32 status)
     }
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void Options_EditorDraw(void) {}
 
 void Options_EditorLoad(void) {}

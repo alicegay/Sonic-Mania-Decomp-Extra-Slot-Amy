@@ -1359,7 +1359,7 @@ void Ice_Draw_Shard(void)
     RSDK.DrawSprite(&self->blockAnimator, NULL, false);
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void Ice_EditorDraw(void)
 {
     RSDK_THIS(Ice);

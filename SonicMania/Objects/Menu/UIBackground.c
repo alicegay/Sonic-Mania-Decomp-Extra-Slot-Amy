@@ -57,7 +57,7 @@ void UIBackground_DrawNormal(void)
 
     RSDK.DrawCircle(drawPos.x + ScreenInfo->center.x, drawPos.y + ScreenInfo->center.y, 32, colorPtrs[1], 0xFF, INK_NONE, true);
     RSDK.DrawCircle(ScreenInfo->center.x - drawPos.x, ScreenInfo->center.y - drawPos.y, 16, colorPtrs[1], 0xFF, INK_NONE, true);
-    RSDK.DrawCircle(drawPos.x + ScreenInfo->center.x, drawPos.y + ScreenInfo->center.y, 26, colorPtrs[0], 0xFF, INK_NONE, true);
+    RSDK.DrawCircle(drawPos.x + ScreenInfo->center.x, drawPos.y + ScreenInfo->center.y, 26, colorPtrs[1], 0xFF, INK_NONE, true);
 
     drawPos.x = ((RSDK.Cos512(self->timer) >> 3) + 144) * RSDK.Cos256(self->timer) >> 8;
     drawPos.y = ((RSDK.Cos512(self->timer) >> 3) + 144) * RSDK.Sin256(self->timer) >> 8;
@@ -69,7 +69,7 @@ void UIBackground_DrawNormal(void)
     RSDK.DrawCircle(drawPos.x + ScreenInfo->center.x, drawPos.y + ScreenInfo->center.y, 26, colorPtrs[0], 0xFF, INK_NONE, true);
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void UIBackground_EditorDraw(void)
 {
     RSDK_THIS(UIBackground);

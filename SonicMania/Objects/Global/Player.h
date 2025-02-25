@@ -49,8 +49,8 @@ typedef enum {
     ANI_OUTTA_HERE,
     ANI_HANG,
     ANI_HANG_MOVE,
-    ANI_POLE_SWING_H,
     ANI_POLE_SWING_V,
+    ANI_POLE_SWING_H,
     ANI_SHAFT_SWING,
     ANI_TURNTABLE,
     ANI_TWISTER,
@@ -59,8 +59,8 @@ typedef enum {
     ANI_PULLEY_HOLD,
     ANI_SHIMMY_IDLE,
     ANI_SHIMMY_MOVE,
-    ANI_BREATHE,
     ANI_BUBBLE,
+    ANI_BREATHE,
     ANI_RIDE,
     ANI_CLING,
     ANI_BUNGEE,
@@ -498,7 +498,7 @@ void Player_StaticUpdate(void);
 void Player_Draw(void);
 void Player_Create(void *data);
 void Player_StageLoad(void);
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void Player_EditorDraw(void);
 void Player_EditorLoad(void);
 #endif
@@ -555,6 +555,8 @@ bool32 Player_HurtFlip(EntityPlayer *player);
 bool32 Player_ElementHurt(EntityPlayer *player, void *entity, int32 shield);
 // returns true if the player is in an "attacking" state
 bool32 Player_CheckAttacking(EntityPlayer *player, void *e);
+// returns true if the player is in an "attacking" state (but omits invincibility timer as being an "attacking" state)
+bool32 Player_CheckAttackingNoInvTimer(EntityPlayer *player, void *e);
 // checks if the player collided with an entity, this collision differs from the touch one above since it uses hammerdrop & instashield if appropriate
 bool32 Player_CheckBadnikTouch(EntityPlayer *player, void *entity, Hitbox *entityHitbox);
 // checks if the player is attacking the badnik, returns true if the player attacked the badnik, otherwise the player is hit and returns false

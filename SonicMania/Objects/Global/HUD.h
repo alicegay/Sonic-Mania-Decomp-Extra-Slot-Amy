@@ -94,7 +94,7 @@ void HUD_StaticUpdate(void);
 void HUD_Draw(void);
 void HUD_Create(void *data);
 void HUD_StageLoad(void);
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void HUD_EditorDraw(void);
 void HUD_EditorLoad(void);
 #endif
@@ -105,8 +105,10 @@ void HUD_DrawNumbersBase10(Vector2 *drawPos, int32 value, int32 digitCount);
 void HUD_DrawNumbersBase16(Vector2 *drawPos, int32 value);
 void HUD_DrawNumbersHyperRing(Vector2 *drawPos, int32 value);
 
+#if GAME_VERSION != VER_100
 void HUD_GetButtonFrame(Animator *animator, int32 buttonID);
 void HUD_GetActionButtonFrames(void);
+#endif
 
 void HUD_State_MoveIn(void);
 void HUD_State_MoveOut(void);

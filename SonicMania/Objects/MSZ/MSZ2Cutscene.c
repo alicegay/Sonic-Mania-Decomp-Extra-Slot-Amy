@@ -60,7 +60,7 @@ void MSZ2Cutscene_SetupCutscene(void)
                               MSZ2Cutscene_Cutscene_AppearInBG, StateMachine_None);
 
 #if MANIA_USE_PLUS
-    CutsceneSeq_SetSkipType(SKIPTYPE_RELOADSCN, StateMachine_None);
+    CutsceneSeq_SetSkipType(SKIPTYPE_RELOADSCN);
 #endif
 
     HUD_MoveOut();
@@ -91,8 +91,8 @@ bool32 MSZ2Cutscene_Cutscene_GoToPistol(EntityCutsceneSeq *host)
         MSZ2Cutscene_GetPistolPtr();
         parallaxSprite->visible = true;
         parallaxSprite->drawFX  = FX_SCALE;
-        parallaxSprite->scale.x = 0x200;
-        parallaxSprite->scale.y = 0x200;
+        parallaxSprite->scale.x = 0x100;
+        parallaxSprite->scale.y = 0x100;
         prison->notSolid        = true;
 
         Vector2 size;
@@ -268,7 +268,7 @@ bool32 MSZ2Cutscene_Cutscene_AppearInBG(EntityCutsceneSeq *host)
     return false;
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void MSZ2Cutscene_EditorDraw(void)
 {
     RSDK_THIS(MSZ2Cutscene);

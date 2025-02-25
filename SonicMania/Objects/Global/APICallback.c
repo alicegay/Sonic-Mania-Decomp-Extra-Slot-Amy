@@ -803,11 +803,7 @@ void APICallback_CheckUserAuth_CB(void)
     }
 }
 
-#if MANIA_USE_PLUS
-void APICallback_TrackGameProgressCB(bool32 success) { UIWaitSpinner_FinishWait(); }
-#else
 void APICallback_TrackGameProgressCB(void) { UIWaitSpinner_FinishWait(); }
-#endif
 
 void APICallback_GetNextNotif(void)
 {
@@ -873,7 +869,7 @@ bool32 APICallback_NotifyAutosave(void)
     return true;
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void APICallback_EditorDraw(void) {}
 
 void APICallback_EditorLoad(void) {}

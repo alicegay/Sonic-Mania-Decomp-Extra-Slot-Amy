@@ -1033,7 +1033,7 @@ void ActClear_State_RecoverPlayers(void)
     }
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void ActClear_EditorDraw(void) {}
 
 void ActClear_EditorLoad(void) {}

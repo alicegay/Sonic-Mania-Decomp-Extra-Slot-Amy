@@ -6,7 +6,7 @@
 // Object Class
 struct ObjectSentryBug {
     RSDK_OBJECT
-    TABLE(int32 orbOffsets_Attatched[84], { -0x50000, 0x30000,  -0x90000, 0xA0000,  -0x70000, 0x100000, 0x70000,  0x30000,  0x30000,  0xA0000,
+    TABLE(int32 orbOffsets_Attached[84], { -0x50000, 0x30000,  -0x90000, 0xA0000,  -0x70000, 0x100000, 0x70000,  0x30000,  0x30000,  0xA0000,
                                             -0x30000, 0x100000, -0x70000, 0x30000,  -0xB0000, 0xA0000,  -0x80000, 0x100000, 0x90000,  0x30000,
                                             0x60000,  0xA0000,  0,        0x100000, -0x90000, 0x30000,  -0xB0000, 0xA0000,  -0x80000, 0x100000,
                                             0x90000,  0x30000,  0x80000,  0xA0000,  0x30000,  0x100000, -0x90000, 0x30000,  -0xB0000, 0xA0000,
@@ -32,7 +32,7 @@ struct EntitySentryBug {
     StateMachine(stateOrbs);
     uint8 speed;
     Vector2 amplitude;
-    bool32 orbsDetatched;
+    bool32 orbsDetached;
     bool32 showNet;
     int32 timer;
     Vector2 originPos;
@@ -62,7 +62,7 @@ void SentryBug_StaticUpdate(void);
 void SentryBug_Draw(void);
 void SentryBug_Create(void *data);
 void SentryBug_StageLoad(void);
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void SentryBug_EditorDraw(void);
 void SentryBug_EditorLoad(void);
 #endif

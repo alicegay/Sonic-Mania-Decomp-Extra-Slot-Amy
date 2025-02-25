@@ -340,7 +340,7 @@ void AIZSetup_CutsceneST_Setup(void)
                               AIZSetup_Cutscene_LoadGHZ, StateMachine_None);
 
 #if MANIA_USE_PLUS
-    CutsceneSeq_SetSkipType(SKIPTYPE_CALLBACK, AIZSetup_Cutscene_SkipCB);
+    CutsceneSeq_SetSkipTypeCallback(AIZSetup_Cutscene_SkipCB);
 #endif
 }
 
@@ -670,7 +670,7 @@ void AIZSetup_CutsceneK_Setup(void)
                               AIZSetup_CutsceneKnux_RubyImpact, AIZSetup_CutsceneKnux_RubyFX, AIZSetup_Cutscene_LoadGHZ, StateMachine_None);
 
 #if MANIA_USE_PLUS
-    CutsceneSeq_SetSkipType(SKIPTYPE_CALLBACK, AIZSetup_Cutscene_SkipCB);
+    CutsceneSeq_SetSkipTypeCallback(AIZSetup_Cutscene_SkipCB);
 #endif
 }
 
@@ -904,7 +904,7 @@ bool32 AIZSetup_Cutscene_LoadGHZ(EntityCutsceneSeq *host)
     return true;
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void AIZSetup_EditorDraw(void) {}
 
 void AIZSetup_EditorLoad(void)

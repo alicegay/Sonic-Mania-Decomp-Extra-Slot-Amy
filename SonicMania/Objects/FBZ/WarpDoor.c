@@ -45,7 +45,7 @@ void WarpDoor_Update(void)
                         newPos.x = tag->position.x;
                         newPos.y = tag->position.y;
                         if (!self->warpToCenter) {
-                            newPos.x += relPosY;
+                            newPos.x += relPosX;
                             newPos.y += relPosY;
                         }
 
@@ -388,6 +388,7 @@ void WarpDoor_DrawDebug(void)
         }
     }
 
+#if GAME_INCLUDE_EDITOR
     if (SceneInfo->inEditor) {
         // added for RE2, it makes the scene a mess without this
         if (!showGizmos())
@@ -420,6 +421,7 @@ void WarpDoor_DrawDebug(void)
 
         RSDK_DRAWING_OVERLAY(false); // added for RE2
     }
+#endif
 }
 
 void WarpDoor_SetupHitbox(void)
@@ -438,7 +440,7 @@ void WarpDoor_SetupHitbox(void)
     self->hitbox.bottom = (16 * self->height) >> 1;
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void WarpDoor_EditorDraw(void)
 {
     RSDK_THIS(WarpDoor);

@@ -46,7 +46,7 @@ void LRZ1Outro_StartCutscene(void)
     }
 
 #if MANIA_USE_PLUS
-    CutsceneSeq_SetSkipType(SKIPTYPE_RELOADSCN, StateMachine_None);
+    CutsceneSeq_SetSkipType(SKIPTYPE_RELOADSCN);
 #endif
 
     for (int32 i = 0; i < 0x100; ++i) RSDK.SetPaletteEntry(5, i, 0x000000);
@@ -293,7 +293,7 @@ bool32 LRZ1Outro_CutsceneAct2_ExitDashLift(EntityCutsceneSeq *host)
     return false;
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void LRZ1Outro_EditorDraw(void) {}
 
 void LRZ1Outro_EditorLoad(void) {}

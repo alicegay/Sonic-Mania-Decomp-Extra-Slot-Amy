@@ -276,10 +276,10 @@ void WalkerLegs_CheckTileCollisions(void)
         y = self->legPos[1].y;
     }
 
-    int32 rx = abs(self->legPos[1].x - self->legPos[0].x);
-    int32 ry = abs(self->legPos[1].y - self->legPos[0].y);
+    int32 rx = abs(self->legPos[1].x - self->legPos[0].x) >> 16;
+    int32 ry = abs(self->legPos[1].y - self->legPos[0].y) >> 16;
 
-    uint16 radius = MathHelpers_SquareRoot((rx >> 16) * (rx >> 16) + (ry >> 16) * (ry >> 16)) - 1;
+    uint16 radius = MathHelpers_SquareRoot(rx * rx + ry * ry) - 1;
     if (radius <= 0x40)
         radius = 0x40;
 
@@ -515,7 +515,7 @@ void WalkerLegs_State_TryToReset(void)
         self->state = WalkerLegs_State_Init;
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void WalkerLegs_EditorDraw(void)
 {
     RSDK_THIS(WalkerLegs);

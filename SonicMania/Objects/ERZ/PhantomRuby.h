@@ -30,7 +30,7 @@ struct EntityPhantomRuby {
     int32 timer;
     bool32 flashFinished;
     bool32 hasFlashed;
-    int32 sfx;
+    uint8 sfx;
     int32 unused1;
     int32 unused2;
     Animator rubyAnimator;
@@ -47,7 +47,7 @@ void PhantomRuby_StaticUpdate(void);
 void PhantomRuby_Draw(void);
 void PhantomRuby_Create(void *data);
 void PhantomRuby_StageLoad(void);
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void PhantomRuby_EditorDraw(void);
 void PhantomRuby_EditorLoad(void);
 #endif

@@ -20,13 +20,7 @@ void CPZ1Intro_Update(void)
         }
         else {
             self->activated = true;
-            CutsceneSeq_StartSequence(self, CPZ1Intro_Cutscene_RubyWarp, CPZ1Intro_Cutscene_PostWarpDrop, CPZ1Intro_Cutscene_Waiting,
-                                      CPZ1Intro_Cutscene_ChemicalDrop, CPZ1Intro_Cutscene_PlayerChemicalReact, CPZ1Intro_Cutscene_ReadyStage,
-                                      StateMachine_None);
-
-#if MANIA_USE_PLUS
-            CutsceneSeq_SetSkipType(SKIPTYPE_RELOADSCN, StateMachine_None);
-#endif
+            CPZ1Intro_SetupCutscene();
         }
     }
 }
@@ -59,6 +53,19 @@ void CPZ1Intro_StageLoad(void)
 
     CPZ1Intro->sfxChemDrop = RSDK.GetSfx("CPZ/ChemDrop.wav");
     CPZ1Intro->sfxDNABurst = RSDK.GetSfx("CPZ/DNABurst.wav");
+}
+
+void CPZ1Intro_SetupCutscene(void)
+{
+    RSDK_THIS(CPZ1Intro);
+
+    CutsceneSeq_StartSequence(self, CPZ1Intro_Cutscene_RubyWarp, CPZ1Intro_Cutscene_PostWarpDrop, CPZ1Intro_Cutscene_Waiting,
+                              CPZ1Intro_Cutscene_ChemicalDrop, CPZ1Intro_Cutscene_PlayerChemicalReact, CPZ1Intro_Cutscene_ReadyStage,
+                              StateMachine_None);
+
+#if MANIA_USE_PLUS
+    CutsceneSeq_SetSkipType(SKIPTYPE_RELOADSCN);
+#endif
 }
 
 void CPZ1Intro_Particle_ChemDrop(EntityDebris *debris)
@@ -345,6 +352,7 @@ bool32 CPZ1Intro_Cutscene_PlayerChemicalReact(EntityCutsceneSeq *host)
                 player1->state          = Player_State_Static;
                 player1->tileCollisions = TILECOLLISION_NONE;
                 break;
+
             case ID_AMY:
                 CPZ1Intro->playerAnimID = 5;
                 RSDK.SetSpriteAnimation(CPZ1Intro->playerFrames, CPZ1Intro->playerAnimID, &player1->animator, true, 0);
@@ -419,7 +427,7 @@ bool32 CPZ1Intro_Cutscene_ReadyStage(EntityCutsceneSeq *host)
     return false;
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void CPZ1Intro_EditorDraw(void)
 {
     RSDK_THIS(CPZ1Intro);

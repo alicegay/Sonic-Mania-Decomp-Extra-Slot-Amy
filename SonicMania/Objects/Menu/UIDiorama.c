@@ -108,7 +108,7 @@ void UIDiorama_StageLoad(void)
     UIDiorama->knuxFramesHCZ   = RSDK.LoadSpriteAnimation("Players/KnuxCutsceneHPZ.bin", SCOPE_STAGE);
     UIDiorama->mightyFrames    = RSDK.LoadSpriteAnimation("Players/Mighty.bin", SCOPE_STAGE);
     UIDiorama->rayFrames       = RSDK.LoadSpriteAnimation("Players/Ray.bin", SCOPE_STAGE);
-    UIDiorama->amyFrames       = RSDK.LoadSpriteAnimation("Players/Amy.bin", SCOPE_STAGE);
+    UIDiorama->amyFrames = RSDK.LoadSpriteAnimation("Players/Amy.bin", SCOPE_STAGE);
     UIDiorama->ringFrames      = RSDK.LoadSpriteAnimation("Global/Ring.bin", SCOPE_STAGE);
     UIDiorama->speedGateFrames = RSDK.LoadSpriteAnimation("Global/SpeedGate.bin", SCOPE_STAGE);
     UIDiorama->bssSonicFrames  = RSDK.LoadSpriteAnimation("SpecialBS/Sonic.bin", SCOPE_STAGE);
@@ -985,7 +985,7 @@ void UIDiorama_Draw_Exit(void)
     }
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void UIDiorama_EditorDraw(void)
 {
     RSDK_THIS(UIDiorama);

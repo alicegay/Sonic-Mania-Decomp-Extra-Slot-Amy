@@ -22,7 +22,7 @@ void HCZ1Intro_Update(void)
             CutsceneSeq_StartSequence(self, HCZ1Intro_Cutscene_Intro, StateMachine_None);
 
 #if MANIA_USE_PLUS
-            CutsceneSeq_SetSkipType(SKIPTYPE_DISABLED, StateMachine_None);
+            CutsceneSeq_SetSkipType(SKIPTYPE_DISABLED);
 #endif
         }
     }
@@ -133,7 +133,7 @@ bool32 HCZ1Intro_Cutscene_Intro(EntityCutsceneSeq *host)
     return false;
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void HCZ1Intro_EditorDraw(void)
 {
     RSDK_THIS(HCZ1Intro);

@@ -359,7 +359,7 @@ void SpecialClear_StageLoad(void)
     SpecialClear->sfxSpecialWarp = RSDK.GetSfx("Global/SpecialWarp.wav");
     SpecialClear->sfxContinue    = RSDK.GetSfx("Special/Continue.wav");
     SpecialClear->sfxEmerald     = RSDK.GetSfx("Special/Emerald.wav");
-    SpecialClear->sfxTimeStone   = RSDK.GetSfx("Special/TimeStone.wav");
+    SpecialClear->sfxTimeStone = RSDK.GetSfx("Special/TimeStone.wav");
 }
 
 void SpecialClear_DrawNumbers(Vector2 *pos, int32 value)
@@ -736,7 +736,7 @@ void SpecialClear_State_ExitResults(void)
     }
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void SpecialClear_EditorDraw(void) {}
 
 void SpecialClear_EditorLoad(void) {}

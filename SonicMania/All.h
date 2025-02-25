@@ -19,8 +19,6 @@ typedef struct ObjectAIZTornadoPath ObjectAIZTornadoPath;
 typedef struct EntityAIZTornadoPath EntityAIZTornadoPath;
 typedef struct ObjectAmoebaDroid ObjectAmoebaDroid;
 typedef struct EntityAmoebaDroid EntityAmoebaDroid;
-// typedef struct ObjectAmyHearts ObjectAmyHearts;
-// typedef struct EntityAmyHearts EntityAmyHearts;
 typedef struct ObjectAnimalHBH ObjectAnimalHBH;
 typedef struct EntityAnimalHBH EntityAnimalHBH;
 typedef struct ObjectAnimals ObjectAnimals;

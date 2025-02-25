@@ -119,13 +119,13 @@ void OneWayDoor_HandlePlayerInteractions(void)
             OneWayDoor->hitboxRange.left = -88;
 
         if (Player_CheckCollisionTouch(currentPlayer, self, &OneWayDoor->hitboxRange)) {
-#if MANIA_USE_PLUS
             if (isMMZ1 && currentPlayer->sidekick && !isBehind) {
+#if MANIA_USE_PLUS
                 Player->cantSwap = true;
                 NoSwap->counter++;
+#endif
             }
             else
-#endif
                 self->state = OneWayDoor_State_MoveUp;
         }
     }
@@ -178,7 +178,7 @@ void OneWayDoor_Draw_CPZ(void)
     self->position.y += 2 * self->offsetY;
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void OneWayDoor_EditorDraw(void)
 {
     RSDK_THIS(OneWayDoor);

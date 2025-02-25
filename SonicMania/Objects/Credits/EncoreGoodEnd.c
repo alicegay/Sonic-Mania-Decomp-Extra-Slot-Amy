@@ -22,7 +22,7 @@ void EncoreGoodEnd_Update(void)
                                           EncoreGoodEnd_Cutscene_ClinkGlasses, EncoreGoodEnd_Cutscene_KingAppear,
                                           EncoreGoodEnd_Cutscene_ThanksForPlaying, EncoreGoodEnd_Cutscene_FinishCutscene, StateMachine_None);
 #if MANIA_USE_PLUS
-                CutsceneSeq_SetSkipType(SKIPTYPE_CALLBACK, EncoreGoodEnd_Cutscene_SkipCB);
+                CutsceneSeq_SetSkipTypeCallback(EncoreGoodEnd_Cutscene_SkipCB);
 #endif
 
                 self->activated = true;
@@ -511,7 +511,7 @@ bool32 EncoreGoodEnd_Cutscene_FinishCutscene(EntityCutsceneSeq *host)
 
 void EncoreGoodEnd_Cutscene_SkipCB(void) { EncoreGoodEnd_Cutscene_FinishCutscene(NULL); }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void EncoreGoodEnd_EditorDraw(void) {}
 
 void EncoreGoodEnd_EditorLoad(void)

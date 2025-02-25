@@ -39,7 +39,7 @@ void BuzzSaw_StaticUpdate(void);
 void BuzzSaw_Draw(void);
 void BuzzSaw_Create(void *data);
 void BuzzSaw_StageLoad(void);
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void BuzzSaw_EditorDraw(void);
 void BuzzSaw_EditorLoad(void);
 #endif
@@ -51,7 +51,7 @@ void BuzzSaw_SfxUpdate_SawSus(int32 sfx);
 
 void BuzzSaw_CheckPlayerCollisions(void);
 
-void BuzzSaw_State_Attatched(void);
+void BuzzSaw_State_Attached(void);
 
 void BuzzSaw_State_Stray_Waiting(void);
 void BuzzSaw_State_Stray_Released(void);

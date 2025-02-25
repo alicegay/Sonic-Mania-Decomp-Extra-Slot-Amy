@@ -144,7 +144,7 @@ void SpecialRing_State_Idle(void)
 {
     RSDK_THIS(SpecialRing);
 
-    self->angleZ = (self->angleZ + 4) & 0x3FF;
+    self->angleZ = (self->angleZ + 1) & 0x3FF;
     self->angleY = (self->angleY + 4) & 0x3FF;
 
     Vector2 range;
@@ -270,7 +270,7 @@ void SpecialRing_State_Warp(void)
     }
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void SpecialRing_EditorDraw(void)
 {
     RSDK_THIS(SpecialRing);

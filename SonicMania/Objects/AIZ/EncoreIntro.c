@@ -19,9 +19,7 @@ void EncoreIntro_Update(void)
         {
             if (Player_CheckCollisionTouch(player, self, &self->hitbox)) {
                 EncoreIntro_SetupCutscene();
-                EntityCutsceneSeq *seq = RSDK_GET_ENTITY(SLOT_CUTSCENESEQ, CutsceneSeq);
-                if (seq->classID)
-                    seq->skipType = SKIPTYPE_RELOADSCN;
+                CutsceneSeq_SetSkipType(SKIPTYPE_RELOADSCN);
                 self->activated = true;
             }
         }
@@ -39,7 +37,7 @@ void EncoreIntro_Update(void)
         self->skipPart2 = false;
 
 #if MANIA_USE_PLUS
-        CutsceneSeq_SetSkipType(SKIPTYPE_DISABLED, StateMachine_None);
+        CutsceneSeq_SetSkipType(SKIPTYPE_DISABLED);
 #endif
     }
 }
@@ -146,7 +144,7 @@ void EncoreIntro_SetupCutscene(void)
                               EncoreIntro_Cutscene_AwaitSaveFinish, StateMachine_None);
 
 #if MANIA_USE_PLUS
-    CutsceneSeq_SetSkipType(SKIPTYPE_DISABLED, StateMachine_None);
+    CutsceneSeq_SetSkipType(SKIPTYPE_DISABLED);
 #endif
 }
 
@@ -492,7 +490,7 @@ bool32 EncoreIntro_Cutscene_ViewEncoreTutorial(EntityCutsceneSeq *host)
         buddy->direction = ruby->position.x < buddy->position.x;
 
     if (host->timer == 18) {
-        if (globals->characterFlags == (ID_AMY | ID_RAY)) {
+        if (globals->characterFlags == (ID_SONIC | ID_RAY)) {
             player->velocity.x = 0;
             buddy->velocity.x  = 0;
         }
@@ -723,11 +721,7 @@ bool32 EncoreIntro_Cutscene_AIZEncoreTutorial(EntityCutsceneSeq *host)
             player->velocity.x = 0x20000;
         self->velocity.x = player->velocity.x;
         camera->target   = (Entity *)self;
-        if (RSDK_GET_ENTITY(SLOT_CUTSCENESEQ, CutsceneSeq)->classID) {
-            EntityCutsceneSeq *cutsceneSeq = RSDK_GET_ENTITY(SLOT_CUTSCENESEQ, CutsceneSeq);
-            cutsceneSeq->skipType          = SKIPTYPE_CALLBACK;
-            cutsceneSeq->skipCallback      = AIZEncoreTutorial_State_ReturnToCutscene;
-        }
+        CutsceneSeq_SetSkipTypeCallback(AIZEncoreTutorial_State_ReturnToCutscene);
         HUD_MoveOut();
         return true;
     }
@@ -1106,10 +1100,23 @@ bool32 EncoreIntro_Cutscene_SkipAndFadeOut(EntityCutsceneSeq *host)
     }
     else if (fxRuby->fadeBlack < 512) {
         fxRuby->fadeBlack += 16;
-        return 0;
     }
     else if (host->timer >= 150) {
-        return EncoreIntro_Cutscene_LoadGHZ(host);
+        // Same as EncoreIntro_Cutscene_LoadGHZ but setting GHZ+1 to skip the intro cutscene
+        RSDK_THIS(EncoreIntro);
+        Player->playerCount = 2;
+        SaveGame_SavePlayerState();
+        SaveGame_GetSaveRAM()->saveState = SAVEGAME_INPROGRESS; // save file is active
+        RSDK.SetScene("Encore Mode", "Green Hill Zone+ 1");
+        EncoreIntro->awaitingSaveFinish = true;
+        SaveGame_SaveFile(EncoreIntro_SaveGameCB);
+        if (EncoreIntro->awaitingSaveFinish) {
+            UIWaitSpinner_StartWait();
+            if (EncoreIntro->awaitingSaveFinish)
+                return true;
+        }
+        RSDK.LoadScene();
+        destroyEntity(self);
     }
 
     return false;
@@ -1221,7 +1228,7 @@ void EncoreIntro_PlayerInput_BuddySel(void)
     self->jumpHold  = false;
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void EncoreIntro_EditorDraw(void)
 {
     RSDK_THIS(EncoreIntro);

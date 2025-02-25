@@ -99,11 +99,11 @@ void TitleCard_Create(void *data)
             SceneInfo->minutes         = globals->restartMinutes;
             SceneInfo->timeEnabled     = true;
             EntityPlayer *player       = RSDK_GET_ENTITY(SLOT_PLAYER1, Player);
-            RSDK.CopyEntity(player, (Entity *)Zone->entityStorage[0], false);
+            RSDK.CopyEntity(player, &Zone->entityStorage[0], false);
             RSDK.SetSpriteAnimation(player->aniFrames, player->animator.animationID, &player->animator, false, player->animator.frameID);
 
             if (player->camera)
-                RSDK.CopyEntity(player->camera, (Entity *)Zone->entityStorage[8], false);
+                RSDK.CopyEntity(player->camera, &Zone->entityStorage[8], false);
 
             Player_ApplyShield(player);
 
@@ -114,8 +114,8 @@ void TitleCard_Create(void *data)
             if (player->speedShoesTimer > 0 || player->superState == SUPERSTATE_SUPER)
                 RSDK.ResetEntity(RSDK_GET_ENTITY(2 * Player->playerCount + RSDK.GetEntitySlot(player), ImageTrail), ImageTrail->classID, player);
 
-            memset(Zone->entityStorage[0], 0, ENTITY_SIZE);
-            memset(Zone->entityStorage[8], 0, ENTITY_SIZE);
+            memset(&Zone->entityStorage[0], 0, sizeof(EntityBase));
+            memset(&Zone->entityStorage[8], 0, sizeof(EntityBase));
         }
 #endif
     }
@@ -926,7 +926,7 @@ void TitleCard_Draw_SlideAway(void)
     RSDK.DrawText(&self->nameLetterAnimator, &drawPos, &self->zoneName, self->titleCardWord2, 0, ALIGN_CENTER, 1, 0, 0, true);
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void TitleCard_EditorDraw(void)
 {
     RSDK_THIS(TitleCard);

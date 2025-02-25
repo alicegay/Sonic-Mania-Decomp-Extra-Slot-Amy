@@ -113,11 +113,19 @@ void CutsceneSeq_NewState(int32 nextState, EntityCutsceneSeq *seq)
     }
 }
 #if MANIA_USE_PLUS
-void CutsceneSeq_SetSkipType(uint8 type, void (*callback)(void))
+void CutsceneSeq_SetSkipType(uint8 type)
 {
     EntityCutsceneSeq *seq = RSDK_GET_ENTITY(SLOT_CUTSCENESEQ, CutsceneSeq);
     if (seq->classID) {
-        seq->skipType     = type;
+        seq->skipType = type;
+    }
+}
+
+void CutsceneSeq_SetSkipTypeCallback(void (*callback)(void))
+{
+    EntityCutsceneSeq *seq = RSDK_GET_ENTITY(SLOT_CUTSCENESEQ, CutsceneSeq);
+    if (seq->classID) {
+        seq->skipType     = SKIPTYPE_CALLBACK;
         seq->skipCallback = callback;
     }
 }
@@ -215,7 +223,7 @@ void CutsceneSeq_StartSequence(void *manager, ...)
     LogHelpers_Print("Starting sequence with %d states", count);
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void CutsceneSeq_EditorDraw(void) {}
 
 void CutsceneSeq_EditorLoad(void) {}

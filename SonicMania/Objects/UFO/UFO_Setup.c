@@ -57,7 +57,7 @@ void UFO_Setup_Create(void *data)
 
 void UFO_Setup_StageLoad(void)
 {
-    RSDK.ResetEntitySlot(SLOT_BSS_SETUP, UFO_Setup->classID, NULL);
+    RSDK.ResetEntitySlot(SLOT_UFO_SETUP, UFO_Setup->classID, NULL);
 
     UFO_Setup->playFieldLayer = RSDK.GetTileLayerID("Playfield");
 
@@ -76,8 +76,8 @@ void UFO_Setup_StageLoad(void)
     UFO_Setup->sfxBlueSphere = RSDK.GetSfx("Special/BlueSphere2.wav");
     UFO_Setup->sfxSSExit     = RSDK.GetSfx("Special/SSExit.wav");
     UFO_Setup->sfxEmerald    = RSDK.GetSfx("Special/Emerald.wav");
-    UFO_Setup->sfxTimeStone  = RSDK.GetSfx("Special/TimeStone.wav");
     UFO_Setup->sfxEvent      = RSDK.GetSfx("Special/Event.wav");
+    UFO_Setup->sfxTimeStone  = RSDK.GetSfx("Special/TimeStone.wav");
 
     RSDK.CopyPalette(0, 0, 7, 0, 128);
     RSDK.CopyPalette(1, 96, 0, 96, 32);
@@ -443,7 +443,7 @@ void UFO_Setup_State_TimedOver(void)
         UFO_Setup_Finish_Fail();
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void UFO_Setup_EditorDraw(void) {}
 
 void UFO_Setup_EditorLoad(void) {}

@@ -64,7 +64,7 @@ void PullSwitch_Update(void)
             }
         }
         else {
-            if (Player_CheckCollisionTouch(player, self, &PullSwitch->hitbox)) {
+            if (Player_CheckCollisionTouch(player, self, &PullSwitch->hitbox) && player->velocity.y >= 0) {
                 self->activePlayers |= 1 << playerID;
                 player->state           = Player_State_Static;
                 player->nextGroundState = StateMachine_None;
@@ -138,7 +138,7 @@ void PullSwitch_StageLoad(void)
     PullSwitch->sfxSmogClear = RSDK.GetSfx("OOZ/SmogClear.wav");
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void PullSwitch_EditorDraw(void)
 {
     RSDK_THIS(PullSwitch);

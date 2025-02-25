@@ -188,7 +188,7 @@ void Dust_State_DustPuff_Friction(void)
         destroyEntity(self);
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void Dust_EditorDraw(void) {}
 
 void Dust_EditorLoad(void) {}

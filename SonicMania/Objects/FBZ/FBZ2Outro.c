@@ -40,7 +40,7 @@ void FBZ2Outro_StartCutscene(EntityFBZ2Outro *outro)
                               StateMachine_None);
 
 #if MANIA_USE_PLUS
-    CutsceneSeq_SetSkipType(SKIPTYPE_RELOADSCN, StateMachine_None);
+    CutsceneSeq_SetSkipType(SKIPTYPE_RELOADSCN);
 #endif
 
     HUD_MoveOut();
@@ -141,7 +141,7 @@ bool32 FBZ2Outro_Cutscene_GlideAway(EntityCutsceneSeq *host)
     return false;
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void FBZ2Outro_EditorDraw(void) {}
 
 void FBZ2Outro_EditorLoad(void) {}

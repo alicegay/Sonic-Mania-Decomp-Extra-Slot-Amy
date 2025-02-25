@@ -36,7 +36,7 @@ void LRZ3Setup_StageLoad(void)
         Zone_StartFadeIn(10, 0x000000);
     }
 
-    if (isMainGameMode() && globals->enableIntro && (!CutsceneRules_CheckStageReload() || !CutsceneRules_CheckStageReload())) {
+    if ((isMainGameMode() && globals->enableIntro && !CutsceneRules_CheckStageReload()) || !CutsceneRules_CheckStageReload()) {
         CREATE_ENTITY(LRZ3Cutscene, NULL, 0, 0);
     }
 
@@ -77,7 +77,7 @@ void LRZ3Setup_StageLoad(void)
 
 void LRZ3Setup_StageFinish_EndAct2K(void) { LRZ3Setup->cutsceneOutroK->active = ACTIVE_NORMAL; }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void LRZ3Setup_EditorDraw(void) {}
 
 void LRZ3Setup_EditorLoad(void) {}

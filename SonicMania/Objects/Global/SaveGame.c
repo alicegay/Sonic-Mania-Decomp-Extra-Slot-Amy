@@ -92,8 +92,7 @@ void SaveGame_LoadSaveData(void)
 
     if (globals->recallEntities) {
         if (SceneInfo->activeCategory < 3) {
-            for (int32 p = 0; p < 4; ++p) { //I don't think this should be 5
-                //LogHelpers_Print("xpos: %ld", globals->restartPos[(p * 2) + 0]);
+            for (int32 p = 0; p < 4; ++p) {
                 StarPost->playerPositions[p].x = globals->restartPos[(p * 2) + 0];
                 StarPost->playerPositions[p].y = globals->restartPos[(p * 2) + 1];
                 StarPost->playerDirections[p]  = globals->restartDir[p];
@@ -495,7 +494,7 @@ void SaveGame_SetCollectedSpecialRing(uint8 id)
     saveRAM->collectedSpecialRings |= 1 << (16 * Zone->actID - 1 + id);
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void SaveGame_EditorDraw(void) {}
 
 void SaveGame_EditorLoad(void) {}

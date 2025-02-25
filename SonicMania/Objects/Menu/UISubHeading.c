@@ -162,7 +162,7 @@ void UISubHeading_HandleMenuReturn(int32 slot)
     RSDK_THIS(UISaveSlot);
     EntityUIControl *control = ManiaModeMenu->secretsMenu;
     SaveRAM *saveGame        = (SaveRAM *)SaveGame_GetDataPtr(slot, false);
-    int32 playerID           = self->frameID;
+    int32 playerID = self->frameID;
 
     UIButton_SetChoiceSelection(control->buttons[0], (saveGame->medalMods & MEDAL_NOTIMEOVER) != 0);
     UIButton_SetChoiceSelection(control->buttons[1], (saveGame->medalMods & MEDAL_AMYASSIST) != 0);
@@ -186,7 +186,7 @@ void UISubHeading_HandleMenuReturn(int32 slot)
         }
 
         if (saveGame->medalMods & MEDAL_AMYASSIST)
-            UIButton_SetChoiceSelection(control->buttons[3], 1);
+        UIButton_SetChoiceSelection(control->buttons[3], 1);
         else
             UIButton_SetChoiceSelection(control->buttons[3], 0);
     }
@@ -196,7 +196,7 @@ int32 UISubHeading_GetMedalMods(void)
 {
     RSDK_THIS(UISaveSlot);
     EntityUIControl *control = ManiaModeMenu->secretsMenu;
-    int32 playerID           = self->frameID;
+    int32 playerID = self->frameID;
 
     int32 mods = 0;
     if (control->buttons[0]->selection == 1)
@@ -431,7 +431,7 @@ void UISubHeading_SaveButton_ActionCB(void)
 }
 #endif
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void UISubHeading_EditorDraw(void)
 {
     RSDK_THIS(UISubHeading);

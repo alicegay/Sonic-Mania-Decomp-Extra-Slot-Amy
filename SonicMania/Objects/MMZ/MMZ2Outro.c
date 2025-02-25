@@ -47,7 +47,7 @@ void MMZ2Outro_StartCutscene(void)
                               StateMachine_None);
 
 #if MANIA_USE_PLUS
-    CutsceneSeq_SetSkipType(SKIPTYPE_RELOADSCN, StateMachine_None);
+    CutsceneSeq_SetSkipType(SKIPTYPE_RELOADSCN);
 #endif
 
     RSDK.CopyPalette(0, 1, 1, 1, 0xFF);
@@ -249,7 +249,7 @@ bool32 MMZ2Outro_Cutscene_ViewMonarch(EntityCutsceneSeq *host)
     return false;
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void MMZ2Outro_EditorDraw(void) {}
 
 void MMZ2Outro_EditorLoad(void) {}

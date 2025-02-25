@@ -16,8 +16,8 @@ struct EntityBungee {
     Vector2 startPos;
     Vector2 bungeePos;
     int32 playerY[PLAYER_COUNT];
-    bool32 hasAttatchedPlayer;
-    EntityPlayer *attatchedPlayer;
+    bool32 hasAttachedPlayer;
+    EntityPlayer *attachedPlayer;
     int32 stretchForce;
     int32 deathBoundary[PLAYER_COUNT];
     uint8 timer;
@@ -33,7 +33,7 @@ void Bungee_StaticUpdate(void);
 void Bungee_Draw(void);
 void Bungee_Create(void *data);
 void Bungee_StageLoad(void);
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void Bungee_EditorDraw(void);
 void Bungee_EditorLoad(void);
 #endif

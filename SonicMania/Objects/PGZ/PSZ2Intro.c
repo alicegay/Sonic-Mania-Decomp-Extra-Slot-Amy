@@ -19,7 +19,7 @@ void PSZ2Intro_Update(void)
                               PSZ2Intro_Cutscene_JogIntoPlace, StateMachine_None);
 
 #if MANIA_USE_PLUS
-    CutsceneSeq_SetSkipType(SKIPTYPE_DISABLED, StateMachine_None);
+    CutsceneSeq_SetSkipType(SKIPTYPE_DISABLED);
 #endif
 
     self->active = ACTIVE_NEVER;
@@ -101,8 +101,7 @@ bool32 PSZ2Intro_Cutscene_ShowActClear(EntityCutsceneSeq *host)
 {
     if (ActClear->finished) {
 #if MANIA_USE_PLUS
-        if (RSDK_GET_ENTITY(SLOT_CUTSCENESEQ, CutsceneSeq)->classID)
-            RSDK_GET_ENTITY(SLOT_CUTSCENESEQ, CutsceneSeq)->skipType = SKIPTYPE_RELOADSCN;
+        CutsceneSeq_SetSkipType(SKIPTYPE_RELOADSCN);
 #endif
 
         return true;
@@ -134,6 +133,13 @@ bool32 PSZ2Intro_Cutscene_RunToAct2(EntityCutsceneSeq *host)
         player1->down      = false;
 
         if (player2->classID == Player->classID) {
+            // Bug Details:
+            // Player 2's animation should be set here, but it sets it to Player 1's animator instead.
+            // In doing so, if you were to beat Press Garden Act 1 and watch the transition cutscene,
+            // Player 1 will temporarily use the idle sprite of Player 2 for a single frame
+            // before turning back into the character Player 1 is supposed to be.
+            // Pretty odd, huh?
+            // Change &player1->animator to &player2->animator to fix it.
             RSDK.SetSpriteAnimation(player2->aniFrames, ANI_IDLE, &player1->animator, true, 0);
             player2->state      = Player_State_Ground;
             player2->up         = false;
@@ -199,7 +205,7 @@ bool32 PSZ2Intro_Cutscene_JogIntoPlace(EntityCutsceneSeq *host)
     return false;
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void PSZ2Intro_EditorDraw(void)
 {
     RSDK_THIS(PSZ2Outro);

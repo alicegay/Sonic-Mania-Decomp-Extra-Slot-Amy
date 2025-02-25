@@ -37,7 +37,7 @@ void ERZStart_StaticUpdate(void);
 void ERZStart_Draw(void);
 void ERZStart_Create(void *data);
 void ERZStart_StageLoad(void);
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void ERZStart_EditorDraw(void);
 void ERZStart_EditorLoad(void);
 #endif
@@ -45,13 +45,13 @@ void ERZStart_Serialize(void);
 
 // Extra Entity Functions
 void ERZStart_SetupObjects(void);
-void ERZStart_HandlePlayerHover(EntityCutsceneSeq *seq, EntityPlayer *player, int32 posY);
+void ERZStart_HandlePlayerHover(EntityPlayer *player, EntityCutsceneSeq *seq, int32 posY);
 
 bool32 ERZStart_Cutscene_FadeIn(EntityCutsceneSeq *host);
 bool32 ERZStart_Cutscene_ShrinkRubyWarpFX(EntityCutsceneSeq *host);
 bool32 ERZStart_Cutscene_EnterKing(EntityCutsceneSeq *host);
 bool32 ERZStart_Cutscene_KingMovingRuby(EntityCutsceneSeq *host);
-bool32 ERZStart_Cutscene_KingAttatchHornRuby(EntityCutsceneSeq *host);
+bool32 ERZStart_Cutscene_KingAttachHornRuby(EntityCutsceneSeq *host);
 bool32 ERZStart_Cutscene_SetupEggmanReveal(EntityCutsceneSeq *host);
 bool32 ERZStart_Cutscene_EnterEggman(EntityCutsceneSeq *host);
 bool32 ERZStart_Cutscene_EggmanKingWrestling(EntityCutsceneSeq *host);

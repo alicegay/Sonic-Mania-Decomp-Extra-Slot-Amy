@@ -72,7 +72,7 @@ void MSZCutsceneK_StartCutscene(void)
     CutsceneSeq_StartSequence(self, MSZCutsceneK_Cutscene_RidingTornado, MSZCutsceneK_Cutscene_KnockedOffTornado, StateMachine_None);
 
 #if MANIA_USE_PLUS
-    CutsceneSeq_SetSkipType(SKIPTYPE_CALLBACK, MSZCutsceneK_Cutscene_SkipCB);
+    CutsceneSeq_SetSkipTypeCallback(MSZCutsceneK_Cutscene_SkipCB);
 #endif
 }
 
@@ -198,7 +198,7 @@ bool32 MSZCutsceneK_Cutscene_KnockedOffTornado(EntityCutsceneSeq *host)
     return false;
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void MSZCutsceneK_EditorDraw(void)
 {
     RSDK_THIS(MSZCutsceneK);

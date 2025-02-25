@@ -18,7 +18,7 @@ void LRZ3Cutscene_Update(void)
     CutsceneSeq_StartSequence(self, LRZ3Cutscene_Cutscene_FadeIn, LRZ3Cutscene_Cutscene_RunRight, StateMachine_None);
 
 #if MANIA_USE_PLUS
-    CutsceneSeq_SetSkipType(SKIPTYPE_DISABLED, StateMachine_None);
+    CutsceneSeq_SetSkipType(SKIPTYPE_DISABLED);
 #endif
 
     self->active = ACTIVE_NEVER;
@@ -92,7 +92,7 @@ bool32 LRZ3Cutscene_Cutscene_RunRight(EntityCutsceneSeq *host)
 
 void LRZ3Cutscene_StageLoad(void) {}
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void LRZ3Cutscene_EditorDraw(void) {}
 
 void LRZ3Cutscene_EditorLoad(void) {}

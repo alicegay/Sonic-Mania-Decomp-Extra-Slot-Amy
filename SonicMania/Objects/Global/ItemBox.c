@@ -111,7 +111,7 @@ void ItemBox_Create(void *data)
                 }
 #if MANIA_USE_PLUS
                 else if (globals->gameMode == MODE_ENCORE) {
-                    self->type = ITEMBOX_STOCK; //Look at this later
+                    self->type = ITEMBOX_STOCK;
                 }
 #endif
                 else {
@@ -1201,7 +1201,7 @@ void ItemBox_HandleObjectCollisions(void)
     }
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void ItemBox_EditorDraw(void)
 {
     RSDK_THIS(ItemBox);
@@ -1218,6 +1218,7 @@ void ItemBox_EditorDraw(void)
     self->inkEffect = INK_ALPHA;
     self->alpha     = self->hidden ? 0x80 : 0x100;
 
+    RSDK.SetSpriteAnimation(ItemBox->aniFrames, 2, &self->contentsAnimator, true, self->type);
     RSDK.DrawSprite(&self->boxAnimator, NULL, false);
     RSDK.DrawSprite(&self->contentsAnimator, &self->contentsPos, false);
 

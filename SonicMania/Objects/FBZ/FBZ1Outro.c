@@ -75,7 +75,7 @@ void FBZ1Outro_StartCutscene(void)
                               FBZ1Outro_Cutscene_PrepareFBZ2, StateMachine_None);
 
 #if MANIA_USE_PLUS
-    CutsceneSeq_SetSkipType(SKIPTYPE_DISABLED, StateMachine_None);
+    CutsceneSeq_SetSkipType(SKIPTYPE_RELOADSCN);
 #endif
 }
 
@@ -289,7 +289,7 @@ bool32 FBZ1Outro_Cutscene_PrepareFBZ2(EntityCutsceneSeq *host)
     return false;
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void FBZ1Outro_EditorDraw(void)
 {
     RSDK_THIS(FBZ1Outro);

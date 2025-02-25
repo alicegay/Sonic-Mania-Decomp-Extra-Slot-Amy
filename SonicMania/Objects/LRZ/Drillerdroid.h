@@ -31,7 +31,7 @@ struct ObjectDrillerdroid {
     uint8 armorHealth;
     uint8 jumpsRemaining;
     uint8 canBreakSegment;
-    int32 stalatiteOffset;
+    int32 stalactiteOffset;
     EntityDrillerdroid *boss;
     uint16 aniFrames;
     uint16 ticFrames;
@@ -50,6 +50,7 @@ struct ObjectDrillerdroid {
 // Entity Class
 struct EntityDrillerdroid {
     RSDK_ENTITY
+    uint8 unused;
     uint8 type;
     StateMachine(state);
     StateMachine(stateDraw);
@@ -74,7 +75,7 @@ void Drillerdroid_StaticUpdate(void);
 void Drillerdroid_Draw(void);
 void Drillerdroid_Create(void *data);
 void Drillerdroid_StageLoad(void);
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void Drillerdroid_EditorDraw(void);
 void Drillerdroid_EditorLoad(void);
 #endif

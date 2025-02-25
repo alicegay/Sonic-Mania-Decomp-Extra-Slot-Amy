@@ -71,7 +71,7 @@ void PhantomKing_StaticUpdate(void);
 void PhantomKing_Draw(void);
 void PhantomKing_Create(void *data);
 void PhantomKing_StageLoad(void);
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void PhantomKing_EditorDraw(void);
 void PhantomKing_EditorLoad(void);
 #endif
@@ -79,6 +79,7 @@ void PhantomKing_Serialize(void);
 
 // Extra Entity Functions
 void PhantomKing_CheckPlayerCollisions(void);
+void PhantomKing_Oscillate(void);
 void PhantomKing_Hit(void);
 void PhantomKing_Explode(void);
 void PhantomKing_HandleFrames(void);

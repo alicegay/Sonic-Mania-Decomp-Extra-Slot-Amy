@@ -19,12 +19,7 @@ void SSZ1Intro_Update(void)
         }
         else {
             self->activated = true;
-            CutsceneSeq_StartSequence(self, SSZ1Intro_Cutscene_FinishRubyWarp, SSZ1Intro_Cutscene_HandeLanding, SSZ1Intro_Cutscene_BeginAct1,
-                                      StateMachine_None);
-
-#if MANIA_USE_PLUS
-            CutsceneSeq_SetSkipType(SKIPTYPE_DISABLED, StateMachine_None);
-#endif
+            SSZ1Intro_SetupCutscene();
         }
     }
 }
@@ -47,6 +42,17 @@ void SSZ1Intro_Create(void *data)
 void SSZ1Intro_StageLoad(void)
 {
     foreach_all(FXRuby, ruby) { SSZ1Intro->fxRuby = ruby; }
+}
+
+void SSZ1Intro_SetupCutscene(void)
+{
+    RSDK_THIS(SSZ1Intro);
+    CutsceneSeq_StartSequence(self, SSZ1Intro_Cutscene_FinishRubyWarp, SSZ1Intro_Cutscene_HandleLanding, SSZ1Intro_Cutscene_BeginAct1,
+                              StateMachine_None);
+
+#if MANIA_USE_PLUS
+    CutsceneSeq_SetSkipType(SKIPTYPE_RELOADSCN);
+#endif
 }
 
 void SSZ1Intro_HandleRubyHover(EntityCutsceneSeq *host, EntityPlayer *player1, EntityPlayer *player2, int32 offset)
@@ -120,7 +126,7 @@ bool32 SSZ1Intro_Cutscene_FinishRubyWarp(EntityCutsceneSeq *host)
     }
     return false;
 }
-bool32 SSZ1Intro_Cutscene_HandeLanding(EntityCutsceneSeq *host)
+bool32 SSZ1Intro_Cutscene_HandleLanding(EntityCutsceneSeq *host)
 {
     MANIA_GET_PLAYER(player1, player2, camera);
     UNUSED(camera);
@@ -174,7 +180,7 @@ bool32 SSZ1Intro_Cutscene_BeginAct1(EntityCutsceneSeq *host)
     return false;
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void SSZ1Intro_EditorDraw(void)
 {
     RSDK_THIS(SSZ1Intro);

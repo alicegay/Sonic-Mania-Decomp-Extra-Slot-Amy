@@ -175,7 +175,6 @@ void UISaveSlot_Draw(void)
 
             drawPos.x = self->position.x - 0x240000;
             drawPos.y = 0x450000 + self->position.y;
-
             if (self->playersAnimator.frameID == 6) {
                 for (int32 i = 0; i < 7; ++i) {
                     self->stonesAnimator.frameID = ((1 << i) & self->saveEmeralds) ? i : 7;
@@ -572,7 +571,7 @@ void UISaveSlot_DrawPlayerInfo(int32 drawX, int32 drawY)
     }
     else {
 #endif
-        int32 frames[] = { 0, 0, 1, 2, 3, 4, 5 };
+        int32 frames[] = { 0, 0, 1, 2, 3, 4 };
         playerID       = frames[self->frameID];
 #if MANIA_USE_PLUS
     }
@@ -750,7 +749,7 @@ void UISaveSlot_SetupAnimators(void)
     RSDK.SetSpriteAnimation(UISaveSlot->aniFrames, 8, &self->numbersAnimator, true, 0);
 }
 
-void UISaveSlot_LoadSaveInfo(void) //THIS IS IMPORTANT
+void UISaveSlot_LoadSaveInfo(void)
 {
     RSDK_THIS(UISaveSlot);
 
@@ -1313,7 +1312,7 @@ void UISaveSlot_State_Selected(void)
 #endif
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void UISaveSlot_EditorDraw(void)
 {
     RSDK_THIS(UISaveSlot);
@@ -1379,7 +1378,6 @@ void UISaveSlot_EditorLoad(void)
     RSDK_ENUM_VAR("Knuckles", knux);
     RSDK_ENUM_VAR("Mighty", mighty);
     RSDK_ENUM_VAR("Ray", ray);
-    RSDK_ENUM_VAR("Amy", amy);
 
     RSDK_ACTIVE_VAR(UISaveSlot, dCharStock3);
     RSDK_ENUM_VAR("None", ID_NONE);

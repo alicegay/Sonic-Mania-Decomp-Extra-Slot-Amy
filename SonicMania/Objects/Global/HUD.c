@@ -129,7 +129,7 @@ void HUD_Draw(void)
 #if GAME_VERSION != VER_100
 #if MANIA_USE_PLUS
     self->timeFlashFrame = 0;
-    if ((SceneInfo->minutes == 9 && isMainGameMode() && !(globals->medalMods & MEDAL_NOTIMEOVER)) && ActClear->disableTimeBonus)
+    if ((SceneInfo->minutes == 9 && isMainGameMode() && !(globals->medalMods & MEDAL_NOTIMEOVER)) || ActClear->disableTimeBonus)
         self->timeFlashFrame = (Zone->persistentTimer >> 3) & 1;
 #else
     if (SceneInfo->minutes == 9 && globals->gameMode < MODE_TIMEATTACK)
@@ -314,7 +314,6 @@ void HUD_Draw(void)
             // Draw Buddy Icon
             self->lifeIconAnimator.frameID = HUD_CharacterIndexFromID(sidekick->characterID);
             if (self->lifeIconAnimator.frameID >= 0 && !(HUD->stockFlashTimers[0] & 5)) {
-                //LogHelpers_Print("In loop 1!");
                 if ((sidekick->state != Player_State_Death && sidekick->state != Player_State_Drown && sidekick->state != Player_State_EncoreRespawn)
                     || !sidekick->abilityValues[0]) {
                     RSDK.DrawSprite(&self->lifeIconAnimator, &drawPos, true);
@@ -325,7 +324,6 @@ void HUD_Draw(void)
             drawPos.x += TO_FIXED(20);
             RSDK.SetSpriteAnimation(HUD->aniFrames, 12, &self->lifeIconAnimator, true, 0);
             for (int32 i = 1; i < 5; ++i) {
-                //LogHelpers_Print("In loop 2!");
                 self->lifeIconAnimator.frameID = HUD_CharacterIndexFromID(GET_STOCK_ID(i));
                 if (self->lifeIconAnimator.frameID >= 0 && !(HUD->stockFlashTimers[i] & 5))
                     RSDK.DrawSprite(&self->lifeIconAnimator, &drawPos, true);
@@ -786,7 +784,7 @@ int32 HUD_CharacterIndexFromID(int32 characterID)
     return id;
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void HUD_EditorDraw(void)
 {
     RSDK_THIS(HUD);

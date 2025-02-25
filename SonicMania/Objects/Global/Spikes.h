@@ -62,7 +62,7 @@ void Spikes_StaticUpdate(void);
 void Spikes_Draw(void);
 void Spikes_Create(void *data);
 void Spikes_StageLoad(void);
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void Spikes_EditorDraw(void);
 void Spikes_EditorLoad(void);
 #endif
@@ -70,7 +70,7 @@ void Spikes_Serialize(void);
 
 // Extra Entity Functions
 void Spikes_Draw_Global(void);
-void Spikes_Draw_Stage(void);
+void Spikes_Draw_Glint(void);
 
 void Spikes_Shatter(int32 velX, int32 velY);
 #if MANIA_USE_PLUS

@@ -174,7 +174,7 @@ void LRZ3Outro_StageFinish_EndAct2ST(void)
         CutsceneSeq_StartSequence(cutscene, LRZ3Outro_Cutscene_StopPlayers, LRZ3Outro_Cutscene_LightUpLittlePlanet, StateMachine_None);
 
 #if MANIA_USE_PLUS
-        CutsceneSeq_SetSkipType(SKIPTYPE_RELOADSCN, StateMachine_None);
+        CutsceneSeq_SetSkipType(SKIPTYPE_RELOADSCN);
 #endif
 
         HUD_MoveOut();
@@ -184,7 +184,10 @@ void LRZ3Outro_StageFinish_EndAct2ST(void)
 
 bool32 LRZ3Outro_Cutscene_StopPlayers(EntityCutsceneSeq *host)
 {
-    foreach_active(Player, player) { player->state = Player_State_Static; }
+    foreach_active(Player, player) {
+        player->state = Player_State_Static;
+        player->stateInput = StateMachine_None;
+    }
 
     return true;
 }
@@ -213,7 +216,7 @@ bool32 LRZ3Outro_Cutscene_LightUpLittlePlanet(EntityCutsceneSeq *host)
     return false;
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void LRZ3Outro_EditorDraw(void) {}
 
 void LRZ3Outro_EditorLoad(void) {}

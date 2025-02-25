@@ -146,7 +146,7 @@ void AIZEncoreTutorial_State_ReturnToCutscene(void)
     EntityFXRuby *fxRuby           = CREATE_ENTITY(FXRuby, NULL, 0, 0);
     fxRuby->drawGroup              = Zone->playerDrawGroup[1] + 1;
     EncoreIntro->fxRuby            = fxRuby;
-    PhantomRuby_PlaySfx(RUBYSFX_ATTACK3);
+    PhantomRuby_PlaySfx(RUBYSFX_ATTACK4);
     Music_FadeOut(0.012);
 
     cutsceneSeq->skipType = SKIPTYPE_DISABLED;
@@ -156,7 +156,7 @@ void AIZEncoreTutorial_State_ReturnToCutscene(void)
     }
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void AIZEncoreTutorial_EditorDraw(void) {}
 
 void AIZEncoreTutorial_EditorLoad(void) {}

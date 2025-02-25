@@ -43,12 +43,13 @@ void Shutterbug_StaticUpdate(void);
 void Shutterbug_Draw(void);
 void Shutterbug_Create(void *data);
 void Shutterbug_StageLoad(void);
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void Shutterbug_EditorDraw(void);
 void Shutterbug_EditorLoad(void);
 #endif
 void Shutterbug_Serialize(void);
 
+// Extra Entity Functions
 void Shutterbug_DebugSpawn(void);
 void Shutterbug_DebugDraw(void);
 
@@ -65,7 +66,5 @@ int32 Shutterbug_BounceY(void);
 void Shutterbug_CheckFocus(void);
 void Shutterbug_TryTakePicture(void);
 void Shutterbug_HandleBodyAnim(void);
-
-// Extra Entity Functions
 
 #endif //! OBJ_SHUTTERBUG_H

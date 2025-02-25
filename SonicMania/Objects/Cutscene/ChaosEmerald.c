@@ -70,7 +70,7 @@ void ChaosEmerald_State_Rotate(void)
     self->position.y = self->radius * RSDK.Sin256(self->angle >> 8) + self->originPos.y;
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void ChaosEmerald_EditorDraw(void)
 {
     RSDK_THIS(ChaosEmerald);

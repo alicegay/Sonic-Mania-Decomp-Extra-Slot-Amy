@@ -51,7 +51,7 @@ void CPZ2Outro_SetupCutscene(void)
     CutsceneSeq_StartSequence(self, CPZ2Outro_Cutscene_Outro, StateMachine_None);
 
 #if MANIA_USE_PLUS
-    CutsceneSeq_SetSkipType(SKIPTYPE_RELOADSCN, StateMachine_None);
+    CutsceneSeq_SetSkipType(SKIPTYPE_RELOADSCN);
 #endif
 
     HUD_MoveOut();
@@ -101,7 +101,7 @@ bool32 CPZ2Outro_Cutscene_Outro(EntityCutsceneSeq *host)
     return false;
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void CPZ2Outro_EditorDraw(void)
 {
     RSDK_THIS(CPZ2Outro);

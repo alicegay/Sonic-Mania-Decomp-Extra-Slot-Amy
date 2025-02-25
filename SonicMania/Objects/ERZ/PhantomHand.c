@@ -182,7 +182,7 @@ void PhantomHand_State_TryGrabPlayer(void)
         self->state = PhantomHand_State_Disappear;
     }
     else {
-        if ((self->direction && player1->position.x <= PhantomEgg->boundsM) || (self->direction && player1->position.x >= PhantomEgg->boundsM))
+        if ((self->direction && player1->position.x <= PhantomEgg->boundsM) || (!self->direction && player1->position.x >= PhantomEgg->boundsM))
             PhantomHand_CheckPlayerGrab(self->parent->position.x, player1->position.y);
         else
             PhantomHand_CheckPlayerGrab(player1->position.x, player1->position.y);
@@ -217,9 +217,6 @@ void PhantomHand_State_TryGrabPlayers(void)
                     playerPtr = player;
                 }
             }
-
-            if (playerPtr)
-                PhantomHand_CheckPlayerGrab(playerPtr->position.x, playerPtr->position.y);
         }
         else {
             foreach_active(Player, player)
@@ -344,7 +341,7 @@ void PhantomHand_State_Disappear(void)
         self->alpha -= 8;
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void PhantomHand_EditorDraw(void)
 {
     RSDK_THIS(PhantomHand);

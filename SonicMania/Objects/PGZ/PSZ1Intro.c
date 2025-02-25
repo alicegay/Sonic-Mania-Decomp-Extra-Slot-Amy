@@ -18,7 +18,7 @@ void PSZ1Intro_Update(void)
                               StateMachine_None);
 
 #if MANIA_USE_PLUS
-    CutsceneSeq_SetSkipType(SKIPTYPE_DISABLED, StateMachine_None);
+    CutsceneSeq_SetSkipType(SKIPTYPE_DISABLED);
 #endif
 
     self->active = ACTIVE_NEVER;
@@ -174,7 +174,7 @@ bool32 PSZ1Intro_Cutscene_HandleLanding(EntityCutsceneSeq *host)
     return true;
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void PSZ1Intro_EditorDraw(void) {}
 
 void PSZ1Intro_EditorLoad(void) {}

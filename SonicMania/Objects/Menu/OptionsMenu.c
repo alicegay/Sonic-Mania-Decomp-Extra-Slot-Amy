@@ -445,7 +445,7 @@ void OptionsMenu_ControlsMenuButton_ActionCB(void)
 
         case DEVICE_TYPE_STEAMOVERLAY:
             if (!API.IsOverlayEnabled(id)) {
-                Localization_GetString(&message, STR_STEAMOVERLAYUNAVALIABLE);
+                Localization_GetString(&message, STR_STEAMOVERLAYUNAVAILABLE);
                 UIDialog_CreateDialogOk(&message, StateMachine_None, true);
             }
             break;
@@ -582,6 +582,8 @@ void OptionsMenu_ShaderButton_ActionCB(void)
 
     RSDK.SetVideoSetting(VIDEOSETTING_SHADERID, self->selection);
     RSDK.SetVideoSetting(VIDEOSETTING_CHANGED, false);
+
+    Options->changed = true;
 }
 
 void OptionsMenu_WindowScaleButton_ActionCB(void)
@@ -870,7 +872,7 @@ void OptionsMenu_EraseAllButton_ActionCB(void)
     UIDialog_CreateDialogYesNo(&message, OptionsMenu_AreYouSureDlg_YesCB_EraseAllData, StateMachine_None, true, true);
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void OptionsMenu_EditorDraw(void) {}
 
 void OptionsMenu_EditorLoad(void) {}

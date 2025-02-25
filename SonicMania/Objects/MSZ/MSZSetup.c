@@ -119,7 +119,9 @@ void MSZSetup_Create(void *data)
     }
 #endif
     else {
+#if !MANIA_USE_PLUS
         RSDK.CopyPalette(0, 204, 4, 204, 4);
+#endif
         RSDK.CopyPalette(3, 128, 0, 128, 128);
     }
 }
@@ -711,7 +713,7 @@ void MSZSetup_PlayerState_PostCrashJumpIn(void)
     Player_HandleSidekickRespawn();
 }
 
-#if RETRO_INCLUDE_EDITOR
+#if GAME_INCLUDE_EDITOR
 void MSZSetup_EditorDraw(void) {}
 
 void MSZSetup_EditorLoad(void)
